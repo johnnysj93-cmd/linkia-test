@@ -1,0 +1,12 @@
+ASO/
+IAW/
+LENGUAJE MARCAS/
+SGBD/
+SRI/
+*.docx
+*.xlsx
+
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
