@@ -67,6 +67,15 @@ function subjectAttempts(subjectId) {
   return loadAttempts().filter((attempt) => attempt.subjectId === subjectId);
 }
 
+function questionKey(text) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+}
+
 function saveCurrentAttempt() {
   if (state.resultSaved) return;
   state.resultSaved = true;
@@ -79,8 +88,10 @@ function saveCurrentAttempt() {
     quizTitle: state.quiz.title,
     quizLabel: state.quiz.label,
     final: state.quiz.final,
+    failedReview: Boolean(state.quiz.failedReview),
     score: state.score,
     total: state.quiz.questions.length,
+    answers: state.quiz.answers,
     wrong: state.quiz.answers.filter((answer) => !answer.correct),
   });
   saveAttempts(attempts);
@@ -101,6 +112,43 @@ function allQuestions(subject, includeExtras = true) {
   return subject.units.filter((unit) => includeExtras || !unit.extra).flatMap((unit) =>
     unit.questions.map((question) => ({ ...question, unitId: unit.id, unitTitle: unit.title })),
   );
+}
+
+function buildFailedQuestions(subject) {
+  const attempts = subjectAttempts(subject.id);
+  const questionsByKey = new Map(allQuestions(subject).map((question) => [questionKey(question.question), question]));
+  const failedByKey = new Map();
+
+  attempts.forEach((attempt) => {
+    if (Array.isArray(attempt.answers)) {
+      attempt.answers.forEach((answer) => {
+        const key = answer.questionKey || questionKey(answer.question);
+        if (answer.correct) {
+          failedByKey.delete(key);
+          return;
+        }
+        failedByKey.set(key, answer);
+      });
+      return;
+    }
+
+    (attempt.wrong || []).forEach((answer) => {
+      const key = answer.questionKey || questionKey(answer.question);
+      failedByKey.set(key, answer);
+    });
+  });
+
+  return [...failedByKey.entries()]
+    .map(([key, answer]) => {
+      const question = questionsByKey.get(key);
+      if (!question) return null;
+      return {
+        ...question,
+        unitTitle: answer.unitTitle || question.unitTitle,
+        unitId: answer.unitId || question.unitId,
+      };
+    })
+    .filter(Boolean);
 }
 
 function shuffle(items) {
@@ -190,9 +238,10 @@ function renderSubject(subject) {
   const regularUnitCount = subject.units.filter((unit) => !unit.extra).length;
   const attempts = subjectAttempts(subject.id);
   const lastAttempt = attempts[attempts.length - 1];
+  const failedQuestions = buildFailedQuestions(subject);
   app.innerHTML = `
     <section class="grid">
-      <article class="card">
+      <article class="card card-tracking">
         <div>
           <h2>Seguimiento</h2>
           <p>${
@@ -207,6 +256,20 @@ function renderSubject(subject) {
         </div>
         <div class="actions">
           <button class="secondary" type="button" data-tracking>Ver gráfica</button>
+        </div>
+      </article>
+      <article class="card card-errors">
+        <div>
+          <h2>Preguntas falladas</h2>
+          <p>Repasa juntas las preguntas que has fallado en tests y exámenes.</p>
+          <div class="meta-row">
+            <span class="tag tag-error">${failedQuestions.length} pendientes</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="secondary" type="button" data-failed-review ${failedQuestions.length ? "" : "disabled"}>
+            Practicar fallos
+          </button>
         </div>
       </article>
       <article class="card">
@@ -225,7 +288,7 @@ function renderSubject(subject) {
       ${subject.units
         .map(
           (unit) => `
-            <article class="card">
+            <article class="card ${unit.extra ? "card-extra" : ""}">
               <div>
                 <h3>${unit.title}</h3>
                 <p>${
@@ -259,6 +322,18 @@ function renderSubject(subject) {
 
   app.querySelector("[data-tracking]").addEventListener("click", () => {
     renderTracking(subject);
+  });
+
+  app.querySelector("[data-failed-review]").addEventListener("click", () => {
+    const questions = buildFailedQuestions(subject);
+    if (!questions.length) return;
+    startQuiz(subject, {
+      title: `${subject.name} · Preguntas falladas`,
+      label: "Repaso de errores",
+      questions: shuffle(questions),
+      final: false,
+      failedReview: true,
+    });
   });
 
   app.querySelectorAll("[data-unit]").forEach((button) => {
@@ -313,7 +388,7 @@ function renderQuestion() {
   app.innerHTML = `
     <section class="quiz-panel">
       <div class="progress"><span style="width: ${percent}%"></span></div>
-      <p class="muted">Pregunta ${number} de ${total}${state.quiz.final ? ` · ${question.unitTitle}` : ""}</p>
+      <p class="muted">Pregunta ${number} de ${total}${state.quiz.final || state.quiz.failedReview ? ` · ${question.unitTitle}` : ""}</p>
       <h2 class="question-title">${question.question}</h2>
       <div class="options">
         ${question.options
@@ -350,6 +425,9 @@ function answerQuestion(optionId) {
   if (isCorrect) state.score += 1;
   state.quiz.answers.push({
     question: question.question,
+    questionId: question.id,
+    questionKey: questionKey(question.question),
+    unitId: question.unitId,
     unitTitle: question.unitTitle,
     selected: `${selected.id.toUpperCase()}. ${selected.text}`,
     correctAnswer: `${correct.id.toUpperCase()}. ${correct.text}`,
@@ -406,7 +484,13 @@ function renderResult() {
 
   app.innerHTML = `
     <section class="result-panel">
-      <p class="muted">${state.quiz.final ? "Examen final completado" : "Test completado"}</p>
+      <p class="muted">${
+        state.quiz.final
+          ? "Examen final completado"
+          : state.quiz.failedReview
+            ? "Repaso de errores completado"
+            : "Test completado"
+      }</p>
       <div class="result-number">${percent}%</div>
       <h2>${state.score} aciertos de ${total}</h2>
       <p>${resultMessage(percent)}</p>
@@ -419,9 +503,19 @@ function renderResult() {
   `;
 
   app.querySelector("[data-repeat]").addEventListener("click", () => {
-    const quiz = state.quiz.final
-      ? { ...state.quiz, questions: buildFinalExam(state.subject) }
-      : { ...state.quiz, questions: shuffle(state.quiz.questions) };
+    let quiz;
+    if (state.quiz.final) {
+      quiz = { ...state.quiz, questions: buildFinalExam(state.subject) };
+    } else if (state.quiz.failedReview) {
+      const questions = buildFailedQuestions(state.subject);
+      if (!questions.length) {
+        renderSubject(state.subject);
+        return;
+      }
+      quiz = { ...state.quiz, questions: shuffle(questions) };
+    } else {
+      quiz = { ...state.quiz, questions: shuffle(state.quiz.questions) };
+    }
     startQuiz(state.subject, quiz);
   });
   app.querySelector("[data-subject-view]").addEventListener("click", () => renderSubject(state.subject));

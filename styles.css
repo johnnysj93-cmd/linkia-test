@@ -140,6 +140,21 @@ p {
   color: var(--muted);
 }
 
+.card-tracking h2,
+.card-tracking p {
+  color: #0f2f5f;
+}
+
+.card-extra h3,
+.card-extra p {
+  color: #064536;
+}
+
+.card-errors h2,
+.card-errors p {
+  color: #9f2424;
+}
+
 .meta-row {
   display: flex;
   flex-wrap: wrap;
@@ -159,6 +174,11 @@ p {
 .tag-extra {
   background: #e8f7f2;
   color: #08765b;
+}
+
+.tag-error {
+  background: #fff0f0;
+  color: #9f2424;
 }
 
 .actions {
@@ -191,6 +211,11 @@ p {
   border: 1px solid var(--line);
   background: white;
   color: var(--text);
+}
+
+.secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .quiz-panel,
