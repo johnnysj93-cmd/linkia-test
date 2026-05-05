@@ -160,6 +160,30 @@ function shuffle(items) {
   return copy;
 }
 
+function randomizeQuestion(question) {
+  const labels = ["a", "b", "c", "d"];
+  const shuffledOptions = shuffle(question.options).map((option, index) => ({
+    ...option,
+    id: labels[index],
+    originalId: option.originalId || option.id,
+  }));
+  const correctOriginalId =
+    question.options.find((option) => option.id === question.correctOptionId)?.originalId ||
+    question.correctOptionId;
+  const correctOption = shuffledOptions.find((option) => option.originalId === correctOriginalId);
+
+  return {
+    ...question,
+    options: shuffledOptions,
+    correctOptionId: correctOption ? correctOption.id : question.correctOptionId,
+  };
+}
+
+function prepareQuestionsForPlay(questions, shuffleQuestions = true) {
+  const pool = shuffleQuestions ? shuffle(questions) : [...questions];
+  return pool.map((question) => randomizeQuestion(question));
+}
+
 function buildFinalExam(subject) {
   const buckets = subject.units
     .filter((unit) => !unit.extra)
@@ -272,7 +296,7 @@ function renderSubject(subject) {
           </button>
         </div>
       </article>
-      <article class="card">
+      <article class="card card-final">
         <div>
           <h2>Examen final</h2>
           <p>30 preguntas mezcladas, alternando unidades para repasar toda la asignatura.</p>
@@ -315,7 +339,7 @@ function renderSubject(subject) {
     startQuiz(subject, {
       title: `Examen final · ${subject.name}`,
       label: "Examen final",
-      questions: buildFinalExam(subject),
+      questions: prepareQuestionsForPlay(buildFinalExam(subject), false),
       final: true,
     });
   });
@@ -330,7 +354,7 @@ function renderSubject(subject) {
     startQuiz(subject, {
       title: `${subject.name} · Preguntas falladas`,
       label: "Repaso de errores",
-      questions: shuffle(questions),
+      questions: prepareQuestionsForPlay(questions),
       final: false,
       failedReview: true,
     });
@@ -342,7 +366,7 @@ function renderSubject(subject) {
       startQuiz(subject, {
         title: `${subject.name} · ${unit.title}`,
         label: "Test de unidad",
-        questions: shuffle(unit.questions).map((question) => ({
+        questions: prepareQuestionsForPlay(unit.questions).map((question) => ({
           ...question,
           unitId: unit.id,
           unitTitle: unit.title,
@@ -362,7 +386,13 @@ function bestAttemptText(attempts) {
 function startQuiz(subject, quiz) {
   state.route = "quiz";
   state.subject = subject;
-  state.quiz = quiz;
+  state.quiz = {
+    ...quiz,
+    questions: quiz.questions.map((question) => ({
+      ...question,
+      options: question.options.map((option) => ({ ...option })),
+    })),
+  };
   state.questionIndex = 0;
   state.score = 0;
   state.answered = false;
@@ -505,16 +535,16 @@ function renderResult() {
   app.querySelector("[data-repeat]").addEventListener("click", () => {
     let quiz;
     if (state.quiz.final) {
-      quiz = { ...state.quiz, questions: buildFinalExam(state.subject) };
+      quiz = { ...state.quiz, questions: prepareQuestionsForPlay(buildFinalExam(state.subject), false) };
     } else if (state.quiz.failedReview) {
       const questions = buildFailedQuestions(state.subject);
       if (!questions.length) {
         renderSubject(state.subject);
         return;
       }
-      quiz = { ...state.quiz, questions: shuffle(questions) };
+      quiz = { ...state.quiz, questions: prepareQuestionsForPlay(questions) };
     } else {
-      quiz = { ...state.quiz, questions: shuffle(state.quiz.questions) };
+      quiz = { ...state.quiz, questions: prepareQuestionsForPlay(state.quiz.questions) };
     }
     startQuiz(state.subject, quiz);
   });

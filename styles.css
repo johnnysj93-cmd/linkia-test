@@ -142,12 +142,17 @@ p {
 
 .card-tracking h2,
 .card-tracking p {
-  color: #0f2f5f;
+  color: #977100;
+}
+
+.card-final h2,
+.card-final p {
+  color: #6f47c7;
 }
 
 .card-extra h3,
 .card-extra p {
-  color: #064536;
+  color: #16724d;
 }
 
 .card-errors h2,
