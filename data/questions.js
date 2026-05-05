@@ -13678,8 +13678,8 @@ window.LINKIA_QUIZ_DATA = {
               "source": "UT1 AUTOEVALUACIÓN_.docx"
             },
             {
-              "id": "sri-ut1-por que udp",
-              "question": "¿Por qué UDP?",
+              "id": "sri-ut1-que protocolo y puerto utiliza normalmente dns",
+              "question": "¿Qué protocolo y puerto utiliza normalmente DNS?",
               "options": [
                 {
                   "id": "a",
@@ -13689,7 +13689,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "UDP 53",
-                  "explanation": "Correcto. Es más rápido Las consultas DNS suelen ser pequeñas No necesita establecer conexión como TCP ⚠️ Importante: DNS también puede usar TCP (por ejemplo, transferencias de zona), pero la palabra clave en la pregunta es “normalmente”. Analizamos las opciones:"
+                  "explanation": "Correcto. DNS es un protocolo de capa de aplicación, pero para transportar sus mensajes usa la capa de transporte. Normalmente utiliza: 👉 UDP👉 Puerto 53 ¿Por qué UDP? Es más rápido Las consultas DNS suelen ser pequeñas No necesita establecer conexión como TCP ⚠️ Importante: DNS también puede usar TCP (por ejemplo, transferencias de zona), pero la palabra clave en la pregunta es “normalmente”. Analizamos las opciones:"
                 },
                 {
                   "id": "c",

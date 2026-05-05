@@ -145,6 +145,9 @@ def is_real_question_start(paragraphs, index):
         return False
     raw_without_icons = re.sub(r"^[❓\s]+", "", raw_line)
     line = clean_question(raw_line)
+    next_lines = paragraphs[index + 1 : index + 8]
+    has_four_options = len(extract_initial_options(next_lines)) == 4
+    has_answer_marker = bool(next_lines) and "Respuesta correcta" in next_lines[0]
     if "Respuesta correcta" in line:
         return False
     if raw_line.startswith(("🧠", "🔎", "🎯", "💡", "⚠️", "👉", "✅", "❌", "🔁", "🔵", "🔹", "📌", "📊")):
@@ -152,12 +155,14 @@ def is_real_question_start(paragraphs, index):
     if line.lower().startswith(("¿qué está", "¿que esta")):
         return False
     if QUESTION_START_RE.match(line):
-        return True
+        if re.match(r"^\d+\s*[\.)-]\s*", raw_without_icons):
+            return True
+        return has_four_options or has_answer_marker
     if re.match(r"^\d+\s*[\.)-]\s*.+$", raw_without_icons) and (
         "?" in raw_without_icons or raw_without_icons.rstrip().endswith(":")
     ):
-        return len(extract_initial_options(paragraphs[index + 1 : index + 7])) == 4
-    if raw_line.startswith("❓") and len(extract_initial_options(paragraphs[index + 1 : index + 7])) == 4:
+        return has_four_options
+    if raw_line.startswith("❓") and has_four_options:
         return True
     return False
 
