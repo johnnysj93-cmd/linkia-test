@@ -17,6 +17,7 @@ XLSX_NS = {
 }
 OPTION_LABELS = ["a", "b", "c", "d"]
 QUESTION_START_RE = re.compile(r"^(?:\d+\s*[\.)-]\s*)?¿[^?]+\?$")
+QUESTION_HIGHLIGHT_FILLS = {"db2680"}
 
 
 def clean_text(text):
@@ -55,19 +56,47 @@ def unit_title(unit_id):
     return f"Unidad {int(unit_id[2:])}"
 
 
-def docx_paragraphs(path):
+def line_text(item):
+    if isinstance(item, dict):
+        return item.get("text", "")
+    return item
+
+
+def docx_paragraph_records(path):
     with zipfile.ZipFile(path) as archive:
         root = ET.fromstring(archive.read("word/document.xml"))
     paragraphs = []
     for para in root.findall(".//w:p", WORD_NS):
-        text = clean_text("".join(t.text or "" for t in para.findall(".//w:t", WORD_NS)))
+        text_parts = []
+        has_question_fill = False
+        for run in para.findall("w:r", WORD_NS):
+            text_parts.append("".join(t.text or "" for t in run.findall(".//w:t", WORD_NS)))
+            run_props = run.find("w:rPr", WORD_NS)
+            if run_props is not None:
+                shading = run_props.find("w:shd", WORD_NS)
+                if shading is not None:
+                    fill = shading.attrib.get(f"{{{WORD_NS['w']}}}fill", "").lower()
+                    if fill in QUESTION_HIGHLIGHT_FILLS:
+                        has_question_fill = True
+        text = clean_text("".join(text_parts))
         if text:
-            paragraphs.append(text)
+            paragraphs.append({"text": text, "pink": has_question_fill})
     return paragraphs
 
 
+def docx_paragraphs(path):
+    return [paragraph["text"] for paragraph in docx_paragraph_records(path)]
+
+
 def split_question_blocks(paragraphs):
-    starts = [index for index in range(len(paragraphs)) if is_real_question_start(paragraphs, index)]
+    prefer_highlight = any(
+        isinstance(paragraph, dict) and paragraph.get("pink") for paragraph in paragraphs
+    )
+    starts = [
+        index
+        for index in range(len(paragraphs))
+        if is_real_question_start(paragraphs, index, prefer_highlight)
+    ]
     blocks = []
     for position, start in enumerate(starts):
         end = starts[position + 1] if position + 1 < len(starts) else len(paragraphs)
@@ -125,7 +154,8 @@ def is_bare_option_line(line):
 
 def extract_initial_options(lines):
     options = []
-    for line in lines:
+    for item in lines:
+        line = line_text(item)
         parsed = parse_option_line(line)
         if parsed:
             label, text = parsed
@@ -139,20 +169,24 @@ def extract_initial_options(lines):
     return []
 
 
-def is_real_question_start(paragraphs, index):
-    raw_line = clean_text(paragraphs[index])
+def is_real_question_start(paragraphs, index, prefer_highlight=False):
+    current = paragraphs[index]
+    raw_line = clean_text(line_text(current))
     if not raw_line:
         return False
     raw_without_icons = re.sub(r"^[❓\s]+", "", raw_line)
     line = clean_question(raw_line)
-    next_lines = paragraphs[index + 1 : index + 8]
+    next_lines = [line_text(item) for item in paragraphs[index + 1 : index + 8]]
     has_four_options = len(extract_initial_options(next_lines)) == 4
     has_answer_marker = bool(next_lines) and "Respuesta correcta" in next_lines[0]
+    is_highlighted = isinstance(current, dict) and current.get("pink", False)
     if "Respuesta correcta" in line:
         return False
     if raw_line.startswith(("🧠", "🔎", "🎯", "💡", "⚠️", "👉", "✅", "❌", "🔁", "🔵", "🔹", "📌", "📊")):
         return False
     if line.lower().startswith(("¿qué está", "¿que esta")):
+        return False
+    if prefer_highlight and not is_highlighted:
         return False
     if QUESTION_START_RE.match(line):
         if re.match(r"^\d+\s*[\.)-]\s*", raw_without_icons):
@@ -419,8 +453,8 @@ def parse_docx_question(block, subject, unit_id, source_name):
 def parse_docx(path, subject):
     unit_id = unit_id_from_path(path)
     questions = []
-    for block in split_question_blocks(docx_paragraphs(path)):
-        parsed = parse_docx_question(block, subject, unit_id, path.name)
+    for block in split_question_blocks(docx_paragraph_records(path)):
+        parsed = parse_docx_question([line_text(item) for item in block], subject, unit_id, path.name)
         if parsed:
             questions.append((unit_id, parsed))
     return questions

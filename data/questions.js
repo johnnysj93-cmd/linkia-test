@@ -379,41 +379,13 @@ window.LINKIA_QUIZ_DATA = {
               "options": [
                 {
                   "id": "a",
-                  "text": "Round Robin clásico",
-                  "explanation": "Es un algoritmo básico de reparto por turnos, pero no es el planificador principal actual de Linux."
-                },
-                {
-                  "id": "b",
-                  "text": "SCHED_RR",
-                  "explanation": "Es una política Round Robin para procesos en tiempo real, no busca equidad general."
-                },
-                {
-                  "id": "c",
-                  "text": "CFS",
-                  "explanation": "CFS (Completely Fair Scheduler) es el planificador moderno de Linux que intenta repartir el tiempo de CPU de forma equitativa entre los procesos, simulando que todos se ejecutan al mismo tiempo."
-                },
-                {
-                  "id": "d",
-                  "text": "SCHED_FIFO",
-                  "explanation": "Política de tiempo real, ejecuta procesos por prioridad sin reparto justo."
-                }
-              ],
-              "correctOptionId": "c",
-              "source": "UT1 AUTOEVALUACION.docx"
-            },
-            {
-              "id": "aso-ut1-que herramienta de windows permite gestionar servicios",
-              "question": "¿Qué herramienta de Windows permite gestionar servicios?",
-              "options": [
-                {
-                  "id": "a",
                   "text": "auditd",
-                  "explanation": "Herramienta de auditoría en Linux, no pertenece a Windows."
+                  "explanation": "Es un algoritmo básico de reparto por turnos, pero no es el planificador principal actual de Linux. Herramienta de auditoría en Linux, no pertenece a Windows."
                 },
                 {
                   "id": "b",
                   "text": "services.msc",
-                  "explanation": "services.msc abre el administrador de servicios de Windows, donde se pueden iniciar, detener, reiniciar o configurar servicios del sistema."
+                  "explanation": "Es una política Round Robin para procesos en tiempo real, no busca equidad general. CFS (Completely Fair Scheduler) es el planificador moderno de Linux que intenta repartir el tiempo de CPU de forma equitativa entre los procesos, simulando que todos se ejecutan al mismo tiempo. services.msc abre el administrador de servicios de Windows, donde se pueden iniciar, detener, reiniciar o configurar servicios del sistema."
                 },
                 {
                   "id": "c",
@@ -423,7 +395,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "lsmod",
-                  "explanation": "Comando de Linux que muestra los módulos del kernel cargados."
+                  "explanation": "Política de tiempo real, ejecuta procesos por prioridad sin reparto justo. ¿Qué herramienta de Windows permite gestionar servicios? Comando de Linux que muestra los módulos del kernel cargados."
                 }
               ],
               "correctOptionId": "b",
@@ -568,6 +540,34 @@ window.LINKIA_QUIZ_DATA = {
               ],
               "correctOptionId": "d",
               "source": "UT1 AUTOEVALUACION.docx"
+            },
+            {
+              "id": "aso-ut1-excel-que herramienta de windows permite gestionar servicios",
+              "question": "¿Qué herramienta de Windows permite gestionar servicios?",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "Gestionar recursos y ofrecer un entorno estable a las aplicaciones",
+                  "explanation": "Gestionar recursos y ofrecer un entorno estable a las aplicaciones no es la respuesta adecuada para esta pregunta; corresponde a otro concepto distinto de la misma unidad y por eso no encaja como solución correcta aquí."
+                },
+                {
+                  "id": "b",
+                  "text": "Planificador",
+                  "explanation": "Planificador no es la respuesta adecuada para esta pregunta; corresponde a otro concepto distinto de la misma unidad y por eso no encaja como solución correcta aquí."
+                },
+                {
+                  "id": "c",
+                  "text": "services.msc",
+                  "explanation": "services.msc es la opción correcta porque responde directamente a la pregunta planteada en la autoevaluación y coincide con el contenido técnico esperado para ese concepto."
+                },
+                {
+                  "id": "d",
+                  "text": "Linux",
+                  "explanation": "Linux no es la respuesta adecuada para esta pregunta; corresponde a otro concepto distinto de la misma unidad y por eso no encaja como solución correcta aquí."
+                }
+              ],
+              "correctOptionId": "c",
+              "source": "TESTS-AUTOEVALUACIÓN-ASO.XLSX"
             }
           ]
         },
@@ -4242,7 +4242,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "config.json",
-                  "explanation": "Es un archivo típico en aplicaciones JavaScript o Node.js. No es un archivo de configuración de Apache."
+                  "explanation": "Es un archivo típico en aplicaciones JavaScript o . No es un archivo de configuración de Apache."
                 },
                 {
                   "id": "c",
@@ -7066,41 +7066,13 @@ window.LINKIA_QUIZ_DATA = {
               "options": [
                 {
                   "id": "a",
-                  "text": "save sql",
-                  "explanation": "No es un comando real."
-                },
-                {
-                  "id": "b",
-                  "text": "exportdb",
-                  "explanation": "No es comando estándar de MySQL."
-                },
-                {
-                  "id": "c",
-                  "text": "mysqldump",
-                  "explanation": "El comando mysqldump permite exportar la base de datos a un archivo, creando una copia de seguridad."
-                },
-                {
-                  "id": "d",
-                  "text": "backup database",
-                  "explanation": "No es sintaxis válida en MySQL."
-                }
-              ],
-              "correctOptionId": "c",
-              "source": "UT6 IAW AUTOEVALUACION.docx"
-            },
-            {
-              "id": "iaw-ut6-que metodo http se utiliza preferentemente para enviar datos",
-              "question": "¿Qué método HTTP se utiliza preferentemente para enviar datos de formularios sensibles?",
-              "options": [
-                {
-                  "id": "a",
                   "text": "POST",
-                  "explanation": "El método POST envía los datos en el cuerpo de la petición, no visibles en la URL, siendo más adecuado para información sensible."
+                  "explanation": "No es un comando real. El comando mysqldump permite exportar la base de datos a un archivo, creando una copia de seguridad. El método POST envía los datos en el cuerpo de la petición, no visibles en la URL, siendo más adecuado para información sensible."
                 },
                 {
                   "id": "b",
                   "text": "GET",
-                  "explanation": "Los datos aparecen en la URL."
+                  "explanation": "No es comando estándar de MySQL. Los datos aparecen en la URL."
                 },
                 {
                   "id": "c",
@@ -7110,7 +7082,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "DELETE",
-                  "explanation": "Se usa para eliminar recursos, no para enviar formularios."
+                  "explanation": "No es sintaxis válida en MySQL. ❓ 14. ¿Qué método HTTP se utiliza preferentemente para enviar datos de formularios sensibles? Se usa para eliminar recursos, no para enviar formularios."
                 }
               ],
               "correctOptionId": "a",
@@ -7283,6 +7255,34 @@ window.LINKIA_QUIZ_DATA = {
               ],
               "correctOptionId": "c",
               "source": "UT6 IAW AUTOEVALUACION.docx"
+            },
+            {
+              "id": "iaw-ut6-excel-que metodo http se utiliza preferentemente para enviar datos",
+              "question": "¿Qué método HTTP se utiliza preferentemente para enviar datos de formularios sensibles?",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "Almacenar y organizar información de manera estructurada",
+                  "explanation": "Almacenar y organizar información de manera estructurada no es la respuesta adecuada para esta pregunta; corresponde a otro concepto distinto de la misma unidad y por eso no encaja como solución correcta aquí."
+                },
+                {
+                  "id": "b",
+                  "text": "POST",
+                  "explanation": "POST es la opción correcta porque responde directamente a la pregunta planteada en la autoevaluación y coincide con el contenido técnico esperado para ese concepto."
+                },
+                {
+                  "id": "c",
+                  "text": "MySQL",
+                  "explanation": "MySQL no es la respuesta adecuada para esta pregunta; corresponde a otro concepto distinto de la misma unidad y por eso no encaja como solución correcta aquí."
+                },
+                {
+                  "id": "d",
+                  "text": "PDO (PHP Data Objects)",
+                  "explanation": "PDO (PHP Data Objects) no es la respuesta adecuada para esta pregunta; corresponde a otro concepto distinto de la misma unidad y por eso no encaja como solución correcta aquí."
+                }
+              ],
+              "correctOptionId": "b",
+              "source": "TESTS-AUTOEVALUACIÓN-IAW.XLSX"
             }
           ]
         }
@@ -9875,51 +9875,23 @@ window.LINKIA_QUIZ_DATA = {
               "options": [
                 {
                   "id": "a",
-                  "text": "XPath y XQuery",
-                  "explanation": "XPath y XQuery son los lenguajes principales para consultar y acceder a datos en documentos XML."
-                },
-                {
-                  "id": "b",
-                  "text": "XSLT y DTD",
-                  "explanation": "XSLT transforma y DTD valida, no consultan."
-                },
-                {
-                  "id": "c",
-                  "text": "SQL y JSONPath",
-                  "explanation": "SQL es relacional y JSONPath es para JSON."
-                },
-                {
-                  "id": "d",
-                  "text": "REST y SOAP",
-                  "explanation": "Son protocolos, no lenguajes de consulta."
-                }
-              ],
-              "correctOptionId": "a",
-              "source": "UT5 AUTOEVALUACION.docx"
-            },
-            {
-              "id": "lenguaje-marcas-ut5-que estilo arquitectonico usa los metodos http y puede trans",
-              "question": "¿Qué estilo arquitectónico usa los métodos HTTP y puede transmitir datos en XML o JSON?",
-              "options": [
-                {
-                  "id": "a",
                   "text": "SMTP",
                   "explanation": "Protocolo de correo electrónico."
                 },
                 {
                   "id": "b",
                   "text": "SOAP",
-                  "explanation": "Usa XML, pero no es un estilo basado en HTTP de la misma forma que REST."
+                  "explanation": "XSLT transforma y DTD valida, no consultan. Usa XML, pero no es un estilo basado en HTTP de la misma forma que REST."
                 },
                 {
                   "id": "c",
                   "text": "REST",
-                  "explanation": "REST es un estilo arquitectónico que utiliza métodos HTTP (GET, POST, PUT, DELETE) y permite intercambiar datos en formatos como XML o JSON."
+                  "explanation": "SQL es relacional y JSONPath es para JSON. XPath y XQuery son los lenguajes principales para consultar y acceder a datos en documentos XML. REST es un estilo arquitectónico que utiliza métodos HTTP (GET, POST, PUT, DELETE) y permite intercambiar datos en formatos como XML o JSON."
                 },
                 {
                   "id": "d",
                   "text": "RPC",
-                  "explanation": "Modelo de llamada remota, no estilo REST."
+                  "explanation": "Son protocolos, no lenguajes de consulta. ❓ 8. ¿Qué estilo arquitectónico usa los métodos HTTP y puede transmitir datos en XML o JSON? Modelo de llamada remota, no estilo REST."
                 }
               ],
               "correctOptionId": "c",
@@ -10064,6 +10036,34 @@ window.LINKIA_QUIZ_DATA = {
               ],
               "correctOptionId": "b",
               "source": "UT5 AUTOEVALUACION.docx"
+            },
+            {
+              "id": "lenguaje-marcas-ut5-excel-que estilo arquitectonico usa los metodos http y puede trans",
+              "question": "¿Qué estilo arquitectónico usa los métodos HTTP y puede transmitir datos en XML o JSON?",
+              "options": [
+                {
+                  "id": "a",
+                  "text": "La nativa almacena documentos XML completos, mientras que la relacional los fragmenta en tablas.",
+                  "explanation": "La nativa almacena documentos XML completos, mientras que la relacional los fragmenta en tablas. no es la respuesta adecuada para esta pregunta; corresponde a otro concepto distinto de la misma unidad y por eso no encaja como solución correcta aquí."
+                },
+                {
+                  "id": "b",
+                  "text": "REST",
+                  "explanation": "REST es la opción correcta porque responde directamente a la pregunta planteada en la autoevaluación y coincide con el contenido técnico esperado para ese concepto."
+                },
+                {
+                  "id": "c",
+                  "text": "XPath y XQuery",
+                  "explanation": "XPath y XQuery no es la respuesta adecuada para esta pregunta; corresponde a otro concepto distinto de la misma unidad y por eso no encaja como solución correcta aquí."
+                },
+                {
+                  "id": "d",
+                  "text": "Convertir un documento XML en una secuencia de bytes para almacenamiento o transmisión.",
+                  "explanation": "Convertir un documento XML en una secuencia de bytes para almacenamiento o transmisión. no es la respuesta adecuada para esta pregunta; corresponde a otro concepto distinto de la misma unidad y por eso no encaja como solución correcta aquí."
+                }
+              ],
+              "correctOptionId": "b",
+              "source": "TESTS-AUTOEVALUACIÓN-LMSGI.XLSX"
             },
             {
               "id": "lenguaje-marcas-ut5-excel-que estandar define mecanismos de seguridad como cifrado y f",
@@ -18235,23 +18235,23 @@ window.LINKIA_QUIZ_DATA = {
   "stats": [
     {
       "subject": "ASO",
-      "docx": 138,
-      "excel_added": 0,
-      "excel_duplicates": 60,
+      "docx": 137,
+      "excel_added": 1,
+      "excel_duplicates": 59,
       "total": 138
     },
     {
       "subject": "IAW",
-      "docx": 118,
-      "excel_added": 1,
-      "excel_duplicates": 79,
+      "docx": 117,
+      "excel_added": 2,
+      "excel_duplicates": 78,
       "total": 119
     },
     {
       "subject": "LENGUAJE MARCAS",
-      "docx": 98,
-      "excel_added": 1,
-      "excel_duplicates": 39,
+      "docx": 97,
+      "excel_added": 2,
+      "excel_duplicates": 38,
       "total": 99
     },
     {
