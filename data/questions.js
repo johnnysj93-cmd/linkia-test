@@ -11226,7 +11226,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "pgAdmin",
-                  "explanation": "Es la herramienta gráfica de PostgreSQL. CHULETA UT – ASGBD (Administración SGBD) Conexiones y configuración wait_timeout (MySQL) → Tiempo máximo de inactividad de una conexión bind_address → IP desde la que el servidor acepta conexiones max_connections (PostgreSQL) → No máximo de conexiones simultáneas datadir (MySQL) → Ruta donde se almacenan los datos pg_hba.conf (PostgreSQL) → Controla accesos y autenticación Puertos por defecto MySQL → 06 PostgreSQL → 5 Oracle → 5 SQL Server → Logs en MySQL Binary log → Registra cambios (replicación) General log → Todas las consultas Slow query log → Consultas lentas Error log → Errores del servidor ▶ Gestión de servicios MySQL stop → mysqladmin shutdown PostgreSQL start (Linux) → systemctl start postgresql SQL Server (Windows) → net start/stop MSSQLSERVER Importancia: Controlar disponibilidad Evitar pérdida de datos Paradas seguras Buenas prácticas Deshabilitar acceso remoto a root Hacer copia antes de modificar configuración Automatizar arranque del SGBD Usar documentación y versionado (Git) Mantener registro de cambios (trazabilidad) Seguridad SSL/TLS → Cifrado de comunicaciones Evitar: Compartir credenciales Acceso desde cualquier IP Sin contraseña Herramientas MySQL Workbench → Gestión gráfica MySQL pgAdmin → PostgreSQL SQL Developer → Oracle Git → Versionado de configuración Claves para examen Timeout = conexiones Logs = tipo de información Puertos = MUY preguntados Configuración = my.cnf / pg_hba.conf Seguridad = siempre sentido común"
+                  "explanation": "Es la herramienta gráfica de PostgreSQL."
                 }
               ],
               "correctOptionId": "b",
@@ -11792,7 +11792,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "Alias",
-                  "explanation": "Es temporal en consultas, no controla acceso permanente. CHULETA UT – ASGBD (Seguridad y Control de Acceso) Modelos de control de acceso RBAC → Basado en roles (más usado) DAC → El propietario decide permisos MAC → Basado en niveles de seguridad ABAC → Basado en atributos Usuarios y roles CREATE USER → Crear usuario DROP USER → Eliminar usuario CREATE ROLE → Crear rol GRANT rol TO usuario → Asignar rol REVOKE → Quitar permisos Rol = agrupa permisos Usuario = recibe permisos Privilegios SELECT → Leer datos INSERT → Añadir datos UPDATE → Modificar datos DELETE → Eliminar datos CREATE → Crear objetos ALTER → Modificar estructura SUPER → Privilegio de sistema Consultas de permisos SHOW GRANTS → Ver permisos de un usuario FLUSH PRIVILEGES → Recargar permisos sin reiniciar Seguridad (MUY IMPORTANTE) Principio de mínimo privilegio → Solo lo necesario Trazabilidad → Saber quién hizo qué y cuándo Auditoría → Registro de acciones Evitar: Contraseñas por defecto Accesos sin cifrado Privilegios globales innecesarios Normativa 🇪🇸 Ley Orgánica /08 (LOPDGDD) → Protección de datos en España Objetos útiles Vista (VIEW) → Limitar acceso a datos (columnas/filas) Sinónimo → Nombre alternativo de tabla/vista Claves para examen GRANT = dar permisos REVOKE = quitar permisos RBAC = roles SHOW GRANTS = ver permisos Seguridad = mínimo privilegio + trazabilidad"
+                  "explanation": "Es temporal en consultas, no controla acceso permanente."
                 }
               ],
               "correctOptionId": "c",
@@ -12358,7 +12358,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "IN y OUT",
-                  "explanation": "Son modos de parámetros, no valores de trigger. CHULETA UT – ASGBD (PL/SQL, Triggers y Transacciones) Triggers Eventos DML → INSERT, UPDATE, DELETE Momento ejecución → BEFORE / AFTER Tipos: Row-level → Por cada fila Statement-level → Una vez por sentencia Valores en triggers: :OLD → Valor anterior :NEW → Valor nuevo PL/SQL básico Bloque anónimo → No se guarda Procedimiento → No siempre devuelve valor Función → Siempre devuelve valor (RETURN) Estructuras de control IF-THEN → Condicional simple CASE → Múltiples opciones WHILE LOOP → Repetición con condición LOOP + EXIT → Bucle manual Gestión de errores EXCEPTION → Captura errores RAISE → Lanza errores Ejemplo importante: ZERO_DIVIDE → División entre 0 Transacciones COMMIT → Guarda cambios ROLLBACK → Deshace cambios SAVEPOINT → Punto intermedio Propiedades ACID Atomicidad → Todo o nada Consistencia → Estado válido Aislamiento → Control de concurrencia Durabilidad → Persistencia tras fallo Automatización Tareas ideales: Backups Limpieza de logs Mantenimiento periódico Objetivo: Reducir errores Mejorar eficiencia Garantizar continuidad Buenas prácticas: Modularizar código Documentar Usar funciones pequeñas Integridad de datos Usar: Restricciones (constraints) Validaciones ACID Evitar: Eliminar claves foráneas Permitir duplicados No manejar excepciones Claves para examen COMMIT = guardar ROLLBACK = deshacer ACID = básico SIEMPRE Trigger = BEFORE/AFTER + OLD/NEW CASE vs IF → múltiples opciones"
+                  "explanation": "Son modos de parámetros, no valores de trigger."
                 }
               ],
               "correctOptionId": "a",
@@ -12924,7 +12924,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "SHOW INDEXES",
-                  "explanation": "Muestra índices, no métricas generales. CHULETA UT5 – ASGBD (Optimización y Monitorización) Monitorización Objetivo: Detectar fallos Optimizar rendimiento Evitar caídas del sistema Herramientas: Nagios → Alertas automáticas Zabbix → Paneles + alertas Grafana → Visualización métricas Métricas clave: CPU (>80% = crítico) I/O → Lectura/escritura disco Memoria Locks → Bloqueos Optimización de consultas EXPLAIN ANALYZE (PostgreSQL) → Coste real EXPLAIN PLAN (Oracle) → Plan ejecución pg_stat_activity → Consultas activas Reescritura: Mejorar rendimiento Sin cambiar resultado Índices Crear: CREATE INDEX idx_email ON usuarios(email); Tipos: Hash → Igualdad (=) B-Tree → General (más usado) Bitmap → Pocos valores distintos Spatial → Datos geográficos Demasiados índices: Más espacio Escrituras más lentas Forzar uso: FORCE INDEX → Obliga USE INDEX → Sugiere Motores MySQL InnoDB → Transacciones (ACID) MyISAM → No transaccional Memory → En RAM Archive → Almacenamiento Optimización del sistema Linux: net.core.rmem_max net.core.wmem_max Energía: Máximo rendimiento (servidores) PostgreSQL: work_mem → Memoria por consulta Organización de datos Particionado → Por rangos (fechas) Mejora rendimiento y mantenimiento MySQL comandos útiles SHOW STATUS → Métricas servidor Claves para examen Índices → cuidado exceso Hash = igualdad InnoDB = transacciones Monitorización = anticiparse CPU/I/O = métricas clave EXPLAIN = rendimiento"
+                  "explanation": "Muestra índices, no métricas generales."
                 }
               ],
               "correctOptionId": "b",
@@ -13485,7 +13485,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "Verificar logs de consultas",
-                  "explanation": "Es monitorización, pero no heartbeat. CHULETA UT6 – ASGBD (Sistemas Distribuidos y Replicación) Bases de datos distribuidas Datos repartidos en varios nodos Objetivo: disponibilidad + rendimiento Tipos: Homogénea → mismo SGBD en todos los nodos Heterogénea → SGBD distintos Fragmentación Horizontal → filas/registros Vertical → columnas Mixta → combinación de ambas Replicación Objetivo: Redundancia Alta disponibilidad Mejora de rendimiento Tipos: Cadena → nodo replica al siguiente Maestro-esclavo Maestro → escribe Esclavos → replican Logs de replicación: Registran cambios del maestro Se aplican en nodos secundarios Sincronización Síncrona Espera confirmación de nodos Más segura Asíncrona No espera confirmación Más rápida Protocolos de transacción distribuida PC (Two-Phase Commit) Garantiza coherencia Puede bloquear procesos PC (Three-Phase Commit) Añade fase extra Evita bloqueos Balanceo de carga Reparte peticiones entre servidores Mejora rendimiento y disponibilidad Failover Cambio automático a nodo secundario si falla el principal Heartbeat Señales periódicas entre nodos Detecta caídas de servidores Backups En caliente → sin parar el sistema En frío → con sistema detenido Claves de examen Maestro = escribe Esclavo = replica Replicación = disponibilidad Horizontal = filas Vertical = columnas PC = coherencia PC = evita bloqueos Síncrona = espera Asíncrona = no espera"
+                  "explanation": "Es monitorización, pero no heartbeat."
                 },
                 {
                   "id": "d",
@@ -15419,7 +15419,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "No utiliza puertos",
-                  "explanation": "Sí usa puertos (80 para HTTP, para HTTPS). CHULETA UT – SERVICIOS DE RED E INTERNET PROTOCOLOS CLAVE HTTP → Web (puerto 80) HTTPS → Web segura (puerto , usa TLS) FTP → Transferencia archivos (puerto ) SMTP → Envío correo (puerto 5) DNS → Traduce dominio → IP HTTP = sin estado (cada petición independiente) SERVIDOR WEB Programa que sirve páginas web Ejemplo: Apache Funciona con HTTP/HTTPS sobre TCP APACHE – CLAVES Carpeta web por defecto (Ubuntu): /var/www/html Directivas importantes: DocumentRoot → Carpeta de la web DirectoryIndex → Archivo por defecto (index.html) ServerName → Dominio principal ServerAlias → Dominios alternativos Listen → Puerto/IP donde escucha VIRTUAL HOST Permite varias webs en un mismo servidor LOGS DE APACHE access.log → Todas las peticiones error.log → Errores del servidor HTTPS Y SEGURIDAD HTTPS = HTTP + TLS (cifrado) Certificados gratuitos: Let’s Encrypt Módulo Apache: mod_ssl CÓDIGOS HTTP IMPORTANTES 00 → OK 0 → Redirección permanente 0 → No encontrado 500 → Error servidor 50 → Servicio no disponible IDEAS CLAVE PARA EXAMEN HTTP → puerto 80 / HTTPS → HTTP funciona sobre TCP Apache → servidor web VirtualHost → varias webs access.log → tráfico error.log → fallos HTTPS usa TLS"
+                  "explanation": "Sí usa puertos (80 para HTTP, para HTTPS)."
                 }
               ],
               "correctOptionId": "b",
@@ -15985,7 +15985,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "SSH",
-                  "explanation": "Protocolo de acceso remoto seguro. CHULETA UT – SEGURIDAD, FIREWALLS Y REDES FIREWALL Controla tráfico entrada/salida Función: permitir o bloquear según reglas Tipos: Básico → Filtra por IP/puerto (capas -) Stateful (SPI) → Analiza estado de conexiones NGFW / UTM → Stateful + DPI + análisis avanzado ACL (REGLAS) Definen qué tráfico: Se permite / se bloquea NAT Permite salir a Internet con IP pública Tipos: NAT → Traducción básica PAT (NAT Overload) → Muchas IP → IP pública (por puertos) DNAT → Redirige tráfico a servidor interno (port forwarding) SEGMENTACIÓN DE RED VLAN + firewall interno Evita: Movimiento lateral de ataques ZONAS DE RED LAN segura → Red interna protegida DMZ → Servidores públicos (web, correo) Nunca poner: BD, AD, datos críticos en DMZ PROXIES Proxy normal → Intermediario cliente → Internet Proxy transparente → Sin configurar en cliente Proxy caché → Guarda contenido → más rápido Proxy filtrante → Bloquea webs Proxy inverso → Protege servidores internos ACCESO SEGURO VPN → Acceso remoto cifrado Evitar: Telnet / FTP sin cifrar FIREWALL EN LINUX Ver reglas: iptables -L Logs: Registran actividad del firewall IDEAS CLAVE EXAMEN Firewall → controla tráfico ACL → reglas NAT → comparte IP PAT → muchos → IP DNAT → redirección (port forwarding) SPI → estado conexiones VLAN → segmentación DMZ → servidores públicos Proxy filtrante → bloquea webs VPN → acceso seguro"
+                  "explanation": "Protocolo de acceso remoto seguro."
                 }
               ],
               "correctOptionId": "a",
@@ -16523,7 +16523,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "POP3",
-                  "explanation": "Descarga correos al dispositivo y no sincroniza bien entre varios. CHULETA UT5 – SERVICIOS DE CORREO PROTOCOLOS DE CORREO SMTP → Enviar correo Puerto 5 (sin cifrar) Puerto 587 (con autenticación segura) POP → Descargar correo Puerto 0 (sin cifrar) Puerto 995 (POPS con SSL) IMAP → Gestionar correo en servidor Puerto (sin cifrar) Puerto 99 (IMAPS con SSL) SEGURIDAD EN CORREO TLS / SSL → Cifran la comunicación SMTP AUTH → Obliga autenticación (evita uso indebido) SPF → Indica qué servidores pueden enviar correo DKIM → Firma digital del mensaje S/MIME → Firma y cifrado de correos COMPONENTES DEL CORREO MUA → Cliente (Outlook, Thunderbird) MTA → Envía correos entre servidores (Postfix) MDA → Entrega el correo al buzón HERRAMIENTAS Y CONFIG Postfix → Servidor de correo (MTA) Config: /etc/postfix/main.cf Fetchmail → Recoge correo de otros servidores Mailgraph → Monitoriza actividad del correo SpamAssassin → Detecta spam DNS EN CORREO MX → Indica el servidor de correo del dominio TXT → SPF, DKIM, etc. COMANDOS ÚTILES Probar puerto SMTP: telnet servidor 5 IDEAS CLAVE EXAMEN SMTP → enviar POP → descargar IMAP → sincronizar 587 → SMTP seguro 99 → IMAPS 995 → POPS TLS → cifrado SPF → servidores autorizados DKIM → firma digital MTA → envía MDA → entrega MUA → cliente MX → servidor correo"
+                  "explanation": "Descarga correos al dispositivo y no sincroniza bien entre varios."
                 }
               ],
               "correctOptionId": "a",
@@ -17089,7 +17089,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "OpenFire",
-                  "explanation": "Servidor XMPP. CHULETA UT6 – MENSAJERÍA INSTANTÁNEA Y CHAT PROTOCOLOS DE MENSAJERÍA IRC (Internet Relay Chat) → Chat clásico por salas Basado en nick (sin identidad real) XMPP (Jabber) → Mensajería moderna Estándar abierto Interoperable y extensible CLIENTES Y SERVIDORES Spark → Cliente XMPP (Windows) Pidgin → Cliente multiprotocolo OpenFire → Servidor XMPP (Windows) Panel: http://localhost:9090 ejabberd → Servidor XMPP (Linux, robusto) CONCEPTOS CLAVE XMPP JID (Jabber ID) → Usuario@dominio Necesario para iniciar sesión Presencia → Estado del usuario conectado / ausente / ocupado SEGURIDAD Uso de SSL/TLS → Cifra la comunicación Si el cliente (ej: Pidgin) no acepta certificado: No conecta / no inicia sesión FUNCIONALIDADES Salas de chat → públicas o privadas Privadas requieren permisos (OpenFire) Listas de distribución Envío a múltiples usuarios Listas moderadas Mensajes requieren aprobación CONFIGURACIÓN ejabberd → archivo: ejabberd.yml Para conectar cliente: Servidor (IP o dominio) + usuario COMPARACIÓN CLAVE IRC → simple, sin identidad real XMPP → usuarios identificados (JID), más seguro y moderno VERIFICACIÓN SERVICIO Probar: conexión envío recepción IDEAS CLAVE EXAMEN IRC → chat clásico XMPP → moderno, abierto JID → usuario OpenFire → servidor Spark → cliente 9090 → panel OpenFire TLS → cifrado Presencia → estado usuario ejabberd.yml → config Listas → envío masivo"
+                  "explanation": "Servidor XMPP."
                 }
               ],
               "correctOptionId": "b",
@@ -17655,7 +17655,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "443",
-                  "explanation": "HTTPS. CHULETA UT7 – STREAMING Y VoIP STREAMING Reproducción en tiempo real sin descargar completo Descarga progresiva → se reproduce mientras descarga ELEMENTOS DEL STREAMING Origen → genera contenido (cámara, audio) Codificador → convierte formato (ej: FFmpeg) Servidor → almacena y distribuye Cliente → reproduce PROTOCOLOS STREAMING HLS → vídeo bajo demanda (VOD) DASH → similar a HLS RTMP → antiguo (en desuso progresivo) SRT → alternativa moderna (baja latencia) WebRTC → ultra baja latencia (<s) CÓDECS Audio sin pérdida → FLAC Audio con pérdida → MP, AAC, Opus Vídeo → H.6 PARÁMETROS CLAVE Bitrate → bits por segundo (calidad) 080p ≈ 8 Mbps mínimo Sample rate → frecuencia de muestreo Canales → mono / estéreo VoIP (Voz sobre IP) Usa UDP → menor latencia No retransmite paquetes Jitter → variación del retardo Afecta calidad de audio PROTOCOLOS VoIP SIP → señalización Mensajes: INVITE, ACK, BYE RTP → transporte de audio/vídeo FORMATOS Y ARCHIVOS Vídeo común → .mp Config Icecast → icecast.xml Puerto Icecast → 8000 IDEAS CLAVE EXAMEN Streaming = tiempo real UDP = baja latencia HLS = VOD WebRTC = tiempo real SRT = sustituto RTMP Bitrate = calidad Jitter = variación retardo SIP = control llamadas RTP = datos audio FFmpeg = codificador Cliente = reproduce"
+                  "explanation": "HTTPS."
                 }
               ],
               "correctOptionId": "b",
@@ -18221,7 +18221,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "TCP",
-                  "explanation": "transporte general fiable, pero no optimizado para tiempo real CHULETA UT8 – VoIP, SIP Y TELEFONÍA IP VOIP (Voz sobre IP) Transmite voz en redes IP Usa conmutación de paquetes Necesita baja latencia y estabilidad TIPOS DE RED VoIP → Red IP RTC → red de circuitos (telefonía tradicional) PROTOCOLOS VOIP Señalización SIP Inicia, gestiona y finaliza llamadas Mensajes: INVITE, ACK, CANCEL, REGISTER Transporte de voz RTP → transporta audio/vídeo Control calidad RTCP → estadísticas (jitter, pérdida, latencia) CALIDAD VOIP QoS → prioriza tráfico de voz Jitter → variación del retardo Latencia aceptable → ~50–00 ms SEGURIDAD Y RED UDP → usado en VoIP por baja latencia No retransmite paquetes Menos fiable pero más rápido PBX Y CENTRALITAS CX / Asterisk → PBX modernas Sustituyen a Elastix CX: Gestión de extensiones Softphones Llamadas internas/externas Panel web ELEMENTOS VOIP MTA / SIP Server Registrar Server → guarda ubicación usuarios Media Gateway → conecta VoIP ↔ RTC CLIENTES / EXTENSIONES Softphones CX: Windows, Mac, iOS, Android Cada usuario tiene: Número de extensión CÓDECS G.7 → PCM 6 kbps (sin compresión) Audio: Opus, AAC, MP (con compresión) Video: H.6 PROTOCOLOS STREAMING (RELACIÓN) SIP → llamadas RTP → audio/vídeo RTCP → calidad IDEAS CLAVE EXAMEN SIP = señalización RTP = voz RTCP = calidad UDP = VoIP QoS = mejora calidad Jitter = variación retardo Media Gateway = conecta redes CX = centralita IP Extensión = número usuario G.7 = 6 kbps PCM"
+                  "explanation": "transporte general fiable, pero no optimizado para tiempo real."
                 }
               ],
               "correctOptionId": "a",
