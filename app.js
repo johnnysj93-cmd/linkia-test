@@ -2,6 +2,14 @@ const data = window.LINKIA_QUIZ_DATA;
 const extraQuestions = window.LINKIA_EXTRA_QUESTIONS || {};
 const historyKey = "linkiaQuizAttempts";
 
+function escapeHtml(str) {
+  return String(str ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 data.subjects.forEach((subject) => {
   const extras = extraQuestions[subject.id] || [];
   if (!extras.length) return;
@@ -44,7 +52,7 @@ function makeExtraQuestion(subjectId, item, index) {
       explanation:
         answerIndex === correctIndex
           ? item.explanation
-          : "No es la opción adecuada para este caso. Revisa el enfoque técnico de la pregunta.",
+          : `Incorrecto. ${item.explanation}`,
     })),
     correctOptionId: labels[correctIndex],
     source: "Preguntas extra · nivel 1º ASIR",
@@ -419,21 +427,21 @@ function renderQuestion() {
     <section class="quiz-panel">
       <div class="progress"><span style="width: ${percent}%"></span></div>
       <p class="muted">Pregunta ${number} de ${total}${state.quiz.final || state.quiz.failedReview ? ` · ${question.unitTitle}` : ""}</p>
-      <h2 class="question-title">${question.question}</h2>
+      <h2 class="question-title">${escapeHtml(question.question)}</h2>
       <div class="options">
         ${question.options
           .map(
             (option) => `
               <button class="option" type="button" data-option="${option.id}">
                 <span class="letter">${option.id}</span>
-                <span>${option.text}</span>
+                <span>${escapeHtml(option.text)}</span>
               </button>
             `,
           )
           .join("")}
       </div>
       <div id="feedbackSlot"></div>
-      <p class="source">Fuente: ${question.source}</p>
+      <p class="source">Fuente: ${escapeHtml(question.source)}</p>
     </section>
   `;
 
@@ -472,8 +480,8 @@ function answerQuestion(optionId) {
     if (id === optionId && !isCorrect) button.classList.add("wrong");
   });
 
-  const feedback = selected.explanation || "No hay una explicación específica para esta opción.";
-  const correctFeedback = correct.explanation || "Esta es la opción marcada como correcta en el material.";
+  const feedback = escapeHtml(selected.explanation || "No hay una explicación específica para esta opción.");
+  const correctFeedback = escapeHtml(correct.explanation || "Esta es la opción marcada como correcta en el material.");
   document.querySelector("#feedbackSlot").innerHTML = `
     <div class="feedback ${isCorrect ? "correct" : "wrong"}">
       <h3>${isCorrect ? "Correcto" : "Incorrecto"}</h3>
@@ -481,7 +489,7 @@ function answerQuestion(optionId) {
       ${
         isCorrect
           ? ""
-          : `<p><strong>Respuesta correcta:</strong> ${correct.id.toUpperCase()}. ${correct.text}</p><p>${correctFeedback}</p>`
+          : `<p><strong>Respuesta correcta:</strong> ${correct.id.toUpperCase()}. ${escapeHtml(correct.text)}</p><p>${correctFeedback}</p>`
       }
       <div class="actions">
         <button class="primary" type="button" data-next>
@@ -648,9 +656,9 @@ function attemptCard(attempt) {
                 .map(
                   (item) => `
                     <div class="wrong-item">
-                      <p><strong>${item.unitTitle || "Test"}</strong> · ${item.question}</p>
-                      <p class="muted">Elegida: ${item.selected}</p>
-                      <p class="muted">Correcta: ${item.correctAnswer}</p>
+                      <p><strong>${escapeHtml(item.unitTitle || "Test")}</strong> · ${escapeHtml(item.question)}</p>
+                      <p class="muted">Elegida: ${escapeHtml(item.selected)}</p>
+                      <p class="muted">Correcta: ${escapeHtml(item.correctAnswer)}</p>
                     </div>
                   `,
                 )
