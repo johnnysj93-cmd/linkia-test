@@ -379,26 +379,26 @@ window.LINKIA_QUIZ_DATA = {
               "options": [
                 {
                   "id": "a",
-                  "text": "auditd",
-                  "explanation": "Es un algoritmo básico de reparto por turnos, pero no es el planificador principal actual de Linux. Herramienta de auditoría en Linux, no pertenece a Windows."
+                  "text": "Round Robin",
+                  "explanation": "Es un algoritmo básico de reparto por turnos, pero no es el planificador principal actual de Linux."
                 },
                 {
                   "id": "b",
-                  "text": "services.msc",
-                  "explanation": "Es una política Round Robin para procesos en tiempo real, no busca equidad general. CFS (Completely Fair Scheduler) es el planificador moderno de Linux que intenta repartir el tiempo de CPU de forma equitativa entre los procesos, simulando que todos se ejecutan al mismo tiempo. services.msc abre el administrador de servicios de Windows, donde se pueden iniciar, detener, reiniciar o configurar servicios del sistema."
+                  "text": "SCHED_RR",
+                  "explanation": "Es una política Round Robin para procesos en tiempo real, no busca equidad general entre todos los procesos."
                 },
                 {
                   "id": "c",
-                  "text": "top",
-                  "explanation": "Comando de Linux para ver procesos en tiempo real."
+                  "text": "CFS",
+                  "explanation": "CFS (Completely Fair Scheduler) es el planificador moderno de Linux; reparte el tiempo de CPU de forma equitativa simulando que todos los procesos avanzan al mismo tiempo."
                 },
                 {
                   "id": "d",
-                  "text": "lsmod",
-                  "explanation": "Política de tiempo real, ejecuta procesos por prioridad sin reparto justo. ¿Qué herramienta de Windows permite gestionar servicios? Comando de Linux que muestra los módulos del kernel cargados."
+                  "text": "SCHED_FIFO",
+                  "explanation": "Política de tiempo real que ejecuta procesos por prioridad estricta sin reparto justo."
                 }
               ],
-              "correctOptionId": "b",
+              "correctOptionId": "c",
               "source": "UT1 AUTOEVALUACION.docx"
             },
             {
