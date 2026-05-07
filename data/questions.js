@@ -2930,7 +2930,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "515",
-                  "explanation": "El protocolo LPD (Line Printer Daemon) utiliza tradicionalmente el puerto 55."
+                  "explanation": "El protocolo LPD (Line Printer Daemon) utiliza tradicionalmente el puerto 515."
                 },
                 {
                   "id": "b",
@@ -3019,7 +3019,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "9100",
-                  "explanation": "El protocolo JetDirect (RAW) utiliza el puerto 900 para enviar trabajos de impresión directamente a la impresora."
+                  "explanation": "El protocolo JetDirect (RAW) utiliza el puerto 9100 para enviar trabajos de impresión directamente a la impresora."
                 },
                 {
                   "id": "c",
@@ -10707,7 +10707,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "1521",
-                  "explanation": "El puerto 5 es el que utiliza Oracle Database por defecto para las conexiones mediante el listener (servicio que gestiona las conexiones de clientes)."
+                  "explanation": "El puerto 1521 es el que utiliza Oracle Database por defecto para las conexiones mediante el listener (servicio que gestiona las conexiones de clientes)."
                 },
                 {
                   "id": "b",
@@ -14138,7 +14138,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "169.254.0.0 – 169.254.255.255",
-                  "explanation": "Las direcciones APIPA (Automatic Private IP Addressing) se asignan automáticamente cuando no hay servidor DHCP disponible. Utilizan el rango 69.5.0.0 – 69.5.55.55."
+                  "explanation": "Las direcciones APIPA (Automatic Private IP Addressing) se asignan automáticamente cuando no hay servidor DHCP disponible. Utilizan el rango 169.254.0.0 – 169.254.255.255."
                 },
                 {
                   "id": "b",
@@ -14339,7 +14339,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "Se asigna una dirección APIPA",
-                  "explanation": "Cuando un equipo no encuentra un servidor DHCP, el sistema operativo asigna automáticamente una dirección APIPA del rango 69.5.0.0 – 69.5.55.55 para permitir comunicación local."
+                  "explanation": "Cuando un equipo no encuentra un servidor DHCP, el sistema operativo asigna automáticamente una dirección APIPA del rango 169.254.0.0 – 169.254.255.255 para permitir comunicación local."
                 },
                 {
                   "id": "c",
@@ -14708,7 +14708,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "255.255.255.255",
-                  "explanation": "El mensaje DHCPDISCOVER se envía a la dirección 55.55.55.55, que es una dirección de broadcast, para que todos los servidores DHCP de la red puedan recibir la solicitud."
+                  "explanation": "El mensaje DHCPDISCOVER se envía a la dirección 255.255.255.255, que es la dirección de broadcast, para que todos los servidores DHCP de la red puedan recibir la solicitud."
                 },
                 {
                   "id": "d",
@@ -14999,7 +14999,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "404",
-                  "explanation": "El código 0 (Not Found) indica que el recurso solicitado no existe en el servidor o no se ha encontrado."
+                  "explanation": "El código 404 (Not Found) indica que el recurso solicitado no existe en el servidor o no se ha encontrado."
                 }
               ],
               "correctOptionId": "d",
@@ -15073,7 +15073,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "200",
-                  "explanation": "El código 00 (OK) indica que la petición se ha realizado correctamente y el servidor ha entregado el recurso sin problemas."
+                  "explanation": "El código 200 (OK) indica que la petición se ha realizado correctamente y el servidor ha entregado el recurso sin problemas."
                 },
                 {
                   "id": "c",
@@ -16355,7 +16355,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "993",
-                  "explanation": "IMAPS (IMAP seguro con SSL/TLS) utiliza el puerto 99."
+                  "explanation": "IMAPS (IMAP seguro con SSL/TLS) utiliza el puerto 993."
                 }
               ],
               "correctOptionId": "d",
