@@ -989,7 +989,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "systemd",
-                  "explanation": "En sistemas Linux modernos, systemd es el proceso con PID 1, encargado de iniciar el sistema y gestionar servicios."
+                  "explanation": "En sistemas Linux modernos, systemd es el proceso con PID , encargado de iniciar el sistema y gestionar servicios."
                 }
               ],
               "correctOptionId": "d",
@@ -1129,7 +1129,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "journalctl -f",
-                  "explanation": "Muestra logs en tiempo real. 🧾 CHULETA UT2 – PROCESOS Y GESTIÓN (ASO) 🔹 1. Conceptos básicos Proceso → Programa en ejecución + memoria + recursos Hilo (thread) → Parte de un proceso (comparten memoria) PID → Identificador del proceso PID 1 (Linux) → systemd 🔹 2. Estados de un proceso R (Running) → En ejecución S (Sleeping) → En espera (interrumpible) D (Uninterruptible) → Espera E/S (no interrumpible) T (Stopped) → Detenido Z (Zombie) → Terminado, padre no recoge estado 👉 Bloqueado = espera E/S 🔹 3. Comandos importantes (Linux) ps → Ver procesos ps -eLf → Ver hilos top → Monitor en tiempo real kill → Enviar señales por PID pkill → Señales por nombre pgrep → Buscar procesos por nombre lsof -i → Conexiones de red strace → Ver llamadas al sistema 🔹 4. Señales en Linux SIGTERM → Terminar correctamente SIGKILL → Forzar cierre SIGSTOP → Pausar proceso SIGCONT → Reanudar 🔹 5. systemd (muy importante) systemctl restart servicio → Reiniciar systemd-analyze blame → Tiempo de arranque 📌 En unit files: LimitNOFILE → Limita archivos abiertos CPUQuota → Limita CPU 🔹 6. Archivos y sistema /proc/<pid>/status → Info del proceso 🔹 7. Seguridad y análisis gcore → Volcado de memoria (evidencia) cgroups → Limitar recursos (CPU, RAM) 🔹 8. Windows (básico) tasklist → Ver procesos 🎯 CLAVES DE EXAMEN (muy típico) Zombie → terminó pero no recogido D en ps → espera I/O pkill → por nombre SIGTERM ≠ SIGKILL systemd = PID 1 cgroups = limitar recursos"
+                  "explanation": "Muestra logs en tiempo real."
                 }
               ],
               "correctOptionId": "a",
@@ -1695,7 +1695,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "RestrictFileDescriptor",
-                  "explanation": "No es un parámetro válido en systemd. 🧾 CHULETA UT3 – AUTOMATIZACIÓN Y TAREAS PROGRAMADAS 🔹 1. Conceptos clave Automatización → Ejecutar tareas sin intervención manual Idempotencia → Ejecutar varias veces = mismo resultado Trazabilidad → Saber qué pasó y cuándo Auditoría → Revisar cambios y acciones 🔹 2. Programación de tareas (Linux) cron → Tareas periódicas at → Tareas puntuales flock → Evita ejecuciones simultáneas 📌 Problema típico: 👉 Scripts duplicados ejecutándose a la vez → usar flock 🔹 3. systemd (muy importante) .service → Define el servicio .timer → Sustituye a cron Ventajas frente a cron: Logs con journal Mejor control y dependencias 📌 Configuración útil: Restart=on-failure → Evita bucles infinitos LimitNOFILE → Limita archivos abiertos 🔹 4. Buenas prácticas en scripts ❌ NO hardcodear contraseñas ✅ Usar vaults o variables seguras ✅ Rotar credenciales ✅ Logging estructurado 📌 Seguridad: Vault → Gestión de secretos NTP → Sincronización de tiempo 🔹 5. Bash (muy importante examen) set -euo pipefail → Detectar errores Scripts deben ser: Idempotentes Seguros Con logs 🔹 6. Validación y despliegue Dry-run / pre-flight → Simular antes de ejecutar Evita errores en producción 🔹 7. Monitorización y análisis Scripts para: CPU Memoria Conexiones 👉 Detectar procesos anómalos automáticamente 🔹 8. Herramientas importantes Rundeck → Automatización en múltiples nodos + RBAC Task Scheduler (Windows) → Tareas con triggers complejos 🔹 9. PowerShell vs Bash PowerShell → Basado en objetos Bash → Basado en texto 🎯 CLAVES DE EXAMEN (MUY TÍPICO) Idempotencia = repetir sin romper flock = evitar duplicados cron ≠ at systemd timers > cron set -euo pipefail = errores vault = secretos seguros logging estructurado = auditoría dry-run = comprobar antes Restart on-failure = evitar bucles"
+                  "explanation": "No es un parámetro válido en systemd."
                 }
               ],
               "correctOptionId": "b",
@@ -1836,7 +1836,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "Usar algoritmos modernos como chacha20-poly1305",
-                  "explanation": "El hardening en SSH incluye usar algoritmos criptográficos modernos y seguros, como chacha20-poly1305, para proteger las comunicaciones."
+                  "explanation": "El hardening en SSH incluye usar algoritmos criptográficos modernos y seguros, como chacha0-poly05, para proteger las comunicaciones."
                 },
                 {
                   "id": "d",
@@ -2261,7 +2261,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "Efectos distintos",
-                  "explanation": "Es justo lo contrario de idempotencia. 🧾 CHULETA UT4 – SEGURIDAD Y AUTOMATIZACIÓN AVANZADA 🔹 1. Criptografía y claves HSM / KMS → Almacenan claves de forma segura OCSP → Comprueba si un certificado está revocado 📌 Clave examen: 👉 OCSP = estado del certificado (válido/revocado) 🔹 2. SSH Hardening ❌ No usar: PasswordAuthentication RSA 1024 Root directo ✅ Usar: Claves SSH Algoritmos modernos (chacha20-poly1305) MFA si es posible 🔹 3. Bastion Host (MUY IMPORTANTE) ✔ Session recording obligatorio ✔ Integración con SIEM ✔ Control de accesos ❌ Mala práctica: 👉 Acceso root directo 🔹 4. VPN y WireGuard AllowedIPs → Define rutas permitidas ⚠️ Riesgo: 👉 Mal configurado → un peer puede robar rutas ✔ Buenas prácticas: Cifrados robustos DNS interno Evitar split-tunnel sin control 🔹 5. Gestión de configuración (CM) Puppet Modelo pull (agente) Reporting continuo PuppetDB → Compliance Ansible Agentless (SSH) Más simple para ejecución puntual 🔹 6. Seguridad de credenciales ❌ NO: Texto plano Claves compartidas Permisos permanentes ✅ SÍ: Vaults JIT (Just-In-Time) Certificados de corta duración 🔹 7. Automatización segura Runbook → Pasos reproducibles + verificación Logging estructurado → Auditoría Hash + firma → Integridad de logs 🔹 8. Monitorización y control Drift → Desviación del estado esperado 👉 Métrica: cambios inesperados por ejecución 🔹 9. Despliegues Canary Despliegue progresivo ✔ Monitorizar métricas antes de avanzar ❌ Error típico: 👉 desplegar todo de golpe 🔹 10. Sesiones vs Automatización Sesión interactiva (SSH): ✔ Flexible ❌ Riesgo: cambios no reproducibles Automatización: ✔ Reproducible ✔ Auditable 🔹 11. Auditoría y seguridad tlog → Registro de sesiones I/O SIEM → Centraliza eventos 🎯 CLAVES DE EXAMEN (MUY TÍPICO) OCSP = revocación Puppet = pull + reporting Ansible = agentless Bastion = NO root directo WireGuard = cuidado AllowedIPs Canary = monitorizar antes JIT = reducir exposición Vault = secretos seguros Hash + firma = integridad logs tlog = grabar sesiones"
+                  "explanation": "Es justo lo contrario de idempotencia."
                 }
               ],
               "correctOptionId": "a",
@@ -2827,7 +2827,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "Solo contraseñas",
-                  "explanation": "Es mucho más amplio. 🧾 CHULETA UT5 – SERVICIOS DE DIRECTORIO (LDAP / AD) 🔹 1. Conceptos clave LDAP LDAP → Directorio jerárquico de identidades Entrada (entry) → Objeto dentro del directorio DN (Distinguished Name) → Identificador único DIT (árbol LDAP) → Estructura del directorio 📌 Ejemplo DN: 👉 uid=alba,ou=users,dc=empresa,dc=com 🔹 2. Esquema LDAP (MUY IMPORTANTE) Define: objectClass atributos permitidos 📌 Clave: 👉 Sin esquema → no hay estructura válida 🔹 3. Tipos de objetos inetOrgPerson → Usuarios posixGroup → Grupos (usa memberUid) groupOfNames → Usa atributo member 🔹 4. Comandos LDAP (MUY PREGUNTA EXAMEN) ldapsearch → Buscar ldapmodify → Modificar ldapdelete → Eliminar ldapadd → Añadir ldapwhoami → Ver identidad 📌 OpenLDAP: slapcat → Exportar BD slapadd → Restaurar BD slappasswd → Generar contraseña cifrada 🔹 5. Seguridad en LDAP TLS obligatorio olcTLSCertificateFile Buenas prácticas: ✔ TLS siempre ✔ Mínimo privilegio (Bind DN) ❌ No acceso anónimo ❌ No credenciales en claro 🔹 6. Filtros LDAP AND → (&(...)(...)) Ejemplo: 👉 (&(objectClass=posixAccount)(accountStatus=active)) 🔹 7. Active Directory (AD) Directorio de Microsoft Integra: Usuarios Equipos Políticas 📌 Comando importante: Add-Computer → Unir equipo a dominio 🔹 8. Integración de sistemas Linux → SSSD macOS → dsconfigad Windows → AD nativo 🔹 9. Auditoría y logging OpenLDAP: auditlog overlay → Registra cambios 🔹 10. Buenas prácticas Documentar: ✔ Estructura LDAP ✔ Esquema ✔ Procedimientos Backup: ✔ Exportar con slapcat 🔹 11. SSO (Single Sign-On) Kerberos → Autenticación centralizada 🎯 CLAVES DE EXAMEN (MUY TÍPICO) DN = identificador único Esquema = reglas del directorio posixGroup → memberUid ldapsearch = buscar slapadd = restaurar slappasswd = contraseña TLS obligatorio Bind DN → mínimo privilegio Kerberos = SSO Add-Computer = unir a dominio"
+                  "explanation": "Es mucho más amplio."
                 }
               ],
               "correctOptionId": "c",
@@ -2930,7 +2930,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "515",
-                  "explanation": "El protocolo LPD (Line Printer Daemon) utiliza tradicionalmente el puerto 515."
+                  "explanation": "El protocolo LPD (Line Printer Daemon) utiliza tradicionalmente el puerto 55."
                 },
                 {
                   "id": "b",
@@ -3019,7 +3019,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "9100",
-                  "explanation": "El protocolo JetDirect (RAW) utiliza el puerto 9100 para enviar trabajos de impresión directamente a la impresora."
+                  "explanation": "El protocolo JetDirect (RAW) utiliza el puerto 900 para enviar trabajos de impresión directamente a la impresora."
                 },
                 {
                   "id": "c",
@@ -3893,7 +3893,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "Ruby",
-                  "explanation": "no es el estándar en Jenkins Bash → se usa en scripts, pero no es el lenguaje principal de pipelines Perl → no se usa en Jenkins CI/CD 🧾 CHULETA UT7 – SCRIPTING Y AUTOMATIZACIÓN 🔹 1. Objetivo del scripting ✔ Automatizar tareas repetitivas ✔ Reducir errores humanos ✔ Mejorar eficiencia del sistema 🔹 2. Bash (Linux scripting) 📌 Características Integrado en Unix/Linux Basado en texto + utilidades Unix No orientado a objetos 📌 Estructuras clave case → condicional múltiple while → bucle con condición for → iteración if/else → condicional 📌 Depuración bash -x → muestra ejecución paso a paso set -e → falla si hay errores ShellCheck → analiza scripts y detecta errores 📌 Herramientas útiles grep → buscar texto awk → procesar texto sed → editar texto ❌ cron NO es scripting (es planificación) 🔹 3. PowerShell (Windows scripting) 📌 Características Basado en .NET Trabaja con objetos Más potente que Bash en Windows 📌 Cmdlets clave Get-Service → ver servicios Get-Process → procesos Add-Computer → unir a dominio Register-ScheduledTask → tareas 📌 Errores try / catch / finally → control de errores 🔹 4. Automatización y diseño ✔ Scripts modulares (funciones reutilizables) ✔ Código limpio y mantenible ✔ Uso de logging y control de errores 📌 Funciones: 👉 permiten reutilizar bloques de código 🔹 5. CI/CD y Jenkins Jenkins usa Groovy para pipelines Automatiza despliegues (CI/CD) 🔹 6. Buenas prácticas ❌ No hardcodear credenciales ✔ Usar funciones ✔ Documentar scripts ✔ Validar errores ✔ Usar ShellCheck 🔹 7. Selección de lenguaje Depende de: Sistema operativo Infraestructura Complejidad del script Integración con herramientas ❌ NO depende de gustos personales 🔹 8. Diferencias clave Bash PowerShell Texto Objetos Linux Windows Unix tools .NET 🎯 CLAVES DE EXAMEN Bash = grep, awk, case, bash -x PowerShell = objetos + Get-Service Error PowerShell = try/catch Script modular = funciones ShellCheck = análisis scripts Jenkins = Groovy Automático = reducir errores humanos"
+                  "explanation": "no es el estándar en Jenkins Bash → se usa en scripts, pero no es el lenguaje principal de pipelines Perl → no se usa en Jenkins CI/CD"
                 },
                 {
                   "id": "c",
@@ -3929,22 +3929,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Apache",
-                  "explanation": "Apache es un servidor web. Se instala en el servidor y se encarga de recibir peticiones HTTP y devolver respuestas. 👉 No se ejecuta en el navegador.👉 Es lado servidor."
+                  "explanation": "Apache es un servidor web que se ejecuta en el servidor, no en el navegador del usuario."
                 },
                 {
                   "id": "b",
                   "text": "MySQL",
-                  "explanation": "MySQL es un Sistema Gestor de Bases de Datos. Guarda información. Está en el servidor. No lo ejecuta el usuario en su navegador. 👉 Es lado servidor."
+                  "explanation": "MySQL es el gestor de bases de datos del servidor, no una tecnología del lado cliente."
                 },
                 {
                   "id": "c",
                   "text": "PHP",
-                  "explanation": "PHP es un lenguaje del lado servidor. Cuando accedes a un archivo .php: El navegador envía la petición. Apache pasa el archivo a PHP. PHP lo ejecuta en el servidor. Devuelve HTML ya procesado al navegador. El navegador nunca ve el código PHP, solo el resultado. 👉 Es lado servidor."
+                  "explanation": "PHP se ejecuta en el servidor y genera el HTML que envía al navegador; el usuario nunca ve el código PHP."
                 },
                 {
                   "id": "d",
                   "text": "JavaScript",
-                  "explanation": "JavaScript se ejecuta directamente en el navegador del usuario. Permite: Validar formularios. Cambiar contenido dinámicamente. Manejar eventos. Hacer peticiones AJAX. 👉 Se ejecuta en el cliente.👉 Forma parte del front-end. 🧠 ¿Qué está preguntando realmente? Está evaluando si sabes distinguir entre: 🔹 Tecnologías del lado cliente (se ejecutan en el navegador) 🔹 Tecnologías del lado servidor (se ejecutan en el servidor) Esto corresponde al RA1CEb (distinguir cliente y servidor)."
+                  "explanation": "JavaScript se ejecuta directamente en el navegador del usuario, por eso es tecnología del lado cliente (front-end)."
                 }
               ],
               "correctOptionId": "d",
@@ -3957,22 +3957,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "libapache2-mod-php",
-                  "explanation": "Este es el módulo que integra PHP dentro de Apache. Cuando instalas en Linux: sudo apt install php libapache2-mod-php Lo que hace este módulo es: Permitir que Apache reconozca archivos .php Enviarlos al intérprete PHP Ejecutarlos Devolver el resultado como HTML Sin este módulo:Apache serviría el archivo PHP como texto plano (o daría error). 👉 Este es exactamente el componente que permite procesar PHP en Apache. 🧠 ¿Qué está evaluando esta pregunta? Está comprobando si entiendes: Cómo Apache puede ejecutar archivos .php Qué componente conecta Apache con el intérprete PHP Parte de RA1CEe (activar y configurar módulos del servidor)"
+                  "explanation": "Es el módulo de Apache que reconoce los archivos .php y los pasa al intérprete PHP; sin él, Apache los serviría como texto plano."
                 },
                 {
                   "id": "b",
                   "text": "phpMyAdmin",
-                  "explanation": "phpMyAdmin es: Una herramienta web Para gestionar bases de datos MySQL/MariaDB Interfaz gráfica No procesa código PHP del servidor.Solo es una aplicación hecha en PHP."
+                  "explanation": "phpMyAdmin es una herramienta web para gestionar bases de datos MySQL, no un componente de procesamiento PHP en Apache."
                 },
                 {
                   "id": "c",
                   "text": "MySQL-server",
-                  "explanation": "MySQL-server: Es el gestor de base de datos Almacena información No ejecuta código PHP PHP puede conectarse a MySQL, pero MySQL no ejecuta PHP."
+                  "explanation": "MySQL-server almacena datos; PHP puede conectarse a él, pero MySQL no ejecuta código PHP."
                 },
                 {
                   "id": "d",
                   "text": "Node.js",
-                  "explanation": "Node.js: Es un entorno para ejecutar JavaScript en el servidor No tiene relación con PHP No es módulo de Apache para PHP"
+                  "explanation": "Node.js ejecuta JavaScript en el servidor; no tiene relación con PHP ni con Apache."
                 }
               ],
               "correctOptionId": "a",
@@ -3985,22 +3985,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Ejecutar código directamente en producción",
-                  "explanation": "Producción es el entorno final, el que usan los usuarios reales. Un entorno de desarrollo no está pensado para trabajar directamente en producción, sino para preparar todo antes. 👉 Incorrecta."
+                  "explanation": "El entorno de desarrollo es previo a producción; no sirve para ejecutar en el entorno real de usuarios."
                 },
                 {
                   "id": "b",
                   "text": "Probar, desarrollar y mantener aplicaciones antes de su despliegue final",
-                  "explanation": "Esta definición encaja exactamente con lo que dice la UT1. El entorno de desarrollo sirve para: Programar Probar Corregir errores Ajustar configuraciones Verificar que todo funciona Antes de publicarlo. 👉 Esta es la definición correcta. 🧠 ¿Qué está evaluando esta pregunta? Quiere comprobar si entiendes qué es realmente un entorno de desarrollo web. Recuerda lo que vimos en la UT1: Un entorno de desarrollo es el conjunto de herramientas que permiten: Crear código Probarlo Detectar errores Ajustarlo Antes de publicarlo en producción"
+                  "explanation": "Un entorno de desarrollo permite crear, probar y corregir una aplicación en local antes de publicarla en producción."
                 },
                 {
                   "id": "c",
                   "text": "Publicar sitios web automáticamente",
-                  "explanation": "Publicar o desplegar es una fase del ciclo de vida, pero no es el objetivo principal del entorno de desarrollo. Además, publicar automáticamente no define lo que es un entorno de desarrollo."
+                  "explanation": "La publicación es una fase posterior; el entorno de desarrollo se usa antes de llegar a ese punto."
                 },
                 {
                   "id": "d",
                   "text": "Mostrar interfaces gráficas al usuario final",
-                  "explanation": "Eso lo hace el navegador. El entorno de desarrollo no está pensado para el usuario final, sino para el desarrollador."
+                  "explanation": "El entorno de desarrollo es una herramienta interna para el desarrollador, no para el usuario final."
                 }
               ],
               "correctOptionId": "b",
@@ -4013,22 +4013,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": ".php",
-                  "explanation": "Es la extensión estándar de archivos que contienen código PHP. Ejemplo: <?php echo \"Hola mundo\"; ?> Cuando el navegador pide index.php: Apache detecta la extensión .php. Lo pasa al intérprete PHP. PHP lo ejecuta. Devuelve HTML como respuesta. 👉 Correcta. 🧠 ¿Qué está evaluando? Está comprobando si sabes identificar: Qué archivos son procesados por el intérprete PHP. Qué extensión activa el procesamiento en el servidor (RA1CEe). Cuando Apache ve un archivo con extensión .php, lo envía al intérprete PHP para ejecutarlo."
+                  "explanation": "Los archivos .php contienen código PHP; cuando Apache los detecta, los pasa al intérprete PHP para ejecutarlos y devolver el resultado como HTML."
                 },
                 {
                   "id": "b",
                   "text": ".html",
-                  "explanation": "Archivos HTML: Son estáticos. No se procesan en el servidor (salvo configuraciones especiales). Se envían directamente al navegador. No ejecutan PHP."
+                  "explanation": "Los archivos HTML son estáticos y se envían directamente al navegador sin procesamiento de servidor."
                 },
                 {
                   "id": "c",
                   "text": ".py",
-                  "explanation": ".py es la extensión de Python. No tiene relación con PHP."
+                  "explanation": ".py es la extensión de Python, no de PHP."
                 },
                 {
                   "id": "d",
                   "text": ".db",
-                  "explanation": ".db suele usarse para archivos de base de datos (por ejemplo SQLite). No es un script ejecutable."
+                  "explanation": ".db se usa para archivos de base de datos como SQLite, no para scripts ejecutables."
                 }
               ],
               "correctOptionId": "a",
@@ -4041,22 +4041,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Cifrado simétrico sin clave",
-                  "explanation": "Esto no tiene sentido técnico. Todo cifrado necesita clave.Además, HTTPS no funciona “sin clave”. En realidad HTTPS usa una combinación de: Cifrado asimétrico (intercambio inicial) Cifrado simétrico (para la sesión) Pero siempre con claves."
+                  "explanation": "Todo cifrado necesita clave; además, HTTPS combina cifrado asimétrico y simétrico, siempre con claves."
                 },
                 {
                   "id": "b",
                   "text": "Cifrado por sustitución",
-                  "explanation": "Eso es un cifrado antiguo tipo “César” (sustituir letras). No tiene nada que ver con seguridad web moderna."
+                  "explanation": "El cifrado por sustitución es histórico (como el cifrado César); no tiene relación con la seguridad web moderna."
                 },
                 {
                   "id": "c",
                   "text": "Ningún tipo de cifrado",
-                  "explanation": "HTTPS significa literalmente: HTTP Secure Si no hubiera cifrado, sería simplemente HTTP."
+                  "explanation": "HTTPS significa HTTP Secure; si no hubiera cifrado, simplemente sería HTTP."
                 },
                 {
                   "id": "d",
                   "text": "Cifrado con certificados SSL/TLS",
-                  "explanation": "Correcto. HTTPS funciona gracias a: SSL (antiguo) TLS (actual) El certificado SSL/TLS: Verifica la identidad del servidor. Permite establecer una conexión cifrada. Protege contra ataques tipo “man-in-the-middle”. Cuando ves el candado 🔒 en el navegador, estás usando TLS. 🧠 ¿Qué está preguntando realmente? Quiere saber si entiendes: Qué es HTTPS Cómo protege la información Qué tecnología usa para cifrar datos Recuerda: HTTP → tráfico en texto planoHTTPS → tráfico cifrado"
+                  "explanation": "HTTPS usa certificados SSL/TLS para cifrar el tráfico entre cliente y servidor y verificar la identidad del sitio."
                 }
               ],
               "correctOptionId": "d",
@@ -4069,22 +4069,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "FTP",
-                  "explanation": "FTP (File Transfer Protocol): Sirve para transferir archivos. No se usa para cargar páginas web en el navegador. Se usa, por ejemplo, para subir archivos al servidor."
+                  "explanation": "FTP sirve para transferir archivos, no para las peticiones de páginas web."
                 },
                 {
                   "id": "b",
                   "text": "SMTP",
-                  "explanation": "SMTP (Simple Mail Transfer Protocol): Se usa para enviar correos electrónicos. No tiene relación con peticiones web."
+                  "explanation": "SMTP se usa para enviar correos electrónicos, no para comunicación web."
                 },
                 {
                   "id": "c",
                   "text": "DNS",
-                  "explanation": "DNS (Domain Name System): Sirve para traducir nombres de dominio (ej: google.com) en direcciones IP. Es previo a la conexión web, pero no es el protocolo de la petición. DNS ayuda a encontrar el servidor, pero no transporta la página web."
+                  "explanation": "DNS traduce nombres de dominio a IPs; es previo a la conexión web, pero no transporta la página."
                 },
                 {
                   "id": "d",
                   "text": "HTTP",
-                  "explanation": "HTTP (HyperText Transfer Protocol): Es el protocolo que usa el navegador para comunicarse con el servidor. Gestiona peticiones como: GET POST PUT DELETE Cada vez que escribes una URL, se envía una petición HTTP. Si la conexión es segura: 👉 Se usa HTTPS (HTTP + TLS). 🧠 ¿Qué está evaluando? Quiere comprobar si entiendes: Qué protocolo regula la comunicación web. Qué usa el navegador cuando accedes a una página. Parte del modelo cliente-servidor (RA1CEd)."
+                  "explanation": "HTTP es el protocolo que regula la comunicación entre el navegador y el servidor web; en versión segura se usa HTTPS."
                 }
               ],
               "correctOptionId": "d",
@@ -4097,22 +4097,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Recurso no encontrado",
-                  "explanation": "El código 404 Not Found significa: 👉 El servidor está funcionando.👉 Ha recibido la petición.👉 Pero el recurso solicitado no existe. Ejemplo: Si pides: http://midominio.com/archivo-que-no-existe.html El servidor responde: 404 Not Found Es un error del cliente (categoría 4xx). 🧠 ¿Qué está evaluando? Está comprobando si sabes interpretar los códigos de estado HTTP, que forman parte del modelo cliente-servidor (RA1CEd). Cuando un servidor responde a una petición HTTP, devuelve: Un código numérico. Un mensaje asociado. Estos códigos indican qué ha ocurrido con la solicitud. 📊 Recordatorio rápido de categorías HTTP 1xx → Informativos 2xx → Éxito 3xx → Redirecciones 4xx → Error del cliente 5xx → Error del servidor"
+                  "explanation": "404 Not Found indica que el servidor está activo pero el recurso solicitado no existe en esa URL."
                 },
                 {
                   "id": "b",
                   "text": "Solicitud correcta",
-                  "explanation": "Eso sería: 👉 200 OK Cuando todo ha funcionado bien."
+                  "explanation": "Una solicitud correcta devuelve el código 200 OK."
                 },
                 {
                   "id": "c",
                   "text": "Error interno del servidor",
-                  "explanation": "Eso corresponde al código: 👉 500 Internal Server Error Aquí el problema está en el servidor (por ejemplo, error en PHP)."
+                  "explanation": "El error interno del servidor corresponde al código 500 Internal Server Error."
                 },
                 {
                   "id": "d",
                   "text": "Redirección permanente",
-                  "explanation": "Eso es: 👉 301 Moved Permanently Indica que el recurso cambió de URL de forma definitiva."
+                  "explanation": "La redirección permanente corresponde al código 301 Moved Permanently."
                 }
               ],
               "correctOptionId": "a",
@@ -4125,22 +4125,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "service mysql status",
-                  "explanation": "Este comando: Solo muestra el estado del servicio. No te permite entrar en la consola. Sirve para comprobar si está activo."
+                  "explanation": "service mysql status solo muestra el estado del servicio; no abre la consola interactiva."
                 },
                 {
                   "id": "b",
                   "text": "mysql -login",
-                  "explanation": "Ese comando no existe en MySQL. La sintaxis correcta sería algo como: mysql -u root -p Pero \"-login\" no es válido."
+                  "explanation": "mysql -login no es una opción válida; la sintaxis correcta sería mysql -u root -p."
                 },
                 {
                   "id": "c",
                   "text": "sudo mysql",
-                  "explanation": "En muchas distribuciones Linux (como Ubuntu con MySQL moderno): El usuario root de MySQL está configurado para autenticarse mediante el sistema (auth_socket). Entonces puedes entrar con: sudo mysql Esto abre directamente la consola de MySQL. También es válido: mysql -u root -p Pero entre las opciones dadas, la correcta es: 👉 sudo mysql 🧠 ¿Qué está evaluando? Quiere comprobar si sabes: Cómo acceder al cliente de MySQL desde terminal. Parte de RA1CEc y RA1CEf (instalación y acceso a BD). Después de instalar MySQL en Linux, necesitas entrar a su consola para: Crear bases de datos. Crear usuarios. Dar permisos. Ejecutar consultas."
+                  "explanation": "En Ubuntu, MySQL moderno usa auth_socket, por lo que sudo mysql abre directamente la consola como root sin introducir contraseña."
                 },
                 {
                   "id": "d",
                   "text": "connect mysql",
-                  "explanation": "No es un comando válido en Linux."
+                  "explanation": "connect mysql no es un comando válido en Linux."
                 }
               ],
               "correctOptionId": "c",
@@ -4153,22 +4153,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Un servidor remoto con acceso seguro",
-                  "explanation": "Incorrecto. “Localhost” no es remoto. Es justo lo contrario: 👉 Es el propio equipo."
+                  "explanation": "Localhost no es remoto; apunta al propio equipo (127.0.0.1)."
                 },
                 {
                   "id": "b",
                   "text": "Un proxy que enruta las conexiones externas",
-                  "explanation": "Un proxy es otra cosa. Localhost no enruta conexiones externas. No actúa como intermediario."
+                  "explanation": "Un proxy es otra cosa; localhost no enruta conexiones externas."
                 },
                 {
                   "id": "c",
                   "text": "Un nombre de dominio reservado para producción",
-                  "explanation": "Localhost no se usa en producción. En producción se usan dominios reales: midominio.com empresa.es"
+                  "explanation": "Localhost solo se usa en desarrollo local, nunca con un dominio real en producción."
                 },
                 {
                   "id": "d",
                   "text": "El equipo del usuario que ejecuta el servidor local",
-                  "explanation": "Correcto. Localhost es un nombre que apunta a: 👉 La dirección IP 127.0.0.1👉 Es decir, tu propio ordenador Cuando escribes: http://localhost Estás diciendo: “Conéctate al servidor que está en mi propio equipo.” 🧠 ¿Qué está evaluando? Quiere comprobar si entiendes: Qué es localhost Qué ocurre cuando escribes http://localhost Cómo funciona un entorno local En UT1, localhost es clave cuando instalas Apache o XAMPP."
+                  "explanation": "Localhost (127.0.0.1) apunta al propio equipo; http://localhost conecta con el servidor web instalado en tu propia máquina."
                 }
               ],
               "correctOptionId": "d",
@@ -4181,22 +4181,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Servir como página de error 404",
-                  "explanation": "El error 404 lo gestiona el servidor web (Apache o Nginx). phpinfo.php no tiene nada que ver con páginas de error."
+                  "explanation": "Las páginas de error las gestiona el servidor web; phpinfo() no tiene relación con ellas."
                 },
                 {
                   "id": "b",
                   "text": "Mostrar información sobre el entorno PHP",
-                  "explanation": "Correcto. Se crea un archivo llamado, por ejemplo: <?php phpinfo(); ?> Cuando accedes a: http://localhost/phpinfo.php Se muestra: Versión de PHP Módulos instalados Configuración activa Rutas de archivos Parámetros del php.ini Información del servidor Sirve para comprobar que: 👉 PHP está funcionando👉 Está integrado con Apache👉 Tiene los módulos correctos 🧠 ¿Qué está evaluando? Quiere comprobar si entiendes: Cómo verificar que PHP está correctamente instalado. Para qué sirve la función phpinfo(). Parte de RA1CEe (configuración del intérprete PHP). En la UT1 se explica que tras instalar PHP se suele crear un archivo de prueba."
+                  "explanation": "phpinfo() muestra la versión de PHP, módulos instalados, configuración del php.ini y datos del servidor; sirve para verificar que PHP está correctamente instalado y funcionando."
                 },
                 {
                   "id": "c",
                   "text": "Generar scripts HTML automáticamente",
-                  "explanation": "PHP puede generar HTML dinámico, pero ese no es el propósito específico de phpinfo()."
+                  "explanation": "PHP puede generar HTML dinámico, pero ese no es el propósito de phpinfo()."
                 },
                 {
                   "id": "d",
                   "text": "Crear una base de datos vacía",
-                  "explanation": "Eso lo hace MySQL, no PHP directamente."
+                  "explanation": "Las bases de datos las crea MySQL, no PHP."
                 }
               ],
               "correctOptionId": "b",
@@ -4209,22 +4209,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "PHP",
-                  "explanation": "Apache M → MariaDB (antes MySQL) P → PHP P → Perl Sí forma parte de XAMPP. Es uno de sus componentes principales."
+                  "explanation": "PHP sí forma parte de XAMPP; es uno de sus componentes principales junto a Apache y MariaDB."
                 },
                 {
                   "id": "b",
                   "text": "Apache",
-                  "explanation": "Sí forma parte. Es el servidor web incluido en el paquete."
+                  "explanation": "Apache sí forma parte de XAMPP; es el servidor web incluido en el paquete."
                 },
                 {
                   "id": "c",
                   "text": "MariaDB",
-                  "explanation": "Sí forma parte. Es el gestor de bases de datos incluido."
+                  "explanation": "MariaDB sí forma parte de XAMPP; es el gestor de bases de datos incluido."
                 },
                 {
                   "id": "d",
                   "text": "Python",
-                  "explanation": "Python no forma parte del paquete estándar XAMPP. XAMPP no instala: Python Node.js Java Solo incluye los componentes básicos para desarrollo web clásico (Apache + PHP + MariaDB). 🧠 ¿Qué está evaluando? Está comprobando si sabes qué incluye XAMPP. En la UT1 se explica que XAMPP es un paquete integrado para crear un entorno local rápidamente. 🔎 Primero: ¿Qué significa XAMPP? La sigla XAMPP viene de: X → Multiplataforma (Windows, Linux, macOS)"
+                  "explanation": "Python no forma parte del paquete estándar XAMPP, que solo incluye Apache, MariaDB/MySQL y PHP/Perl."
                 }
               ],
               "correctOptionId": "d",
@@ -4237,22 +4237,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": ".htaccess",
-                  "explanation": "Correcto. .htaccess es un archivo de configuración que: Se coloca dentro de un directorio del servidor web. Permite definir reglas específicas para esa carpeta. Sirve para: Restringir acceso por IP Proteger con contraseña Redireccionar URLs Activar o desactivar opciones Ejemplo típico: Order deny,allow Deny from all Allow from 192.168.1.0/24 Esto limita el acceso por IP. 👉 Es el mecanismo clásico para reglas de acceso en Apache. 🧠 ¿Qué está evaluando? Quiere comprobar si sabes: Cómo se configuran restricciones de acceso en Apache. Parte de seguridad básica (RA1CEg). En la UT1 se menciona el uso de reglas para limitar accesos por IP o proteger directorios."
+                  "explanation": ".htaccess es un archivo de configuración de Apache que permite definir reglas de acceso, redirecciones y restricciones por IP para el directorio donde se coloca."
                 },
                 {
                   "id": "b",
                   "text": "config.json",
-                  "explanation": "Es un archivo típico en aplicaciones JavaScript o . No es un archivo de configuración de Apache."
+                  "explanation": "config.json es un archivo de configuración de aplicaciones JavaScript, no de Apache."
                 },
                 {
                   "id": "c",
                   "text": ".env",
-                  "explanation": "Archivo usado para: Variables de entorno Guardar credenciales Configuración de aplicaciones No sirve para reglas de acceso en Apache."
+                  "explanation": ".env guarda variables de entorno de la aplicación, no reglas de acceso en Apache."
                 },
                 {
                   "id": "d",
                   "text": "server.conf",
-                  "explanation": "Apache usa archivos como: httpd.conf apache2.conf Pero “server.conf” no es el archivo estándar para reglas locales. Y la pregunta apunta claramente a reglas de acceso en directorios."
+                  "explanation": "Apache usa httpd.conf o apache2.conf; server.conf no es el estándar para reglas de acceso en directorios."
                 }
               ],
               "correctOptionId": "a",
@@ -4265,22 +4265,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "apache2.conf",
-                  "explanation": "Es un archivo de configuración de Apache. Sirve para: Configurar el servidor web. Puertos. Directorios. Módulos. No configura parámetros internos de PHP."
+                  "explanation": "apache2.conf es el archivo de configuración del servidor web Apache; controla el servidor, no los parámetros internos de PHP."
                 },
                 {
                   "id": "b",
                   "text": "config.php",
-                  "explanation": "Puede existir en una aplicación concreta, pero no es el archivo global de configuración de PHP. Es un archivo que crean los desarrolladores para sus proyectos."
+                  "explanation": "config.php puede existir en proyectos concretos, pero no es el archivo global de configuración del intérprete PHP."
                 },
                 {
                   "id": "c",
                   "text": "php.ini",
-                  "explanation": "Correcto. Es el archivo principal de configuración de PHP. Desde él se controlan parámetros como: memory_limit upload_max_filesize post_max_size display_errors error_reporting log_errors Ubicación típica en Linux: /etc/php/8.x/apache2/php.ini Después de modificarlo: 👉 Hay que reiniciar Apache. 🧠 ¿Qué está evaluando? Quiere comprobar si sabes: Dónde se configuran los parámetros globales de PHP. Parte de RA1CEe (configuración del intérprete). En la UT1 se menciona explícitamente el archivo principal de configuración."
+                  "explanation": "php.ini es el archivo principal de configuración de PHP; controla parámetros como memory_limit, upload_max_filesize y display_errors. Tras modificarlo hay que reiniciar Apache."
                 },
                 {
                   "id": "d",
                   "text": ".htaccess",
-                  "explanation": "Sirve para reglas de Apache, pero no es el archivo principal de configuración de PHP. Aunque puede modificar algunos parámetros si está permitido, no es el archivo base."
+                  "explanation": ".htaccess puede modificar algunos parámetros PHP si está permitido, pero no es el archivo base de configuración de PHP."
                 }
               ],
               "correctOptionId": "c",
@@ -4293,22 +4293,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Apache Control Panel",
-                  "explanation": "El panel de XAMPP permite: Iniciar y detener servicios (Apache, MySQL). Ver puertos. Configurar servicios. Pero no permite gestionar tablas o bases de datos visualmente."
+                  "explanation": "El panel de XAMPP gestiona el arranque de servicios, pero no permite administrar tablas o bases de datos visualmente."
                 },
                 {
                   "id": "b",
                   "text": "VS Code",
-                  "explanation": "Es un editor de código. No es una herramienta específica para administrar bases de datos en XAMPP."
+                  "explanation": "VS Code es un editor de código, no una herramienta de administración de bases de datos."
                 },
                 {
                   "id": "c",
                   "text": "phpMyAdmin",
-                  "explanation": "Correcto. phpMyAdmin es: Una aplicación web escrita en PHP. Permite administrar MySQL/MariaDB desde el navegador. Permite: Crear bases de datos Crear tablas Insertar registros Ejecutar consultas SQL Gestionar usuarios En XAMPP se accede normalmente desde: http://localhost/phpmyadmin 🧠 ¿Qué está evaluando? Quiere comprobar si sabes: Qué herramienta gráfica permite administrar MySQL/MariaDB. Parte de RA1CEf (gestión y conexión a bases de datos). En XAMPP, además de Apache y MariaDB, se incluye una herramienta web para administrar la base de datos sin usar consola."
+                  "explanation": "phpMyAdmin es una aplicación web incluida en XAMPP que permite administrar MySQL/MariaDB desde el navegador: crear bases de datos, tablas, ejecutar SQL y gestionar usuarios."
                 },
                 {
                   "id": "d",
                   "text": "Composer",
-                  "explanation": "Composer es un gestor de dependencias para PHP. Sirve para instalar librerías, no para administrar bases de datos."
+                  "explanation": "Composer es un gestor de dependencias PHP para instalar librerías, no para administrar bases de datos."
                 }
               ],
               "correctOptionId": "c",
@@ -4321,22 +4321,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "NetBeans",
-                  "explanation": "Correcto. NetBeans es un: IDE (Entorno de Desarrollo Integrado) Editor de código avanzado Permite programar en Java, PHP, HTML, etc. Incluye depuración, gestión de proyectos, autocompletado... Es claramente un editor/IDE. 🧠 ¿Qué está evaluando? Quiere comprobar si sabes distinguir entre: Editores/IDE de desarrollo Herramientas de bases de datos Servidores Aplicaciones de administración Esto conecta con la parte de plataformas integradas para desarrollo (RA1CEh)."
+                  "explanation": "NetBeans es un IDE (Entorno de Desarrollo Integrado) que permite programar en Java, PHP y HTML con funciones avanzadas como depuración y autocompletado."
                 },
                 {
                   "id": "b",
                   "text": "phpMyAdmin",
-                  "explanation": "Es una herramienta para: Gestionar bases de datos MySQL/MariaDB Desde el navegador No es un editor de código general."
+                  "explanation": "phpMyAdmin es una herramienta web para gestionar bases de datos MySQL/MariaDB, no un editor de código."
                 },
                 {
                   "id": "c",
                   "text": "MySQL Workbench",
-                  "explanation": "Es una herramienta gráfica para: Diseñar bases de datos Ejecutar consultas SQL Administrar servidores MySQL No es un editor de código para aplicaciones web."
+                  "explanation": "MySQL Workbench es una herramienta gráfica para diseñar bases de datos y ejecutar SQL, no un editor de código para aplicaciones web."
                 },
                 {
                   "id": "d",
                   "text": "Apache Server",
-                  "explanation": "Es un servidor web. No sirve para escribir código."
+                  "explanation": "Apache Server es un servidor web; no sirve para escribir código."
                 }
               ],
               "correctOptionId": "a",
@@ -4349,22 +4349,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "CSS",
-                  "explanation": "CSS: Se ejecuta en el navegador. Controla el diseño visual. Forma parte del front-end. 👉 Es lado cliente."
+                  "explanation": "CSS controla el diseño visual y se interpreta en el navegador; es tecnología del lado cliente."
                 },
                 {
                   "id": "b",
                   "text": "PHP",
-                  "explanation": "PHP: Se ejecuta en el servidor. Procesa datos. Se conecta a bases de datos. Genera contenido dinámico. Cuando el navegador pide un archivo .php: Apache lo recibe. Lo pasa al intérprete PHP. PHP lo ejecuta. Devuelve HTML al navegador. 👉 Es claramente lado servidor. 🧠 ¿Qué está evaluando? Quiere comprobar si sabes diferenciar: Tecnologías del lado cliente (front-end) Tecnologías del lado servidor (back-end) Esto es clave en el modelo cliente-servidor (RA1CEb)."
+                  "explanation": "PHP se ejecuta en el servidor: recibe la petición, procesa datos, se conecta a la base de datos y devuelve HTML al navegador."
                 },
                 {
                   "id": "c",
                   "text": "JavaScript",
-                  "explanation": "(en contexto de UT1) En la UT1 se considera JavaScript como tecnología cliente. Se ejecuta en el navegador: Maneja eventos. Valida formularios. Modifica el DOM. ⚠️ Aunque existe Node.js (JavaScript en servidor), en esta UT el enfoque es que JavaScript es cliente."
+                  "explanation": "En el contexto de esta unidad, JavaScript es tecnología del lado cliente: se ejecuta en el navegador para manejar eventos y validar formularios."
                 },
                 {
                   "id": "d",
                   "text": "HTML",
-                  "explanation": "HTML: Estructura la página. Se interpreta en el navegador. No ejecuta lógica del servidor. 👉 Es lado cliente."
+                  "explanation": "HTML estructura la página y se interpreta en el navegador; es tecnología del lado cliente."
                 }
               ],
               "correctOptionId": "b",
@@ -4377,22 +4377,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Apache es gratuito y Nginx es de pago",
-                  "explanation": "Incorrecto. Ambos son de código abierto y gratuitos. Existe una versión comercial de Nginx (Nginx Plus), pero Nginx básico es gratuito."
+                  "explanation": "Ambos son de código abierto y gratuitos; existe una versión comercial de Nginx (Nginx Plus), pero el básico es libre."
                 },
                 {
                   "id": "b",
                   "text": "Apache no permite configuración modular",
-                  "explanation": "Incorrecto. Apache es altamente modular. Tiene módulos como: mod_php mod_ssl mod_rewrite etc. De hecho, Apache es muy conocido por su arquitectura modular."
+                  "explanation": "Apache es muy modular: tiene módulos como mod_php, mod_ssl y mod_rewrite."
                 },
                 {
                   "id": "c",
                   "text": "Nginx usa un modelo asíncrono de procesamiento",
-                  "explanation": "Correcto. Aquí está la diferencia clave: 🔹 Apache → tradicionalmente usa modelo basado en procesos o hilos (más pesado por conexión). 🔹 Nginx → usa modelo asíncrono y no bloqueante (event-driven). Esto significa que Nginx: Maneja mejor muchas conexiones simultáneas. Consume menos recursos bajo alta carga. Es muy eficiente como proxy inverso. Esta es la diferencia más importante. 🧠 ¿Qué está evaluando? Quiere comprobar si entiendes: Cómo funcionan internamente Apache y Nginx. Qué los diferencia a nivel de arquitectura. Parte de la comparativa vista en la UT1. La clave está en el modelo de procesamiento."
+                  "explanation": "Nginx usa un modelo asíncrono y no bloqueante (event-driven), lo que le permite gestionar muchas conexiones simultáneas con menos recursos que Apache."
                 },
                 {
                   "id": "d",
                   "text": "Nginx solo funciona en Linux",
-                  "explanation": "Incorrecto. Nginx también funciona en Windows y otros sistemas."
+                  "explanation": "Nginx también funciona en Windows y otros sistemas operativos."
                 }
               ],
               "correctOptionId": "c",
@@ -4405,22 +4405,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Limitar los permisos según las necesidades",
-                  "explanation": "Correcto. Esto significa: Crear un usuario específico para la aplicación. Darle solo los permisos necesarios: SELECT INSERT UPDATE DELETE No darle permisos globales. No permitir acceso remoto si no es necesario. Ejemplo correcto en MySQL: GRANT SELECT, INSERT ON basedatos.* TO 'usuario_web'@'localhost'; Esto mejora muchísimo la seguridad. 🧠 ¿Qué está evaluando? Quiere comprobar si entiendes un principio básico de seguridad en servidores: 👉 Principio de mínimo privilegio Y conecta directamente con la parte de la UT1 donde se explica: Crear usuarios específicos. No usar root. Limitar permisos a lo necesario."
+                  "explanation": "Crear usuarios con solo los permisos necesarios (principio de mínimo privilegio) reduce el impacto ante fallos o accesos no autorizados."
                 },
                 {
                   "id": "b",
                   "text": "Permitir conexiones remotas anónimas",
-                  "explanation": "Gravísimo error. Conexiones anónimas permiten que cualquiera intente acceder. Es una vulnerabilidad clara."
+                  "explanation": "Las conexiones anónimas dejan la base de datos expuesta a cualquier intento de acceso; es una vulnerabilidad grave."
                 },
                 {
                   "id": "c",
                   "text": "Dar permisos globales a todos los usuarios",
-                  "explanation": "Error crítico. Permisos globales implican: Acceso a todas las bases. Posible borrado total. Escalada de privilegios. Nunca se debe hacer."
+                  "explanation": "Los permisos globales dan acceso a todas las bases de datos, lo que facilita borrados masivos o escalada de privilegios."
                 },
                 {
                   "id": "d",
                   "text": "Usar el usuario root sin contraseña",
-                  "explanation": "Esto es prácticamente regalar el servidor. Root tiene: Todos los privilegios. Acceso total. Capacidad de borrar todo. Nunca debe usarse en aplicaciones."
+                  "explanation": "Root tiene acceso total al sistema; usarlo sin contraseña es un riesgo crítico de seguridad."
                 }
               ],
               "correctOptionId": "a",
@@ -4433,22 +4433,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "apache2 install",
-                  "explanation": "Sintaxis incorrecta. No existe un comando así en Linux. El orden siempre es: comando gestor-paquetes + acción + paquete"
+                  "explanation": "Sintaxis incorrecta; en Linux el orden es: gestor de paquetes + acción + paquete."
                 },
                 {
                   "id": "b",
                   "text": "sudo install apache2",
-                  "explanation": "install es un comando diferente en Linux (sirve para copiar archivos). No es el gestor de paquetes. Falta apt."
+                  "explanation": "install en Linux sirve para copiar archivos; falta el gestor apt."
                 },
                 {
                   "id": "c",
                   "text": "sudo apt install apache2",
-                  "explanation": "Correcto. Desglosemos: sudo → ejecuta con permisos de administrador. apt → gestor de paquetes. install → acción. apache2 → paquete a instalar. Este es exactamente el comando que aparece en la UT1. 🧠 ¿Qué está evaluando? Quiere comprobar si sabes: Cómo instalar paquetes en Ubuntu/Debian. Uso correcto del gestor de paquetes. Parte de RA1CEc (instalación y configuración de servidores). En Ubuntu se utiliza el gestor de paquetes APT."
+                  "explanation": "sudo apt install apache2 es el comando estándar en Ubuntu/Debian: sudo ejecuta como administrador, apt es el gestor de paquetes y apache2 es el paquete a instalar."
                 },
                 {
                   "id": "d",
                   "text": "apt-get apache",
-                  "explanation": "Incorrecto por dos motivos: Falta la acción (install). No tiene la sintaxis correcta. La forma correcta con apt-get sería: sudo apt-get install apache2 Pero esa opción no está entre las respuestas."
+                  "explanation": "Falta la acción install; la forma correcta con apt-get sería: sudo apt-get install apache2."
                 }
               ],
               "correctOptionId": "c",
@@ -4461,22 +4461,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Para garantizar la trazabilidad y facilitar mantenimiento",
-                  "explanation": "Correcto. Documentar permite: Saber qué se instaló. Qué versiones se usaron. Qué configuraciones se modificaron. Qué problemas surgieron y cómo se resolvieron. Reproducir el entorno si se cae. Facilitar auditorías. Eso es trazabilidad: 👉 Poder seguir el rastro de lo que se hizo. Y facilita mantenimiento: 👉 Si mañana hay un error, otro técnico puede entender el sistema. 🧠 ¿Qué está evaluando? Está comprobando si entiendes: La importancia profesional de la documentación. Qué significa trazabilidad. Parte de la UT1 sobre informes técnicos. En el mundo real, la documentación no es opcional."
+                  "explanation": "La documentación permite saber qué se instaló, qué versiones se usaron, qué problemas surgieron y cómo reproducir el entorno, facilitando auditorías y el trabajo de otros técnicos."
                 },
                 {
                   "id": "b",
                   "text": "Para poder compartirlo en redes sociales",
-                  "explanation": "No tiene nada que ver con el objetivo técnico."
+                  "explanation": "Compartir en redes sociales no tiene ningún objetivo técnico en administración de sistemas."
                 },
                 {
                   "id": "c",
                   "text": "Porque lo exige la normativa fiscal",
-                  "explanation": "Puede haber normativas en empresas, pero no es el objetivo principal en esta UT."
+                  "explanation": "La documentación técnica responde a necesidades operativas, no fiscales."
                 },
                 {
                   "id": "d",
                   "text": "Para instalar software automáticamente",
-                  "explanation": "Eso lo hacen scripts o herramientas de automatización. La documentación es informativa y técnica, no ejecutable."
+                  "explanation": "La automatización la hacen scripts; la documentación es informativa y técnica, no ejecutable."
                 }
               ],
               "correctOptionId": "a",
@@ -4650,7 +4650,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "Autenticación en dos pasos (2FA).",
-                  "explanation": "La autenticación en dos pasos (2FA) añade una segunda verificación además de la contraseña (por ejemplo un código en el móvil), aumentando la seguridad del acceso."
+                  "explanation": "La autenticación en dos pasos (FA) añade una segunda verificación además de la contraseña (por ejemplo un código en el móvil), aumentando la seguridad del acceso."
                 }
               ],
               "correctOptionId": "d",
@@ -5038,7 +5038,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "Una copia completa diaria",
-                  "explanation": "Es un tipo de backup, no la estrategia 3-2-1."
+                  "explanation": "Es un tipo de backup, no la estrategia --."
                 },
                 {
                   "id": "c",
@@ -5048,7 +5048,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "Tres copias, dos tipos de soporte, una fuera del sitio",
-                  "explanation": "La estrategia 3-2-1 consiste en tener 3 copias de los datos, almacenadas en 2 soportes diferentes, y 1 copia fuera del sitio para proteger frente a fallos, ataques o desastres."
+                  "explanation": "La estrategia -- consiste en tener copias de los datos, almacenadas en soportes diferentes, y copia fuera del sitio para proteger frente a fallos, ataques o desastres."
                 }
               ],
               "correctOptionId": "d",
@@ -5552,7 +5552,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "wp-login.php",
-                  "explanation": "Archivo de WordPress, no de servidor. 🧾 CHULETA UT3 – IMPLANTACIÓN DE APLICACIONES WEB (WORDPRESS + CONFIG) 🌐 ENTORNO LOCAL (XAMPP) 📁 Carpeta web → /htdocs 🖥️ Servidor web → Apache 🗄️ Base de datos → MySQL (phpMyAdmin) ⚙️ Paquete → XAMPP (Apache + MySQL + PHP) 🧩 WORDPRESS – BASE 📄 Configuración → wp-config.php 📤 Exportación → WXR (XML) 📥 Importación datos → CSV 🔍 Estado web → Site Health 👥 USUARIOS Y SEGURIDAD 👑 Máximo permiso → Administrador 🔐 Modelo permisos → RBAC (roles) ⚠️ Seguridad → Principio de privilegio mínimo 🎨 TEMAS Y DISEÑO 🎭 Tema → diseño visual de la web 👶 Child Theme → hereda del tema padre ⚙️ Configuración global → theme.json 🔌 PLUGINS ➕ Añaden funcionalidades 🔒 Backup automático → UpdraftPlus ⚠️ MU-Plugins → no se pueden desactivar desde panel 💾 BACKUPS (MUY IMPORTANTE) 📌 Estrategia → 3-2-1 3 copias 2 soportes 1 fuera del sitio ✅ Integridad → hash / firma digital ⚠️ Antes de actualizar → hacer backup SIEMPRE 🌍 CONFIGURACIÓN WEB 🔗 URLs (Apache) → .htaccess 🤖 SEO rastreo → robots.txt 🧠 Función robots.txt → indicar qué indexar 🧱 CONTENIDO AVANZADO 🧩 CPT (Custom Post Type) → nuevos tipos de contenido Ej: productos, eventos... 🧾 DOCUMENTACIÓN 📘 Procedimientos → SOP Pasos técnicos estandarizados ⚙️ SERVIDORES Apache → usa .htaccess NGINX → usa nginx.conf ⚡ RESUMEN EXPRESS (LO MÁS PREGUNTADO) wp-config.php → configuración theme.json → estilos bloques .htaccess → URLs robots.txt → SEO rastreo UpdraftPlus → backups RBAC → permisos 3-2-1 → copias Site Health → estado web CSV → importar datos WXR → exportar WordPress"
+                  "explanation": "Archivo de WordPress, no de servidor."
                 }
               ],
               "correctOptionId": "b",
@@ -6146,7 +6146,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "Instalación local",
-                  "explanation": "Es lo contrario a SaaS. 🧾 CHULETA UT4 – OFIMÁTICA WEB Y SEGURIDAD ☁️ OFIMÁTICA WEB (CLAVE) 🌐 Funciona en navegador (sin instalar nada) 🤝 Permite colaboración en tiempo real 📍 Acceso desde cualquier lugar (acceso ubicuo) ⚠️ Inconveniente → dependencia de Internet 👨‍💻 ROL TÉCNICO (ASIX-CIBER) ⚙️ Configurar usuarios y permisos 🔐 Aplicar políticas de seguridad 📊 Garantizar cumplimiento (RGPD, auditoría) 🛠️ Administrar aplicaciones en la nube 🔐 SEGURIDAD (MUY IMPORTANTE) 🔑 Principio de mínimo privilegio → solo permisos necesarios 🔒 MFA (doble factor) → seguridad extra 🛡️ Hardening → quitar servicios innecesarios 👀 Revisar accesos y permisos regularmente 📊 GESTIÓN DE DATOS 📁 DLP → evita fuga de datos sensibles 🕒 Política de retención → cuánto tiempo se guardan datos 🔍 eDiscovery → búsqueda de evidencias digitales 📜 RGPD → datos tratados de forma lícita, leal y transparente 🔐 CIFRADO 🚀 En tránsito → protege datos al enviarse (cliente-servidor) 💾 En reposo → protege datos almacenados (servidores/nube) 🔑 AUTENTICACIÓN 🌍 SAML → autenticación centralizada (SSO) 🔐 Control de acceso + identidad 👥 GESTIÓN DE USUARIOS 👨‍👩‍👧 Grupos → asignar permisos colectivos 🔄 Versionado → historial + restauración de cambios 🚨 INCIDENTES 📌 Plan de respuesta: Detección Contención Erradicación Recuperación Lecciones aprendidas ☁️ MODELOS CLOUD 💻 SaaS → software en Internet (sin instalación) Ej: Google Docs ⚡ RESUMEN EXPRESS (LO QUE MÁS CAE) Navegador + nube → ofimática web Internet obligatorio → desventaja MFA + mínimo privilegio → seguridad clave DLP → fuga de datos RGPD → tratamiento legal SAML → login centralizado Versionado → historial eDiscovery → evidencias SaaS → software online Hardening → reducir riesgos"
+                  "explanation": "Es lo contrario a SaaS."
                 }
               ],
               "correctOptionId": "c",
@@ -6712,7 +6712,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "HTTP",
-                  "explanation": "No es seguro, envía datos en texto plano. 🧾 CHULETA UT5 – PHP, FORMULARIOS Y SEGURIDAD 🌐 LADO SERVIDOR 💻 Lenguaje → PHP ⚙️ Función → procesar datos + generar contenido dinámico 🧱 Entorno → LAMP Linux + Apache + MySQL + PHP 📩 FORMULARIOS 🔐 Método seguro → POST (no visible en URL) ⚠️ GET → datos visibles (NO para datos sensibles) 📥 Recoger datos: POST → $_POST GET → $_GET 🔀 ESTRUCTURAS BÁSICAS PHP Condición → if...else Concatenación → . 🔐 SESIONES (MUY IMPORTANTE) ▶️ Iniciar sesión → session_start(); ❌ Eliminar sesión → session_destroy(); ⏱️ Tiempo máximo → session.gc_maxlifetime 👤 Identificación usuario → sesiones 🔒 SEGURIDAD 🛡️ Evitar XSS → htmlspecialchars() 🔐 Hash contraseñas → password_hash() 🔁 Evitar session fixation → regenerar ID sesión 🔒 Envío seguro → HTTPS SIEMPRE ⚠️ VULNERABILIDADES 💣 XSS → inyección de código en formularios 🚫 Nunca: Mostrar datos sin filtrar Usar md5() para contraseñas Usar GET para datos sensibles ⚙️ CONFIGURACIÓN 📄 Archivo clave → php.ini Controla comportamiento de PHP Sesiones, memoria, errores, etc. 🧩 SINTAXIS CLAVE Constantes → define(\"NOMBRE\", \"valor\"); PHP en HTML → <?php ... ?> ⚡ RESUMEN EXPRESS (LO QUE MÁS CAE) POST → datos seguros $_POST → recoger datos session_start → iniciar sesión session_destroy → cerrar sesión htmlspecialchars → evitar XSS password_hash → contraseñas HTTPS → obligatorio php.ini → configuración LAMP → entorno . → concatenar"
+                  "explanation": "No es seguro, envía datos en texto plano."
                 }
               ],
               "correctOptionId": "b",
@@ -7082,7 +7082,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "DELETE",
-                  "explanation": "No es sintaxis válida en MySQL. ❓ 14. ¿Qué método HTTP se utiliza preferentemente para enviar datos de formularios sensibles? Se usa para eliminar recursos, no para enviar formularios."
+                  "explanation": "No es sintaxis válida en MySQL. . ¿Qué método HTTP se utiliza preferentemente para enviar datos de formularios sensibles? Se usa para eliminar recursos, no para enviar formularios."
                 }
               ],
               "correctOptionId": "a",
@@ -7250,7 +7250,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "GitLab Runner",
-                  "explanation": "CI/CD, no testing de carga. 🧾 CHULETA UT6 – BASES DE DATOS + PHP 🗄️ BASES DE DATOS (FUNDAMENTAL) 📊 Función → almacenar y organizar datos 🆔 Clave primaria (PK) → identifica registros únicos 🔗 Clave foránea (FK) → relaciona tablas 🧠 SQL BÁSICO (MUY IMPORTANTE) 📥 Consultar datos → SELECT ➕ Insertar datos → INSERT ✏️ Modificar datos → UPDATE ❌ Eliminar datos → DELETE 🆕 Crear BD → CREATE DATABASE ⚙️ OPTIMIZACIÓN Y TESTING 🔍 Analizar consultas → EXPLAIN ⚡ Mejora rendimiento de queries 🔗 PHP + BASE DE DATOS 🔌 Conexión segura → PDO 📄 Archivo conexión → conexion.php (centralizar) 🧠 BD típica con PHP → MySQL 🔐 SEGURIDAD (CLAVE DE EXAMEN) 🛡️ Evitar SQL Injection → consultas preparadas 🔑 Hash contraseñas → password_hash() 🔒 Envío seguro → HTTPS ⚠️ Nunca: Concatenar SQL directamente Usar md5() o sha1() Mostrar errores en producción ⚠️ CONFIGURACIÓN PRODUCCIÓN 🚫 Mostrar errores → display_errors = Off 📝 Logs activos → log_errors = On 📄 Archivo → php.ini 📩 FORMULARIOS 🔐 Método seguro → POST ⚠️ GET → visible en URL ⚙️ HERRAMIENTAS 💾 Backup BD → mysqldump 📊 Test rendimiento → Apache JMeter 🔐 PRINCIPIOS SEGURIDAD 🔑 Mínimo privilegio → solo permisos necesarios ⚡ RESUMEN EXPRESS (LO QUE MÁS CAE) SELECT → consultar UPDATE → modificar DELETE → eliminar CREATE DATABASE → crear BD PK → identifica FK → relaciona PDO → conexión segura consultas preparadas → evitar SQLi password_hash → contraseñas php.ini → configuración display_errors OFF → producción EXPLAIN → rendimiento POST → datos sensibles"
+                  "explanation": "CI/CD, no testing de carga."
                 }
               ],
               "correctOptionId": "c",
@@ -7543,7 +7543,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "El encabezado XML",
-                  "explanation": "La declaración <?xml version=\"1.0\"?> no es el elemento raíz."
+                  "explanation": "La declaración <?xml version=\".0\"?> no es el elemento raíz."
                 }
               ],
               "correctOptionId": "c",
@@ -7898,12 +7898,12 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "ISO 8601",
-                  "explanation": "Atom utiliza el formato de fecha ISO 8601, que es un estándar internacional muy preciso (por ejemplo: 2026-04-22T10:30:00Z). Este formato permite indicar fecha, hora y zona horaria de forma clara."
+                  "explanation": "Atom utiliza el formato de fecha ISO 860, que es un estándar internacional muy preciso (por ejemplo: 06-0-T0:0:00Z). Este formato permite indicar fecha, hora y zona horaria de forma clara."
                 },
                 {
                   "id": "b",
                   "text": "Unix timestamp",
-                  "explanation": "Es un número entero de segundos desde 1970, no es el formato usado en Atom."
+                  "explanation": "Es un número entero de segundos desde 970, no es el formato usado en Atom."
                 },
                 {
                   "id": "c",
@@ -7954,7 +7954,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Feed Validation Service",
-                  "explanation": "El Feed Validation Service es la herramienta del W3C diseñada específicamente para comprobar que un feed RSS o Atom está bien estructurado y cumple los estándares."
+                  "explanation": "El Feed Validation Service es la herramienta del WC diseñada específicamente para comprobar que un feed RSS o Atom está bien estructurado y cumple los estándares."
                 },
                 {
                   "id": "b",
@@ -8346,17 +8346,17 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Tailwind",
-                  "explanation": "Es un framework utility-first, no basado en un sistema clásico de 12 columnas por defecto."
+                  "explanation": "Es un framework utility-first, no basado en un sistema clásico de columnas por defecto."
                 },
                 {
                   "id": "b",
                   "text": "Bootstrap",
-                  "explanation": "Bootstrap es un framework CSS muy popular que utiliza un sistema de rejilla de 12 columnas y ofrece muchos componentes predefinidos (botones, formularios, menús, etc.)."
+                  "explanation": "Bootstrap es un framework CSS muy popular que utiliza un sistema de rejilla de columnas y ofrece muchos componentes predefinidos (botones, formularios, menús, etc.)."
                 },
                 {
                   "id": "c",
                   "text": "Foundation",
-                  "explanation": "También usa grid, pero no es el más característico ni el que suelen preguntar con 12 columnas."
+                  "explanation": "También usa grid, pero no es el más característico ni el que suelen preguntar con columnas."
                 },
                 {
                   "id": "d",
@@ -8417,7 +8417,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "XML",
-                  "explanation": "Es el lenguaje base en el que se construyen RSS y Atom, pero no es en sí un formato de sindicación. 📄 CHULETA UT2 – Lenguajes de Marcas 🌐 HTML <!DOCTYPE html> → Indica que el documento es HTML5 <a> → Crear enlaces <img> → Insertar imágenes src → ruta alt → descripción (accesibilidad) lang → idioma del documento (<html lang=\"es\">) <section> → agrupa contenido con sentido (semántico) HTML vs XHTML → XHTML es más estricto (tipo XML) 🎨 CSS color → color del texto padding → espacio interno margin → espacio externo /* comentario */ → comentario en CSS 📐 Layouts Flexbox → 1 dimensión (fila o columna) Grid → 2 dimensiones (filas + columnas) 🧩 Frameworks Bootstrap → sistema de 12 columnas + componentes 📡 SINDICACIÓN (RSS y Atom) RSS Usa <channel> y <item> <guid> → identificador único Fechas → formato RFC 822 Atom Usa <feed> y <entry> Fechas → ISO 8601 Más moderno, flexible y extensible 🧪 VALIDACIÓN Feed Validation Service (W3C) → valida RSS/Atom XML bien formado → cumple reglas básicas (etiquetas cerradas, jerarquía, etc.) ⚙️ OTROS <meta charset=\"UTF-8\"> → codificación de caracteres XML → lenguaje de marcado (estructura datos) 💥 TIP para examen: Si ves 1D → Flexbox Si ves 2D → Grid Si ves <channel> → RSS Si ves fechas modernas → Atom"
+                  "explanation": "Es el lenguaje base en el que se construyen RSS y Atom, pero no es en sí un formato de sindicación."
                 }
               ],
               "correctOptionId": "a",
@@ -8805,7 +8805,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "W3C XML Schema Validator",
-                  "explanation": "El W3C XML Schema Validator es la herramienta que permite comprobar si un documento XML cumple con un esquema definido en XSD."
+                  "explanation": "El WC XML Schema Validator es la herramienta que permite comprobar si un documento XML cumple con un esquema definido en XSD."
                 },
                 {
                   "id": "c",
@@ -8983,7 +8983,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "Solo JSON",
-                  "explanation": "Tampoco está limitado a JSON ni es su uso típico. 📄 CHULETA UT3 – XML, XSLT, XSD, XPath 🔄 TRANSFORMACIONES XML XSLT → transformar XML a: HTML XML Texto plano <xsl:output> → define formato de salida 🧩 XSLT (lo más preguntado) <xsl:template> → define plantilla <xsl:apply-templates> → aplica plantillas <xsl:for-each> → recorre nodos <xsl:if> → condición simple <xsl:choose> + <xsl:when> → múltiples condiciones 🔍 XPATH Sirve para → seleccionar nodos en XML Se usa dentro de XSLT y Schematron 📐 XSD (XML Schema) Define: estructura tipos de datos restricciones <xs:element> → define elementos minOccurs → mínimo de veces que aparece un elemento 💡 Ventaja sobre DTD: Permite tipos de datos + restricciones 📜 DTD Define estructura básica del XML No permite tipos de datos avanzados 🧠 SCHEMATRON Permite: ✔️ reglas lógicas ✔️ validación de negocio Usa XPath 💥 Combo clave: XSD → estructura Schematron → lógica 🧪 VALIDACIÓN XML + XSD → estructura correcta Schematron → reglas complejas W3C XML Schema Validator → valida XML con XSD ⚙️ CONCEPTOS CLAVE EXAMEN XPath → seleccionar nodos XSLT → transformar XSD → validar estructura DTD → estructura básica Schematron → reglas lógicas ⚡ TIPOS DE PREGUNTA TRAMPA “Seleccionar nodos” → XPath “Transformar XML” → XSLT “Tipos de datos” → XSD “Reglas complejas” → Schematron “Iterar nodos” → <xsl:for-each> “Aplicar plantillas” → <xsl:apply-templates> 💥 Resumen en 1 línea (oro): 👉 XSLT transforma, XPath selecciona, XSD valida estructura, Schematron valida lógica."
+                  "explanation": "Tampoco está limitado a JSON ni es su uso típico."
                 }
               ],
               "correctOptionId": "c",
@@ -9549,7 +9549,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "Crear etiquetas",
-                  "explanation": "Eso se hace en return, no en order by. 📄 CHULETA UT4 – XQuery, XPath y Bases de Datos XML 🔍 XPATH Lenguaje para seleccionar nodos en XML 📌 Operadores clave: / → hijos directos // → todos los descendientes . → nodo actual .. → nodo padre @ → atributos ⚙️ XQUERY Lenguaje para consultar XML 📊 Estructura FLWOR: for → recorrer nodos let → variables where → filtrar order by → ordenar return → devolver resultado 🧩 CONSULTAS where → filtra order by → ordena return → resultado final 🗄️ BASES DE DATOS XML NXD (nativas XML) → almacenan XML directamente Ventaja → sin convertir a tablas ⚡ Indexación: Mejora velocidad de búsqueda 🔗 SQL/XML Combina SQL + XML (XPath/XQuery) Permite consultas híbridas 🔄 CONVERSIÓN XML-RELACIONAL XML → tablas Mapear estructura jerárquica a relacional 📦 SERIALIZACIÓN XML XML → secuencia de bytes Binaria → compacta y eficiente (no legible) 🌐 INTEROPERABILIDAD XML → mejor para intercambiar datos entre sistemas ⚡ PREGUNTAS CLAVE EXAMEN 👉 XPath → seleccionar nodos 👉 // → descendientes 👉 FLWOR → estructura XQuery 👉 where → filtrar 👉 order by → ordenar 👉 return → devolver resultado 👉 NXD → XML directo 👉 Indexación → velocidad 👉 SQL/XML → mezcla SQL + XML 👉 Serialización → bytes 💥 RESUMEN FINAL (ULTRA RÁPIDO) 👉 XPath selecciona 👉 XQuery consulta (FLWOR) 👉 NXD guarda XML 👉 SQL/XML mezcla datos 👉 Indexación = rapidez"
+                  "explanation": "Eso se hace en return, no en order by."
                 }
               ],
               "correctOptionId": "c",
@@ -9774,7 +9774,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "XSLT 3.0",
-                  "explanation": "XSLT 3.0 permite transformar XML a otros formatos, incluyendo JSON, utilizando plantillas y funciones específicas."
+                  "explanation": "XSLT .0 permite transformar XML a otros formatos, incluyendo JSON, utilizando plantillas y funciones específicas."
                 },
                 {
                   "id": "d",
@@ -9891,7 +9891,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "RPC",
-                  "explanation": "Son protocolos, no lenguajes de consulta. ❓ 8. ¿Qué estilo arquitectónico usa los métodos HTTP y puede transmitir datos en XML o JSON? Modelo de llamada remota, no estilo REST."
+                  "explanation": "Son protocolos, no lenguajes de consulta. 8. ¿Qué estilo arquitectónico usa los métodos HTTP y puede transmitir datos en XML o JSON? Modelo de llamada remota, no estilo REST."
                 }
               ],
               "correctOptionId": "c",
@@ -10031,7 +10031,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "XMLSchema",
-                  "explanation": "No mejora directamente el rendimiento de consultas. ❓ 9. ¿Qué estándar define mecanismos de seguridad como cifrado y firma digital en servicios SOAP? Validación de XML, no seguridad."
+                  "explanation": "No mejora directamente el rendimiento de consultas. 9. ¿Qué estándar define mecanismos de seguridad como cifrado y firma digital en servicios SOAP? Validación de XML, no seguridad."
                 }
               ],
               "correctOptionId": "b",
@@ -10113,22 +10113,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Usar una guía oficial sin cambios",
-                  "explanation": "Incorrecta ❌La UT1 deja claro que está prohibido copiar documentación oficial.Debe ser fruto de tu experiencia práctica."
+                  "explanation": "La documentación técnica debe reflejar la experiencia práctica propia, no ser una copia de un manual externo."
                 },
                 {
                   "id": "b",
                   "text": "Anotar pasos, comandos, resultados y capturas propias",
-                  "explanation": "En la UT1, en el bloque de Documentación Técnica de la Instalación, se insiste en que una documentación profesional debe: Registrar los pasos realizados Incluir los comandos ejecutados Mostrar los resultados obtenidos Incorporar capturas propias Permitir reproducir el proceso La documentación no es copiar teoría, sino dejar evidencia técnica real y verificable."
+                  "explanation": "Una documentación profesional registra los pasos realizados, los comandos ejecutados, los resultados obtenidos y las capturas propias, para que el proceso sea reproducible."
                 },
                 {
                   "id": "c",
                   "text": "Describir solo el sistema operativo",
-                  "explanation": "Incorrecta ❌Eso es solo una parte mínima.Faltan comandos, configuración, incidencias, verificación..."
+                  "explanation": "Describir solo el sistema operativo es una parte mínima; faltan comandos, configuración, incidencias y verificación."
                 },
                 {
                   "id": "d",
                   "text": "Redactar un texto breve sin capturas",
-                  "explanation": "Incorrecta ❌Las capturas son esenciales para demostrar autenticidad y proceso real."
+                  "explanation": "Las capturas son esenciales para demostrar que el proceso se realizó realmente."
                 }
               ],
               "correctOptionId": "b",
@@ -10141,22 +10141,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Generar informes de actividad",
-                  "explanation": "Incorrecta ❌Eso pertenece más a herramientas de monitorización o auditoría, no al módulo de recuperación."
+                  "explanation": "Los informes de actividad corresponden a herramientas de monitorización o auditoría, no al módulo de recuperación."
                 },
                 {
                   "id": "b",
                   "text": "Recuperar datos tras un fallo del sistema",
-                  "explanation": "En la UT1, dentro de los componentes fundamentales del SGBD, aparece el: 👉 Subsistema o módulo de recuperación Su función principal es: Restaurar la base de datos tras fallos Garantizar la consistencia Aplicar registros de log (redo/undo) Mantener la propiedad de durabilidad (D de ACID) Cuando ocurre: Caída del servidor Corte eléctrico Error crítico Este módulo permite volver a un estado consistente anterior."
+                  "explanation": "El módulo de recuperación restaura la base de datos a un estado consistente tras fallos como caídas del servidor o cortes eléctricos, aplicando registros de log (redo/undo)."
                 },
                 {
                   "id": "c",
                   "text": "Permitir la replicación de archivos multimedia",
-                  "explanation": "Incorrecta ❌La replicación es otro mecanismo distinto (alta disponibilidad), no el objetivo principal del módulo de recuperación."
+                  "explanation": "La replicación es un mecanismo distinto orientado a la alta disponibilidad, no la función del módulo de recuperación."
                 },
                 {
                   "id": "d",
                   "text": "Establecer relaciones entre tablas",
-                  "explanation": "Incorrecta ❌Eso corresponde al modelo relacional y a la integridad referencial, no al subsistema de recuperación."
+                  "explanation": "Establecer relaciones entre tablas corresponde al modelo relacional y la integridad referencial, no al subsistema de recuperación."
                 }
               ],
               "correctOptionId": "b",
@@ -10169,22 +10169,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Verificar que el sistema responde correctamente a consultas básicas",
-                  "explanation": "En la UT1, en el bloque de Verificación del funcionamiento, se indica que tras instalar un SGBD debemos comprobar que: El servicio está activo Se puede iniciar sesión El puerto está escuchando Se pueden ejecutar consultas básicas Ejemplos típicos: SHOW DATABASES; CREATE DATABASE prueba; La comprobación funcional sirve para demostrar que el SGBD no solo está instalado, sino que está operativo y funcional."
+                  "explanation": "Tras instalar un SGBD hay que comprobar que el servicio está activo, el puerto escucha y se pueden ejecutar consultas básicas como SHOW DATABASES."
                 },
                 {
                   "id": "b",
                   "text": "Confirmar que los logs se han vaciado",
-                  "explanation": "Incorrecta ❌Los logs no deben vaciarse tras la instalación; se usan para diagnóstico."
+                  "explanation": "Los logs no se vacían tras la instalación; se usan para diagnóstico."
                 },
                 {
                   "id": "c",
                   "text": "Cambiar el sistema de archivos",
-                  "explanation": "Incorrecta ❌Eso es configuración del sistema operativo, no verificación funcional."
+                  "explanation": "Cambiar el sistema de archivos es configuración del sistema operativo, no verificación funcional del SGBD."
                 },
                 {
                   "id": "d",
                   "text": "Asegurar la compatibilidad con el navegador",
-                  "explanation": "Incorrecta ❌Un SGBD no depende de navegador para funcionar (salvo herramientas web adicionales)."
+                  "explanation": "Un SGBD no depende del navegador para funcionar."
                 }
               ],
               "correctOptionId": "a",
@@ -10197,22 +10197,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Documental NoSQL",
-                  "explanation": "MongoDB pertenece al grupo de bases de datos NoSQL, y dentro de ellas es de tipo documental. Esto significa que: No usa tablas relacionales tradicionales. No trabaja con filas y columnas como MySQL o PostgreSQL. Almacena la información en documentos en formato similar a JSON (BSON internamente). Es flexible en estructura (no requiere esquema rígido). En la UT1 aparece dentro de la clasificación de SGBD NoSQL documentales."
+                  "explanation": "MongoDB es un SGBD NoSQL de tipo documental: almacena datos en documentos con formato similar a JSON (BSON), sin necesidad de esquema fijo ni tablas relacionales."
                 },
                 {
                   "id": "b",
                   "text": "Relacional",
-                  "explanation": "Incorrecta ❌Las relacionales usan tablas y SQL (ej: MySQL, PostgreSQL)."
+                  "explanation": "Las bases relacionales usan tablas y SQL, como MySQL o PostgreSQL."
                 },
                 {
                   "id": "c",
                   "text": "Grafos",
-                  "explanation": "Incorrecta ❌Las bases de datos de grafos están pensadas para relaciones complejas tipo nodos y aristas (ej: Neo4j)."
+                  "explanation": "Las bases de grafos están diseñadas para relaciones complejas tipo nodos y aristas, como Neo4j."
                 },
                 {
                   "id": "d",
-                  "text": "Orientada a objetos: Incorrecta",
-                  "explanation": "Las orientadas a objetos almacenan objetos directamente (ej: db4o)."
+                  "text": "Orientada a objetos",
+                  "explanation": "Las bases orientadas a objetos almacenan objetos directamente, como db4o."
                 }
               ],
               "correctOptionId": "a",
@@ -10225,22 +10225,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Neo4j",
-                  "explanation": "Incorrecta ❌Es una base de datos de grafos. Está pensada para relaciones complejas tipo redes sociales o recomendaciones, no para e-commerce tradicional."
+                  "explanation": "Neo4j es una base de datos de grafos, pensada para relaciones complejas tipo redes sociales, no para e-commerce tradicional."
                 },
                 {
                   "id": "b",
                   "text": "SQLite",
-                  "explanation": "Incorrecta ❌Es ligera y embebida. No es adecuada para múltiples usuarios concurrentes en producción."
+                  "explanation": "SQLite es ligera y embebida; no es adecuada para múltiples usuarios concurrentes en producción."
                 },
                 {
                   "id": "c",
                   "text": "MySQL",
-                  "explanation": "Para una tienda online de tamaño medio se necesita: Base de datos relacional Soporte para múltiples usuarios concurrentes Gestión de transacciones (pedidos, pagos, stock) Integridad referencial Buen rendimiento Coste razonable MySQL cumple perfectamente estos requisitos: Es relacional. Usa SQL estándar. Soporta transacciones (InnoDB). Es ampliamente usado en aplicaciones web. Tiene buena relación rendimiento / coste. Es muy común en e-commerce. En la UT1 se menciona como gestor típico para aplicaciones web, CMS y sistemas empresariales ligeros."
+                  "explanation": "MySQL es relacional, soporta transacciones (pedidos, pagos, stock), gestiona bien la concurrencia y tiene buen rendimiento para aplicaciones web de tamaño medio."
                 },
                 {
                   "id": "d",
                   "text": "Oracle Autonomous DB",
-                  "explanation": "Incorrecta ❌Es muy potente pero excesiva y costosa para una tienda online de tamaño medio. Se usa en grandes entornos empresariales."
+                  "explanation": "Oracle Autonomous DB es muy potente pero excesivamente costoso para una tienda online de tamaño medio."
                 }
               ],
               "correctOptionId": "c",
@@ -10253,22 +10253,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Considerar la seguridad",
-                  "explanation": "Incorrecta ❌La seguridad es fundamental en producción. Nunca debe ignorarse."
+                  "explanation": "La seguridad es fundamental en producción y nunca debe ignorarse."
                 },
                 {
                   "id": "b",
                   "text": "Ignorar requisitos de rendimiento y escalabilidad",
-                  "explanation": "En la UT1, cuando se habla de criterios de selección del SGBD, se insiste en que antes de elegir uno para producción hay que analizar: Volumen de datos esperado Escalabilidad horizontal o vertical Picos de carga Rendimiento bajo concurrencia Disponibilidad Ignorar estos aspectos en un entorno de producción es un error grave, porque puede provocar: Caídas del servicio Lentitud Saturación del sistema Mala experiencia de usuario Por eso, lo que se debe evitar es no analizar rendimiento y escalabilidad."
+                  "explanation": "No analizar el volumen de datos, la escalabilidad y los picos de carga puede causar caídas del servicio, lentitud o saturación en producción."
                 },
                 {
                   "id": "c",
                   "text": "Confirmar soporte técnico",
-                  "explanation": "Incorrecta ❌Es un criterio importante, especialmente en entornos empresariales."
+                  "explanation": "El soporte técnico es un criterio importante, especialmente en entornos empresariales."
                 },
                 {
                   "id": "d",
                   "text": "Verificar compatibilidad con el sistema",
-                  "explanation": "Incorrecta ❌Es obligatorio comprobar compatibilidad de sistema operativo y entorno."
+                  "explanation": "Es obligatorio comprobar la compatibilidad con el sistema operativo y el entorno."
                 }
               ],
               "correctOptionId": "b",
@@ -10281,22 +10281,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "SQL Developer",
-                  "explanation": "Incorrecta ❌Es una herramienta de Oracle Database, no para instalar MySQL."
+                  "explanation": "SQL Developer es una herramienta de Oracle Database, no para instalar MySQL."
                 },
                 {
                   "id": "b",
                   "text": "MySQL Installer",
-                  "explanation": "En Windows, MySQL se instala normalmente mediante una herramienta gráfica llamada: 👉 MySQL Installer Esta herramienta permite: Descargar e instalar MySQL Server Instalar MySQL Workbench Configurar el puerto (3306 por defecto) Crear usuario root Seleccionar tipo de autenticación Gestionar componentes adicionales Es el método GUI más habitual en entornos Windows, especialmente en formación o equipos de desarrollo."
+                  "explanation": "MySQL Installer es la herramienta gráfica oficial para Windows que permite instalar MySQL Server, configurar el puerto y el usuario root, y gestionar componentes adicionales."
                 },
                 {
                   "id": "c",
                   "text": "PGAdmin",
-                  "explanation": "Incorrecta ❌Es herramienta gráfica para PostgreSQL, no MySQL."
+                  "explanation": "PGAdmin es la herramienta gráfica para PostgreSQL, no para MySQL."
                 },
                 {
                   "id": "d",
                   "text": "Docker Compose",
-                  "explanation": "Incorrecta ❌ Puede usarse para desplegar contenedores, pero no es la herramienta habitual para instalación estándar en Windows."
+                  "explanation": "Docker Compose puede desplegar contenedores, pero no es la herramienta habitual para instalación estándar de MySQL en Windows."
                 }
               ],
               "correctOptionId": "b",
@@ -10309,22 +10309,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Se iniciará automáticamente con el sistema",
-                  "explanation": "En Linux (con systemd), cuando un servicio está “habilitado” significa que: 👉 Está configurado para arrancar automáticamente cuando el sistema inicia. Ejemplo con MySQL: sudo systemctl enable mysql Esto no lo inicia en ese momento, sino que configura el arranque automático. Es diferente de: sudo systemctl start mysql Que lo inicia en ese instante."
+                  "explanation": "Habilitar un servicio con systemctl enable configura el arranque automático al inicio del sistema; es distinto de start, que lo inicia en ese momento."
                 },
                 {
                   "id": "b",
                   "text": "Solo funciona con acceso a Internet",
-                  "explanation": "Incorrecta ❌Un servicio puede funcionar localmente sin conexión externa."
+                  "explanation": "Un servicio puede funcionar localmente sin ninguna conexión externa."
                 },
                 {
                   "id": "c",
                   "text": "Se ejecuta con permisos de usuario limitado",
-                  "explanation": "Incorrecta ❌Eso depende de cómo esté configurado el servicio, no del estado “habilitado”."
+                  "explanation": "Los permisos de ejecución dependen de la configuración del servicio, no del estado habilitado."
                 },
                 {
                   "id": "d",
                   "text": "Está disponible para la nube",
-                  "explanation": "Incorrecta ❌No tiene relación con servicios cloud."
+                  "explanation": "El estado habilitado no tiene relación con servicios cloud."
                 }
               ],
               "correctOptionId": "a",
@@ -10337,22 +10337,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Solo funciona en Windows",
-                  "explanation": "Incorrecta ❌Es multiplataforma (Linux, Windows, macOS)."
+                  "explanation": "PostgreSQL es multiplataforma: funciona en Linux, Windows y macOS."
                 },
                 {
                   "id": "b",
                   "text": "Soporta funciones definidas por el usuario y extensiones",
-                  "explanation": "PostgreSQL se caracteriza por ser un SGBD: Muy completo Altamente extensible Compatible con estándares SQL Capaz de crear funciones definidas por el usuario (UDF) Capaz de añadir extensiones (PostGIS, pgcrypto, etc.) Permite tipos de datos personalizados Esa capacidad de ampliación y personalización es una de sus grandes fortalezas frente a otros gestores más cerrados."
+                  "explanation": "PostgreSQL destaca por su alta extensibilidad: permite crear funciones propias, añadir extensiones como PostGIS o pgcrypto y definir tipos de datos personalizados."
                 },
                 {
                   "id": "c",
                   "text": "No es compatible con SQL",
-                  "explanation": "Incorrecta ❌Es uno de los gestores más fieles al estándar SQL."
+                  "explanation": "PostgreSQL es uno de los gestores más fieles al estándar SQL."
                 },
                 {
                   "id": "d",
-                  "text": "No soporta tipos personalizados Incorrecta",
-                  "explanation": "Justamente es conocido por permitir crear tipos personalizados."
+                  "text": "No soporta tipos personalizados",
+                  "explanation": "Precisamente es conocido por permitir crear tipos de datos personalizados."
                 }
               ],
               "correctOptionId": "b",
@@ -10365,22 +10365,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Sistema de gestión académica",
-                  "explanation": "Las bases de datos relacionales están diseñadas para: Datos estructurados Tablas con relaciones claras Integridad referencial Transacciones Consultas complejas con SQL Un sistema de gestión académica necesita: Alumnos Profesores Asignaturas Matrículas Calificaciones Relaciones entre tablas Este tipo de estructura encaja perfectamente con el modelo relacional. En la UT1 se mencionan ejemplos como educación, banca, administración pública, etc., como casos típicos de uso relacional."
+                  "explanation": "Un sistema académico (alumnos, asignaturas, matrículas, calificaciones) tiene datos estructurados con relaciones claras entre tablas, lo que encaja perfectamente con el modelo relacional."
                 },
                 {
                   "id": "b",
                   "text": "Almacenamiento de sensores IoT en tiempo real",
-                  "explanation": "Incorrecta ❌Suele ser más adecuado para bases NoSQL o bases de datos orientadas a series temporales (InfluxDB)."
+                  "explanation": "Los datos de sensores IoT en tiempo real requieren bases NoSQL o de series temporales como InfluxDB, mejor adaptadas a escrituras masivas y continuas."
                 },
                 {
                   "id": "c",
                   "text": "Recomendaciones personalizadas en redes sociales",
-                  "explanation": "Incorrecta ❌Normalmente se utilizan bases de datos de grafos o sistemas distribuidos."
+                  "explanation": "Las recomendaciones basadas en relaciones complejas entre usuarios se gestionan mejor con bases de grafos o sistemas distribuidos."
                 },
                 {
                   "id": "d",
                   "text": "Mapas de relaciones entre usuarios",
-                  "explanation": "Incorrecta ❌Eso es típico de bases de datos de grafos como Neo4j."
+                  "explanation": "Los mapas de relaciones entre usuarios son el caso típico de bases de datos de grafos como Neo4j."
                 }
               ],
               "correctOptionId": "a",
@@ -10393,22 +10393,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "5432",
-                  "explanation": "Cada SGBD tiene un puerto por defecto para escuchar conexiones: PostgreSQL → 5432 MySQL → 3306 SQL Server → 1433 Oracle → 1521 MongoDB → 27017 El puerto es el canal lógico por el que el servidor recibe conexiones de clientes. En PostgreSQL, el puerto 5432 está definido por defecto en el archivo de configuración postgresql.conf, aunque puede modificarse por seguridad o conflictos."
+                  "explanation": "PostgreSQL usa el puerto 5432 por defecto, definido en postgresql.conf. Referencia: MySQL→3306, SQL Server→1433, Oracle→1521."
                 },
                 {
                   "id": "b",
                   "text": "3306",
-                  "explanation": "Incorrecta ❌Es el puerto por defecto de MySQL."
+                  "explanation": "El puerto 3306 es el predeterminado de MySQL, no de PostgreSQL."
                 },
                 {
                   "id": "c",
                   "text": "8080",
-                  "explanation": "Incorrecta ❌Es un puerto común para servidores web alternativos (HTTP)."
+                  "explanation": "El puerto 8080 es un alternativo habitual para servidores web HTTP."
                 },
                 {
                   "id": "d",
-                  "text": "1521 Incorrecta",
-                  "explanation": "Es el puerto por defecto de Oracle Database."
+                  "text": "1521",
+                  "explanation": "El puerto 1521 es el predeterminado de Oracle Database."
                 }
               ],
               "correctOptionId": "a",
@@ -10421,22 +10421,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Instalación por terminal (CLI)",
-                  "explanation": "CLI significa Command Line Interface (Interfaz de Línea de Comandos). Permite instalar software mediante comandos en consola, sin entorno gráfico. Ejemplo típico en Linux: sudo apt update sudo apt install mysql-server Este método es: Más común en servidores Automatizable Más profesional en entornos productivos Ideal para sistemas Linux sin interfaz gráfica En la UT1 se menciona como alternativa a la instalación GUI."
+                  "explanation": "La instalación por CLI (Command Line Interface) usa comandos de consola como apt install mysql-server en Linux, sin necesitar entorno gráfico; es el método habitual en servidores de producción."
                 },
                 {
                   "id": "b",
                   "text": "GUI",
-                  "explanation": "Incorrecta ❌GUI significa Graphical User Interface, es decir, con entorno gráfico."
+                  "explanation": "GUI significa interfaz gráfica de usuario; es lo contrario de lo que pregunta."
                 },
                 {
                   "id": "c",
                   "text": "Interfaz táctil",
-                  "explanation": "Incorrecta ❌No es una técnica de instalación en servidores."
+                  "explanation": "La interfaz táctil no es un método de instalación en servidores."
                 },
                 {
                   "id": "d",
                   "text": "Modo seguro",
-                  "explanation": "Incorrecta ❌Es un modo de arranque del sistema, no un método de instalación del SGBD."
+                  "explanation": "El modo seguro es un modo de arranque del sistema, no un método de instalación del SGBD."
                 }
               ],
               "correctOptionId": "a",
@@ -10449,22 +10449,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "/etc/mysql/logfile",
-                  "explanation": "Incorrecta ❌/etc/ se usa para archivos de configuración, no para logs."
+                  "explanation": "/etc/ contiene archivos de configuración, no logs de servicios."
                 },
                 {
                   "id": "b",
                   "text": "/usr/bin/mysql/logs",
-                  "explanation": "Incorrecta ❌/usr/bin/ contiene ejecutables, no registros."
+                  "explanation": "/usr/bin/ contiene ejecutables del sistema, no registros de errores."
                 },
                 {
                   "id": "c",
                   "text": "/home/mysql/logs",
-                  "explanation": "Incorrecta ❌No es una ubicación estándar del sistema para logs de servicios."
+                  "explanation": "No es una ubicación estándar del sistema para logs de servicios."
                 },
                 {
                   "id": "d",
                   "text": "/var/log/mysql/error.log",
-                  "explanation": "En sistemas Linux, los archivos de log de servicios suelen almacenarse en: /var/log/ En el caso de MySQL, la ubicación habitual del log de errores es: /var/log/mysql/error.log (O en algunas distribuciones puede aparecer como /var/log/mysqld.log). Este archivo registra: Errores al iniciar el servicio Problemas de permisos Conflictos de puerto Fallos de autenticación Problemas en la configuración Es la primera fuente que se consulta cuando el SGBD no arranca correctamente."
+                  "explanation": "En Linux, los logs de servicios se almacenan en /var/log/; el log de errores de MySQL está en /var/log/mysql/error.log y es la primera fuente a consultar cuando el SGBD no arranca."
                 }
               ],
               "correctOptionId": "d",
@@ -10477,22 +10477,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Volver a compilar la base de datos",
-                  "explanation": "Incorrecta ❌No se recompila el SGBD tras modificar configuración estándar."
+                  "explanation": "No se recompila el SGBD tras modificar la configuración estándar."
                 },
                 {
                   "id": "b",
                   "text": "Eliminar todos los usuarios",
-                  "explanation": "Incorrecta ❌No tiene ninguna relación con cambios de configuración."
+                  "explanation": "Eliminar usuarios no tiene ninguna relación con cambios de configuración."
                 },
                 {
                   "id": "c",
                   "text": "Reiniciar el servicio del gestor",
-                  "explanation": "Cuando modificas el archivo de configuración de un SGBD (por ejemplo: my.cnf en MySQL postgresql.conf en PostgreSQL Los cambios no se aplican automáticamente. Para que el sistema cargue la nueva configuración es necesario: 👉 Reiniciar el servicio. En Linux, por ejemplo: sudo systemctl restart mysql Sin reiniciar, el servicio seguirá funcionando con la configuración anterior."
+                  "explanation": "Los cambios en archivos como my.cnf (MySQL) o postgresql.conf no se aplican automáticamente; hay que reiniciar el servicio con systemctl restart para cargar la nueva configuración."
                 },
                 {
                   "id": "d",
-                  "text": "Cambiar de sistema operativo Incorrecta",
-                  "explanation": "No es necesario ni lógico tras modificar un archivo de configuración."
+                  "text": "Cambiar de sistema operativo",
+                  "explanation": "No es necesario ni tiene relación con modificar un archivo de configuración."
                 }
               ],
               "correctOptionId": "c",
@@ -10505,22 +10505,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Visualizar el esquema de la base de datos",
-                  "explanation": "Incorrecta ❌Eso lo hacen herramientas gráficas como Workbench o pgAdmin."
+                  "explanation": "Visualizar el esquema lo hacen herramientas gráficas como MySQL Workbench o pgAdmin."
                 },
                 {
                   "id": "b",
                   "text": "Ejecutar sentencias de red",
-                  "explanation": "Incorrecta ❌Eso corresponde al sistema de red o comunicación cliente-servidor."
+                  "explanation": "La ejecución de sentencias de red corresponde al módulo de comunicación cliente-servidor."
                 },
                 {
                   "id": "c",
                   "text": "Interpretar lenguaje HTML",
-                  "explanation": "Incorrecta ❌HTML es lenguaje web, no función de un SGBD."
+                  "explanation": "HTML es un lenguaje web sin ninguna relación con las funciones de un SGBD."
                 },
                 {
                   "id": "d",
                   "text": "Gestionar el almacenamiento físico de los datos",
-                  "explanation": "El motor de almacenamiento es uno de los componentes fundamentales del SGBD. Su función es: Gestionar cómo se almacenan físicamente los datos en disco Administrar archivos de datos Manejar índices Controlar lectura y escritura Participar en la recuperación ante fallos En MySQL, por ejemplo, existen distintos motores como: InnoDB (transaccional, más usado) MyISAM El motor no interpreta SQL (eso lo hace el procesador de consultas), sino que trabaja a nivel interno con almacenamiento físico."
+                  "explanation": "El motor de almacenamiento gestiona cómo se escriben y leen los datos en disco, maneja índices y participa en la recuperación ante fallos. En MySQL, InnoDB es el motor más usado por soportar transacciones."
                 }
               ],
               "correctOptionId": "d",
@@ -10533,22 +10533,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "“Access denied for user 'root'@'localhost'”",
-                  "explanation": "Tras instalar un SGBD (como MySQL), uno de los errores más comunes es: Access denied for user 'root'@'localhost' Este error indica que: La contraseña es incorrecta El método de autenticación no coincide El usuario root no tiene permisos correctos El acceso está restringido Es un error típico de configuración inicial tras la instalación. En la UT1 aparece como ejemplo de error común que debe saberse interpretar y resolver."
+                  "explanation": "Este error indica que la contraseña es incorrecta, el método de autenticación no coincide o el usuario root no tiene los permisos adecuados; es el error más frecuente en la configuración inicial."
                 },
                 {
                   "id": "b",
                   "text": "“404: página no encontrada”",
-                  "explanation": "Incorrecta ❌Es un error HTTP de servidores web, no de SGBD."
+                  "explanation": "El error 404 es un código HTTP de servidores web, no de SGBD."
                 },
                 {
                   "id": "c",
                   "text": "“Fatal error: division by zero”",
-                  "explanation": "Incorrecta ❌Es un error lógico o de programación, no específico de instalación de SGBD."
+                  "explanation": "Division by zero es un error lógico de programación, no específico de instalaciones de SGBD."
                 },
                 {
                   "id": "d",
                   "text": "“File not found: documento.txt”",
-                  "explanation": "Incorrecta ❌Es un error genérico de archivos del sistema, no típico del SGBD tras instalar."
+                  "explanation": "File not found es un error genérico del sistema de archivos, no típico del SGBD tras instalar."
                 }
               ],
               "correctOptionId": "a",
@@ -10561,22 +10561,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "sudo systemctl start mysql",
-                  "explanation": "En sistemas Linux modernos (que usan systemd), los servicios se gestionan con el comando: systemctl Para iniciar MySQL se usa: sudo systemctl start mysql Otros comandos relacionados: sudo systemctl stop mysql sudo systemctl restart mysql sudo systemctl status mysql sudo systemctl enable mysql Este es el método estándar en distribuciones como Ubuntu, Debian, CentOS (versiones modernas)."
+                  "explanation": "En Linux con systemd, systemctl start mysql inicia el servicio en ese momento. Otros usos: stop para parar, restart para reiniciar, enable para que arranque automáticamente."
                 },
                 {
                   "id": "b",
                   "text": "launch mysql-server",
-                  "explanation": "Incorrecta ❌No es un comando válido en Linux estándar."
+                  "explanation": "launch mysql-server no es un comando válido en Linux estándar."
                 },
                 {
                   "id": "c",
                   "text": "sudo service mysql run",
-                  "explanation": "Incorrecta ❌En sistemas antiguos se usaba service mysql start, no run."
+                  "explanation": "En sistemas con sysvinit se usaba service mysql start, no run."
                 },
                 {
                   "id": "d",
-                  "text": "mysql-start Incorrecta",
-                  "explanation": "No existe como comando oficial del sistema."
+                  "text": "mysql-start",
+                  "explanation": "mysql-start no existe como comando oficial del sistema."
                 }
               ],
               "correctOptionId": "a",
@@ -10589,22 +10589,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Unidad óptica",
-                  "explanation": "Incorrecta ❌No es un requisito relevante para un servidor de bases de datos."
+                  "explanation": "Una unidad óptica no es un requisito relevante para un servidor de bases de datos."
                 },
                 {
                   "id": "b",
                   "text": "Teclado inalámbrico",
-                  "explanation": "Incorrecta ❌Es un periférico, no un requisito técnico del SGBD."
+                  "explanation": "El teclado inalámbrico es un periférico de usuario, no un requisito técnico del SGBD."
                 },
                 {
                   "id": "c",
                   "text": "512 MB de RAM",
-                  "explanation": "Incorrecta ❌Es insuficiente para un SGBD moderno. El mínimo orientativo suele ser 2 GB."
+                  "explanation": "512 MB de RAM es insuficiente para un SGBD moderno; el mínimo orientativo suele ser 2 GB."
                 },
                 {
                   "id": "d",
                   "text": "4 núcleos de CPU",
-                  "explanation": "En la UT1, cuando se habla de requisitos hardware orientativos para instalar un SGBD, se menciona: Mínimo: 2 núcleos de CPU Recomendado: 4 núcleos o más RAM mínima: 2 GB Recomendado: 8 GB o más Por tanto, 4 núcleos encaja como requisito recomendado en entornos con concurrencia o producción ligera."
+                  "explanation": "Para un SGBD con concurrencia se recomiendan al menos 4 núcleos de CPU y 8 GB de RAM; con menos recursos el rendimiento bajo carga puede verse comprometido."
                 }
               ],
               "correctOptionId": "d",
@@ -10617,22 +10617,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Crear usuario específico para el SGBD",
-                  "explanation": "Incorrecta ❌Sí forma parte de la preparación."
+                  "explanation": "Crear un usuario dedicado sí forma parte de la preparación; limita el impacto de posibles problemas de seguridad."
                 },
                 {
                   "id": "b",
                   "text": "Desactivar el puerto de red",
-                  "explanation": "En la UT1, dentro del bloque Preparación del entorno, se incluyen acciones como: Crear un usuario específico para el SGBD Preparar directorios para datos, logs y backups Descargar el software desde la web oficial Comprobar compatibilidades Lo que no forma parte de la preparación es desactivar el puerto de red. Al contrario: 👉 El puerto debe estar disponible y habilitado para que el SGBD pueda escuchar conexiones (por ejemplo, 3306 en MySQL). Cerrar o desactivar el puerto impediría el funcionamiento normal del servicio."
+                  "explanation": "El puerto de red debe estar disponible para que el SGBD reciba conexiones; desactivarlo impediría el funcionamiento del servicio."
                 },
                 {
                   "id": "c",
                   "text": "Reservar espacio para logs y backups",
-                  "explanation": "Incorrecta ❌Es una buena práctica fundamental."
+                  "explanation": "Reservar espacio para logs y backups es una buena práctica fundamental."
                 },
                 {
                   "id": "d",
                   "text": "Descargar el instalador desde la web oficial",
-                  "explanation": "Incorrecta ❌Es uno de los pasos iniciales de preparación."
+                  "explanation": "Descargar el instalador desde la web oficial es uno de los primeros pasos en la preparación del entorno."
                 }
               ],
               "correctOptionId": "b",
@@ -10645,22 +10645,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Durabilidad",
-                  "explanation": "Atomicidad Sí forma parte de ACID."
+                  "explanation": "Durabilidad (D de ACID) sí forma parte: garantiza que los cambios confirmados persisten aunque haya un fallo posterior."
                 },
                 {
                   "id": "b",
                   "text": "Integridad",
-                  "explanation": "Las propiedades ACID garantizan la fiabilidad de las transacciones en un SGBD:"
+                  "explanation": "Integridad no es una propiedad ACID. Las cuatro propiedades son: Atomicidad, Consistencia, Aislamiento y Durabilidad."
                 },
                 {
                   "id": "c",
                   "text": "Consistencia",
-                  "explanation": "Consistencia I → Aislamiento Sí forma parte de ACID."
+                  "explanation": "Consistencia (C de ACID) sí forma parte: la base de datos pasa siempre de un estado válido a otro válido."
                 },
                 {
                   "id": "d",
                   "text": "Atomicidad",
-                  "explanation": "Durabilidad La palabra “Integridad” no forma parte del acrónimo ACID. Aunque la integridad de datos es importante en un SGBD (integridad referencial, restricciones, etc.), no es una propiedad ACID. 🔎 Recordatorio rápido de ACID 🔹 Atomicidad: Una transacción se ejecuta completamente o no se ejecuta. 🔹 Consistencia: La base de datos pasa de un estado válido a otro válido. 🔹 Aislamiento: Las transacciones no interfieren entre sí. 🔹 Durabilidad: Una vez confirmada, la transacción no se pierde aunque haya fallos. Sí forma parte de ACID."
+                  "explanation": "Atomicidad (A de ACID) sí forma parte: una transacción se completa entera o no se aplica."
                 }
               ],
               "correctOptionId": "b",
@@ -10707,7 +10707,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "1521",
-                  "explanation": "El puerto 1521 es el que utiliza Oracle Database por defecto para las conexiones mediante el listener (servicio que gestiona las conexiones de clientes)."
+                  "explanation": "El puerto 5 es el que utiliza Oracle Database por defecto para las conexiones mediante el listener (servicio que gestiona las conexiones de clientes)."
                 },
                 {
                   "id": "b",
@@ -11226,7 +11226,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "pgAdmin",
-                  "explanation": "Es la herramienta gráfica de PostgreSQL. 🧠 CHULETA UT2 – ASGBD (Administración SGBD) 🔌 Conexiones y configuración wait_timeout (MySQL) → Tiempo máximo de inactividad de una conexión bind_address → IP desde la que el servidor acepta conexiones max_connections (PostgreSQL) → No máximo de conexiones simultáneas datadir (MySQL) → Ruta donde se almacenan los datos pg_hba.conf (PostgreSQL) → Controla accesos y autenticación 🌐 Puertos por defecto MySQL → 3306 PostgreSQL → 5432 Oracle → 1521 SQL Server → 1433 📄 Logs en MySQL Binary log → Registra cambios (replicación) General log → Todas las consultas Slow query log → Consultas lentas Error log → Errores del servidor ▶️ Gestión de servicios MySQL stop → mysqladmin shutdown PostgreSQL start (Linux) → systemctl start postgresql SQL Server (Windows) → net start/stop MSSQLSERVER ✔ Importancia: Controlar disponibilidad Evitar pérdida de datos Paradas seguras ⚙️ Buenas prácticas 🔒 Deshabilitar acceso remoto a root 📁 Hacer copia antes de modificar configuración 🔄 Automatizar arranque del SGBD 📊 Usar documentación y versionado (Git) 🧾 Mantener registro de cambios (trazabilidad) 🔐 Seguridad SSL/TLS → Cifrado de comunicaciones Evitar: ❌ Compartir credenciales ❌ Acceso desde cualquier IP ❌ Sin contraseña 🛠️ Herramientas MySQL Workbench → Gestión gráfica MySQL pgAdmin → PostgreSQL SQL Developer → Oracle Git → Versionado de configuración 🚀 Claves para examen Timeout = conexiones Logs = tipo de información Puertos = MUY preguntados Configuración = my.cnf / pg_hba.conf Seguridad = siempre sentido común"
+                  "explanation": "Es la herramienta gráfica de PostgreSQL. CHULETA UT – ASGBD (Administración SGBD) Conexiones y configuración wait_timeout (MySQL) → Tiempo máximo de inactividad de una conexión bind_address → IP desde la que el servidor acepta conexiones max_connections (PostgreSQL) → No máximo de conexiones simultáneas datadir (MySQL) → Ruta donde se almacenan los datos pg_hba.conf (PostgreSQL) → Controla accesos y autenticación Puertos por defecto MySQL → 06 PostgreSQL → 5 Oracle → 5 SQL Server → Logs en MySQL Binary log → Registra cambios (replicación) General log → Todas las consultas Slow query log → Consultas lentas Error log → Errores del servidor ▶ Gestión de servicios MySQL stop → mysqladmin shutdown PostgreSQL start (Linux) → systemctl start postgresql SQL Server (Windows) → net start/stop MSSQLSERVER Importancia: Controlar disponibilidad Evitar pérdida de datos Paradas seguras Buenas prácticas Deshabilitar acceso remoto a root Hacer copia antes de modificar configuración Automatizar arranque del SGBD Usar documentación y versionado (Git) Mantener registro de cambios (trazabilidad) Seguridad SSL/TLS → Cifrado de comunicaciones Evitar: Compartir credenciales Acceso desde cualquier IP Sin contraseña Herramientas MySQL Workbench → Gestión gráfica MySQL pgAdmin → PostgreSQL SQL Developer → Oracle Git → Versionado de configuración Claves para examen Timeout = conexiones Logs = tipo de información Puertos = MUY preguntados Configuración = my.cnf / pg_hba.conf Seguridad = siempre sentido común"
                 }
               ],
               "correctOptionId": "b",
@@ -11423,7 +11423,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "Ley Orgánica 3/2018",
-                  "explanation": "La Ley Orgánica 3/2018 (LOPDGDD) adapta en España el Reglamento Europeo de Protección de Datos (RGPD) y regula el tratamiento de datos personales."
+                  "explanation": "La Ley Orgánica /08 (LOPDGDD) adapta en España el Reglamento Europeo de Protección de Datos (RGPD) y regula el tratamiento de datos personales."
                 },
                 {
                   "id": "d",
@@ -11792,7 +11792,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "Alias",
-                  "explanation": "Es temporal en consultas, no controla acceso permanente. 🧠 CHULETA UT3 – ASGBD (Seguridad y Control de Acceso) 🔐 Modelos de control de acceso RBAC → Basado en roles (más usado) DAC → El propietario decide permisos MAC → Basado en niveles de seguridad ABAC → Basado en atributos 👤 Usuarios y roles CREATE USER → Crear usuario DROP USER → Eliminar usuario CREATE ROLE → Crear rol GRANT rol TO usuario → Asignar rol REVOKE → Quitar permisos ✔ Rol = agrupa permisos ✔ Usuario = recibe permisos 🔑 Privilegios SELECT → Leer datos INSERT → Añadir datos UPDATE → Modificar datos DELETE → Eliminar datos CREATE → Crear objetos ALTER → Modificar estructura SUPER → Privilegio de sistema 🔍 Consultas de permisos SHOW GRANTS → Ver permisos de un usuario FLUSH PRIVILEGES → Recargar permisos sin reiniciar 🛡️ Seguridad (MUY IMPORTANTE) 🔒 Principio de mínimo privilegio → Solo lo necesario 🧾 Trazabilidad → Saber quién hizo qué y cuándo 📊 Auditoría → Registro de acciones ❌ Evitar: Contraseñas por defecto Accesos sin cifrado Privilegios globales innecesarios 🌍 Normativa 🇪🇸 Ley Orgánica 3/2018 (LOPDGDD) → Protección de datos en España 🧩 Objetos útiles Vista (VIEW) → Limitar acceso a datos (columnas/filas) Sinónimo → Nombre alternativo de tabla/vista 🚀 Claves para examen GRANT = dar permisos REVOKE = quitar permisos RBAC = roles SHOW GRANTS = ver permisos Seguridad = mínimo privilegio + trazabilidad"
+                  "explanation": "Es temporal en consultas, no controla acceso permanente. CHULETA UT – ASGBD (Seguridad y Control de Acceso) Modelos de control de acceso RBAC → Basado en roles (más usado) DAC → El propietario decide permisos MAC → Basado en niveles de seguridad ABAC → Basado en atributos Usuarios y roles CREATE USER → Crear usuario DROP USER → Eliminar usuario CREATE ROLE → Crear rol GRANT rol TO usuario → Asignar rol REVOKE → Quitar permisos Rol = agrupa permisos Usuario = recibe permisos Privilegios SELECT → Leer datos INSERT → Añadir datos UPDATE → Modificar datos DELETE → Eliminar datos CREATE → Crear objetos ALTER → Modificar estructura SUPER → Privilegio de sistema Consultas de permisos SHOW GRANTS → Ver permisos de un usuario FLUSH PRIVILEGES → Recargar permisos sin reiniciar Seguridad (MUY IMPORTANTE) Principio de mínimo privilegio → Solo lo necesario Trazabilidad → Saber quién hizo qué y cuándo Auditoría → Registro de acciones Evitar: Contraseñas por defecto Accesos sin cifrado Privilegios globales innecesarios Normativa 🇪🇸 Ley Orgánica /08 (LOPDGDD) → Protección de datos en España Objetos útiles Vista (VIEW) → Limitar acceso a datos (columnas/filas) Sinónimo → Nombre alternativo de tabla/vista Claves para examen GRANT = dar permisos REVOKE = quitar permisos RBAC = roles SHOW GRANTS = ver permisos Seguridad = mínimo privilegio + trazabilidad"
                 }
               ],
               "correctOptionId": "c",
@@ -12358,7 +12358,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "IN y OUT",
-                  "explanation": "Son modos de parámetros, no valores de trigger. 🧠 CHULETA UT4 – ASGBD (PL/SQL, Triggers y Transacciones) 🔁 Triggers Eventos DML → INSERT, UPDATE, DELETE Momento ejecución → BEFORE / AFTER Tipos: Row-level → Por cada fila Statement-level → Una vez por sentencia 🔑 Valores en triggers: :OLD → Valor anterior :NEW → Valor nuevo 🧩 PL/SQL básico Bloque anónimo → No se guarda Procedimiento → No siempre devuelve valor Función → Siempre devuelve valor (RETURN) 🔄 Estructuras de control IF-THEN → Condicional simple CASE → Múltiples opciones WHILE LOOP → Repetición con condición LOOP + EXIT → Bucle manual ⚠️ Gestión de errores EXCEPTION → Captura errores RAISE → Lanza errores Ejemplo importante: ZERO_DIVIDE → División entre 0 🔄 Transacciones COMMIT → Guarda cambios ROLLBACK → Deshace cambios SAVEPOINT → Punto intermedio 🔐 Propiedades ACID Atomicidad → Todo o nada Consistencia → Estado válido Aislamiento → Control de concurrencia Durabilidad → Persistencia tras fallo ⚙️ Automatización ✔ Tareas ideales: Backups Limpieza de logs Mantenimiento periódico ✔ Objetivo: Reducir errores Mejorar eficiencia Garantizar continuidad ✔ Buenas prácticas: Modularizar código Documentar Usar funciones pequeñas 🛡️ Integridad de datos Usar: Restricciones (constraints) Validaciones ACID ❌ Evitar: Eliminar claves foráneas Permitir duplicados No manejar excepciones 🚀 Claves para examen COMMIT = guardar ROLLBACK = deshacer ACID = básico SIEMPRE Trigger = BEFORE/AFTER + OLD/NEW CASE vs IF → múltiples opciones"
+                  "explanation": "Son modos de parámetros, no valores de trigger. CHULETA UT – ASGBD (PL/SQL, Triggers y Transacciones) Triggers Eventos DML → INSERT, UPDATE, DELETE Momento ejecución → BEFORE / AFTER Tipos: Row-level → Por cada fila Statement-level → Una vez por sentencia Valores en triggers: :OLD → Valor anterior :NEW → Valor nuevo PL/SQL básico Bloque anónimo → No se guarda Procedimiento → No siempre devuelve valor Función → Siempre devuelve valor (RETURN) Estructuras de control IF-THEN → Condicional simple CASE → Múltiples opciones WHILE LOOP → Repetición con condición LOOP + EXIT → Bucle manual Gestión de errores EXCEPTION → Captura errores RAISE → Lanza errores Ejemplo importante: ZERO_DIVIDE → División entre 0 Transacciones COMMIT → Guarda cambios ROLLBACK → Deshace cambios SAVEPOINT → Punto intermedio Propiedades ACID Atomicidad → Todo o nada Consistencia → Estado válido Aislamiento → Control de concurrencia Durabilidad → Persistencia tras fallo Automatización Tareas ideales: Backups Limpieza de logs Mantenimiento periódico Objetivo: Reducir errores Mejorar eficiencia Garantizar continuidad Buenas prácticas: Modularizar código Documentar Usar funciones pequeñas Integridad de datos Usar: Restricciones (constraints) Validaciones ACID Evitar: Eliminar claves foráneas Permitir duplicados No manejar excepciones Claves para examen COMMIT = guardar ROLLBACK = deshacer ACID = básico SIEMPRE Trigger = BEFORE/AFTER + OLD/NEW CASE vs IF → múltiples opciones"
                 }
               ],
               "correctOptionId": "a",
@@ -12924,7 +12924,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "SHOW INDEXES",
-                  "explanation": "Muestra índices, no métricas generales. 🧠 CHULETA UT5 – ASGBD (Optimización y Monitorización) 📊 Monitorización ✔ Objetivo: Detectar fallos Optimizar rendimiento Evitar caídas del sistema ✔ Herramientas: Nagios → Alertas automáticas Zabbix → Paneles + alertas Grafana → Visualización métricas ✔ Métricas clave: CPU (>80% = crítico) I/O → Lectura/escritura disco Memoria Locks → Bloqueos ⚡ Optimización de consultas EXPLAIN ANALYZE (PostgreSQL) → Coste real EXPLAIN PLAN (Oracle) → Plan ejecución pg_stat_activity → Consultas activas ✔ Reescritura: Mejorar rendimiento Sin cambiar resultado 🧩 Índices ✔ Crear: CREATE INDEX idx_email ON usuarios(email); ✔ Tipos: Hash → Igualdad (=) B-Tree → General (más usado) Bitmap → Pocos valores distintos Spatial → Datos geográficos ❌ Demasiados índices: Más espacio Escrituras más lentas ✔ Forzar uso: FORCE INDEX → Obliga USE INDEX → Sugiere 🧱 Motores MySQL InnoDB → Transacciones (ACID) ✔ MyISAM → No transaccional Memory → En RAM Archive → Almacenamiento 🧠 Optimización del sistema ✔ Linux: net.core.rmem_max net.core.wmem_max ✔ Energía: Máximo rendimiento (servidores) ✔ PostgreSQL: work_mem → Memoria por consulta 📂 Organización de datos Particionado → Por rangos (fechas) Mejora rendimiento y mantenimiento 📡 MySQL comandos útiles SHOW STATUS → Métricas servidor 🚀 Claves para examen Índices → cuidado exceso Hash = igualdad InnoDB = transacciones Monitorización = anticiparse CPU/I/O = métricas clave EXPLAIN = rendimiento"
+                  "explanation": "Muestra índices, no métricas generales. CHULETA UT5 – ASGBD (Optimización y Monitorización) Monitorización Objetivo: Detectar fallos Optimizar rendimiento Evitar caídas del sistema Herramientas: Nagios → Alertas automáticas Zabbix → Paneles + alertas Grafana → Visualización métricas Métricas clave: CPU (>80% = crítico) I/O → Lectura/escritura disco Memoria Locks → Bloqueos Optimización de consultas EXPLAIN ANALYZE (PostgreSQL) → Coste real EXPLAIN PLAN (Oracle) → Plan ejecución pg_stat_activity → Consultas activas Reescritura: Mejorar rendimiento Sin cambiar resultado Índices Crear: CREATE INDEX idx_email ON usuarios(email); Tipos: Hash → Igualdad (=) B-Tree → General (más usado) Bitmap → Pocos valores distintos Spatial → Datos geográficos Demasiados índices: Más espacio Escrituras más lentas Forzar uso: FORCE INDEX → Obliga USE INDEX → Sugiere Motores MySQL InnoDB → Transacciones (ACID) MyISAM → No transaccional Memory → En RAM Archive → Almacenamiento Optimización del sistema Linux: net.core.rmem_max net.core.wmem_max Energía: Máximo rendimiento (servidores) PostgreSQL: work_mem → Memoria por consulta Organización de datos Particionado → Por rangos (fechas) Mejora rendimiento y mantenimiento MySQL comandos útiles SHOW STATUS → Métricas servidor Claves para examen Índices → cuidado exceso Hash = igualdad InnoDB = transacciones Monitorización = anticiparse CPU/I/O = métricas clave EXPLAIN = rendimiento"
                 }
               ],
               "correctOptionId": "b",
@@ -13042,7 +13042,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "Añade una fase adicional para evitar bloqueos.",
-                  "explanation": "El 3PC introduce una fase extra respecto a 2PC para reducir bloqueos y mejorar la tolerancia a fallos en sistemas distribuidos."
+                  "explanation": "El PC introduce una fase extra respecto a PC para reducir bloqueos y mejorar la tolerancia a fallos en sistemas distribuidos."
                 }
               ],
               "correctOptionId": "d",
@@ -13401,7 +13401,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "Garantiza la coherencia en transacciones distribuidas.",
-                  "explanation": "El 2PC asegura que todos los nodos confirmen o cancelen una transacción de forma coordinada, garantizando coherencia."
+                  "explanation": "El PC asegura que todos los nodos confirmen o cancelen una transacción de forma coordinada, garantizando coherencia."
                 },
                 {
                   "id": "d",
@@ -13485,7 +13485,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "Verificar logs de consultas",
-                  "explanation": "Es monitorización, pero no heartbeat. 🧠 CHULETA UT6 – ASGBD (Sistemas Distribuidos y Replicación) 🌐 Bases de datos distribuidas Datos repartidos en varios nodos Objetivo: disponibilidad + rendimiento ✔ Tipos: Homogénea → mismo SGBD en todos los nodos Heterogénea → SGBD distintos 🧩 Fragmentación Horizontal → filas/registros Vertical → columnas Mixta → combinación de ambas 🔄 Replicación ✔ Objetivo: Redundancia Alta disponibilidad Mejora de rendimiento ✔ Tipos: Cadena → nodo replica al siguiente Maestro-esclavo Maestro → escribe Esclavos → replican ✔ Logs de replicación: Registran cambios del maestro Se aplican en nodos secundarios ⚡ Sincronización Síncrona Espera confirmación de nodos Más segura Asíncrona No espera confirmación Más rápida 🔁 Protocolos de transacción distribuida 2PC (Two-Phase Commit) Garantiza coherencia Puede bloquear procesos 3PC (Three-Phase Commit) Añade fase extra Evita bloqueos ⚖️ Balanceo de carga Reparte peticiones entre servidores Mejora rendimiento y disponibilidad 🔥 Failover Cambio automático a nodo secundario si falla el principal ❤️ Heartbeat Señales periódicas entre nodos Detecta caídas de servidores 💾 Backups En caliente → sin parar el sistema En frío → con sistema detenido 🚀 Claves de examen Maestro = escribe Esclavo = replica Replicación = disponibilidad Horizontal = filas Vertical = columnas 2PC = coherencia 3PC = evita bloqueos Síncrona = espera Asíncrona = no espera"
+                  "explanation": "Es monitorización, pero no heartbeat. CHULETA UT6 – ASGBD (Sistemas Distribuidos y Replicación) Bases de datos distribuidas Datos repartidos en varios nodos Objetivo: disponibilidad + rendimiento Tipos: Homogénea → mismo SGBD en todos los nodos Heterogénea → SGBD distintos Fragmentación Horizontal → filas/registros Vertical → columnas Mixta → combinación de ambas Replicación Objetivo: Redundancia Alta disponibilidad Mejora de rendimiento Tipos: Cadena → nodo replica al siguiente Maestro-esclavo Maestro → escribe Esclavos → replican Logs de replicación: Registran cambios del maestro Se aplican en nodos secundarios Sincronización Síncrona Espera confirmación de nodos Más segura Asíncrona No espera confirmación Más rápida Protocolos de transacción distribuida PC (Two-Phase Commit) Garantiza coherencia Puede bloquear procesos PC (Three-Phase Commit) Añade fase extra Evita bloqueos Balanceo de carga Reparte peticiones entre servidores Mejora rendimiento y disponibilidad Failover Cambio automático a nodo secundario si falla el principal Heartbeat Señales periódicas entre nodos Detecta caídas de servidores Backups En caliente → sin parar el sistema En frío → con sistema detenido Claves de examen Maestro = escribe Esclavo = replica Replicación = disponibilidad Horizontal = filas Vertical = columnas PC = coherencia PC = evita bloqueos Síncrona = espera Asíncrona = no espera"
                 },
                 {
                   "id": "d",
@@ -13516,22 +13516,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "La prioridad MX",
-                  "explanation": "No cambia por usar caché."
+                  "explanation": "La prioridad MX es un valor fijo del registro; no cambia por usar caché."
                 },
                 {
                   "id": "b",
                   "text": "El tiempo de respuesta",
-                  "explanation": "Correcto. Cuando haces una consulta DNS por primera vez: Puede necesitar consultar otros servidores. Puede haber recursividad. Tarda más. Cuando haces la misma consulta inmediatamente después: La respuesta ya está en la caché. No necesita volver a consultar fuera. Responde mucho más rápido. Lo que disminuye claramente es: ⏱️ El tiempo de respuesta"
+                  "explanation": "La caché DNS guarda la respuesta de una consulta anterior, por lo que en la segunda consulta no necesita preguntar a servidores externos y el tiempo de respuesta se reduce considerablemente."
                 },
                 {
                   "id": "c",
                   "text": "El tamaño del paquete",
-                  "explanation": "La respuesta suele tener tamaño similar."
+                  "explanation": "La respuesta tiene un tamaño similar; la caché no lo modifica."
                 },
                 {
                   "id": "d",
                   "text": "El TTL",
-                  "explanation": "El TTL va contando hacia abajo, pero no “disminuye considerablemente por ser segunda consulta”."
+                  "explanation": "El TTL va contando hacia abajo con el tiempo, pero no disminuye por ser una segunda consulta."
                 }
               ],
               "correctOptionId": "b",
@@ -13544,22 +13544,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Zona directa",
-                  "explanation": "Es para nombre → IP."
+                  "explanation": "La zona directa hace la resolución nombre→IP, no al revés."
                 },
                 {
                   "id": "b",
                   "text": "Zona inversa",
-                  "explanation": "Es para IP → nombre. Esto es lo que se llama: 🔁 Resolución inversa Normalmente DNS hace: nombre → IP Eso es zona directa (registros A). Pero aquí te están preguntando lo contrario: IP → nombre Eso se hace con: Registros PTR Dentro de una zona inversa"
+                  "explanation": "La zona inversa contiene registros PTR que permiten obtener un nombre a partir de una IP conocida (resolución inversa: IP→nombre)."
                 },
                 {
                   "id": "c",
                   "text": "Zona primaria",
-                  "explanation": "Solo indica que es editable, no el tipo de resolución."
+                  "explanation": "Zona primaria indica que es editable y autoritativa, no el tipo de resolución."
                 },
                 {
                   "id": "d",
                   "text": "Zona aliased",
-                  "explanation": "Eso no es un tipo de zona (seguramente quieren confundirte con CNAME)."
+                  "explanation": "No es un tipo de zona DNS; podría confundirse con los registros CNAME (alias)."
                 }
               ],
               "correctOptionId": "b",
@@ -13572,22 +13572,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "NAT",
-                  "explanation": "Traduce direcciones privadas a públicas. No reparte carga DNS."
+                  "explanation": "NAT traduce direcciones privadas a públicas; no reparte carga entre servidores."
                 },
                 {
                   "id": "b",
                   "text": "Iteración",
-                  "explanation": "Es un tipo de consulta DNS, no balanceo."
+                  "explanation": "La iteración es un tipo de consulta DNS, no una técnica de balanceo."
                 },
                 {
                   "id": "c",
                   "text": "Round Robin",
-                  "explanation": "Técnica de balanceo simple usando múltiples IP para un mismo nombre. Cuando creas varios registros A con el mismo nombre: www → 192.168.1.10 www → 192.168.1.11 www → 192.168.1.12 El servidor DNS va alternando las IPs en las respuestas. Eso se llama: 🔄 Round Robin"
+                  "explanation": "Round Robin DNS asigna varias IPs al mismo nombre de dominio y alterna entre ellas en cada respuesta, distribuyendo las peticiones entre varios servidores."
                 },
                 {
                   "id": "d",
                   "text": "Reenviadores",
-                  "explanation": "Son servidores a los que se delegan consultas externas."
+                  "explanation": "Los reenviadores delegan consultas externas a otro servidor DNS; no reparten carga de aplicación."
                 }
               ],
               "correctOptionId": "c",
@@ -13600,22 +13600,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": ".edu",
-                  "explanation": "gTLD ✅ b. .com → gTLD ✅ c. .org → gTLD ✅ d. .fr → ❌ no es genérico .fr es un ccTLD (Francia)."
+                  "explanation": ".edu es un gTLD genérico para instituciones educativas."
                 },
                 {
                   "id": "b",
                   "text": ".com",
-                  "explanation": ".com no encaja con la definición o el concepto técnico que pide la pregunta."
+                  "explanation": ".com es un gTLD genérico de uso comercial."
                 },
                 {
                   "id": "c",
                   "text": ".org",
-                  "explanation": ".org no encaja con la definición o el concepto técnico que pide la pregunta."
+                  "explanation": ".org es un gTLD genérico para organizaciones."
                 },
                 {
                   "id": "d",
                   "text": ".fr",
-                  "explanation": "🔹 gTLD (Generic Top Level Domain) Son dominios genéricos, por ejemplo: .com .org .edu .net .info .biz 🔹 ccTLD (Country Code Top Level Domain) Son dominios de país (2 letras): .es → España .fr → Francia .uk → Reino Unido .us → Estados Unidos"
+                  "explanation": ".fr es un ccTLD (Country Code TLD) correspondiente a Francia, no un dominio genérico."
                 }
               ],
               "correctOptionId": "d",
@@ -13628,22 +13628,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Traducir direcciones MAC a direcciones IP",
-                  "explanation": "Eso lo hace ARP, no DNS."
+                  "explanation": "Traducir direcciones MAC a IP lo hace el protocolo ARP, no DNS."
                 },
                 {
                   "id": "b",
                   "text": "Traducir nombres de dominio a direcciones IP y viceversa",
-                  "explanation": "Eso es exactamente lo que hace DNS. Recordamos qué hace DNS: 👉 Permite convertir un nombre de dominio (por ejemplo, google.com) en una dirección IP (por ejemplo, 142.250.184.206). Y también puede hacer lo contrario: 👉 IP → nombre (resolución inversa)."
+                  "explanation": "DNS convierte nombres de dominio legibles (como google.com) en direcciones IP que usan las redes, y también puede hacer la resolución inversa (IP→nombre)."
                 },
                 {
                   "id": "c",
                   "text": "Almacenar configuraciones de red",
-                  "explanation": "Eso sería más bien DHCP u otros servicios."
+                  "explanation": "Almacenar configuraciones de red lo hace DHCP u otros servicios."
                 },
                 {
                   "id": "d",
                   "text": "Gestionar direcciones públicas",
-                  "explanation": "Eso lo gestiona ICANN / registros, no el servidor DNS como tal."
+                  "explanation": "La gestión del espacio de IPs públicas corresponde a ICANN y los registros regionales, no al servidor DNS."
                 }
               ],
               "correctOptionId": "b",
@@ -13656,22 +13656,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "TLD",
-                  "explanation": "Es solo el dominio de nivel superior (.com, .es...)."
+                  "explanation": "TLD es solo el dominio de nivel superior (.com, .es...); no incluye todos los niveles."
                 },
                 {
                   "id": "b",
                   "text": "FQDN",
-                  "explanation": "Nombre completamente cualificado hasta la raíz. Un nombre completo sería algo así: servidor.empresa.local. Observa el punto final 👈 Ese punto representa la raíz del DNS (.) Cuando el nombre incluye: Host Dominio Subdominio TLD Y llega hasta la raíz Se llama: 🧠 FQDN (Fully Qualified Domain Name)"
+                  "explanation": "FQDN (Fully Qualified Domain Name) es el nombre completo que incluye host, subdominio, dominio, TLD y termina con un punto que representa la raíz DNS."
                 },
                 {
                   "id": "c",
                   "text": "Alias",
-                  "explanation": "Eso sería un CNAME."
+                  "explanation": "Un alias es un CNAME, no un nombre completamente cualificado."
                 },
                 {
                   "id": "d",
                   "text": "ccTLD",
-                  "explanation": "Dominio de país (.es, .fr...)."
+                  "explanation": "ccTLD es el dominio de código de país (.es, .fr...), solo el nivel superior."
                 }
               ],
               "correctOptionId": "b",
@@ -13684,22 +13684,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "UDP 25",
-                  "explanation": "25 es SMTP (correo)."
+                  "explanation": "El puerto 25 corresponde a SMTP (correo electrónico)."
                 },
                 {
                   "id": "b",
                   "text": "UDP 53",
-                  "explanation": "Correcto. DNS es un protocolo de capa de aplicación, pero para transportar sus mensajes usa la capa de transporte. Normalmente utiliza: 👉 UDP👉 Puerto 53 ¿Por qué UDP? Es más rápido Las consultas DNS suelen ser pequeñas No necesita establecer conexión como TCP ⚠️ Importante: DNS también puede usar TCP (por ejemplo, transferencias de zona), pero la palabra clave en la pregunta es “normalmente”. Analizamos las opciones:"
+                  "explanation": "DNS usa normalmente UDP por el puerto 53, ya que es más rápido y las consultas suelen ser pequeñas. TCP también se usa, por ejemplo en transferencias de zona."
                 },
                 {
                   "id": "c",
                   "text": "TCP 80",
-                  "explanation": "80 es HTTP."
+                  "explanation": "El puerto 80 corresponde a HTTP (web)."
                 },
                 {
                   "id": "d",
                   "text": "TCP 110",
-                  "explanation": "110 es POP3 (correo)."
+                  "explanation": "El puerto 110 corresponde a POP3 (descarga de correo)."
                 }
               ],
               "correctOptionId": "b",
@@ -13712,22 +13712,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "flushdns",
-                  "explanation": "Eso es estilo Windows (ipconfig /flushdns), no Linux."
+                  "explanation": "flushdns es estilo Windows (ipconfig /flushdns); no existe como comando en Linux."
                 },
                 {
                   "id": "b",
                   "text": "systemd-resolve --flush-caches",
-                  "explanation": "Correcto en sistemas con systemd-resolved. En Linux no existe un único comando universal, depende del sistema que esté gestionando la resolución DNS. En sistemas modernos (Ubuntu, Debian actuales, etc.) que usan systemd-resolved, el comando correcto es: systemd-resolve --flush-caches (O en versiones más nuevas: resolvectl flush-caches)"
+                  "explanation": "En sistemas con systemd-resolved, este comando vacía la caché DNS local. En versiones más recientes se usa resolvectl flush-caches."
                 },
                 {
                   "id": "c",
                   "text": "dnsreset",
-                  "explanation": "No existe como comando estándar."
+                  "explanation": "dnsreset no existe como comando estándar en Linux."
                 },
                 {
                   "id": "d",
                   "text": "clearcache",
-                  "explanation": "Tampoco es un comando real de DNS en Linux."
+                  "explanation": "clearcache no es un comando real para DNS en Linux."
                 }
               ],
               "correctOptionId": "b",
@@ -13740,22 +13740,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Servidor autoritativo",
-                  "explanation": "Es el que tiene la información oficial. En DNS existen varios tipos de servidores: 🔹 Servidor autoritativo Tiene la información oficial de una zona Contiene los registros reales (A, MX, PTR...) Responde con autoridad Puede ser: Primario o Secundario 🔹 Servidor recursivo (resolver) No tiene la información oficial Pregunta a otros servidores Guarda respuestas en caché 🔹 Servidor de caché Similar al recursivo Solo almacena temporalmente respuestas 🔹 Servidor proxy No es un término típico de DNS en este contexto Analizamos las opciones:"
+                  "explanation": "El servidor autoritativo contiene los registros reales de una zona (A, MX, PTR...) y responde con autoridad. Puede ser primario (editable) o secundario (copia)."
                 },
                 {
                   "id": "b",
                   "text": "Servidor de caché",
-                  "explanation": "Solo guarda temporalmente."
+                  "explanation": "El servidor de caché solo almacena temporalmente respuestas de otros servidores."
                 },
                 {
                   "id": "c",
                   "text": "Servidor proxy",
-                  "explanation": "No aplica aquí."
+                  "explanation": "El servidor proxy no es un término habitual en el contexto de DNS."
                 },
                 {
                   "id": "d",
                   "text": "Servidor recursivo",
-                  "explanation": "Consulta y cachea, pero no es el origen oficial."
+                  "explanation": "El servidor recursivo consulta a otros servidores y guarda el resultado en caché, pero no tiene la información oficial de la zona."
                 }
               ],
               "correctOptionId": "a",
@@ -13768,22 +13768,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "MX",
-                  "explanation": "Nombre → IPv4 PTR → IP → Nombre (resolución inversa) MX → Servidor de correo NS → Servidores que tienen autoridad sobre la zona Analizamos: Es para correo. Address (IPv4) AAAA → IPv6 PTR → inversa MX → correo"
+                  "explanation": "El registro MX indica el servidor de correo del dominio, no asocia nombre a IPv4."
                 },
                 {
                   "id": "b",
                   "text": "PTR",
-                  "explanation": "Es para resolución inversa."
+                  "explanation": "PTR es para resolución inversa (IP→nombre)."
                 },
                 {
                   "id": "c",
                   "text": "NS",
-                  "explanation": "Indica qué servidor gestiona la zona."
+                  "explanation": "NS indica qué servidor gestiona la zona, no mapea nombre a IP."
                 },
                 {
                   "id": "d",
                   "text": "A",
-                  "explanation": "dirección IPv4. Recordamos los registros principales:"
+                  "explanation": "El registro A (Address) asocia un nombre de host con su dirección IPv4. Para IPv6 se usa AAAA."
                 }
               ],
               "correctOptionId": "d",
@@ -13796,22 +13796,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Consultar servidores externos cuando el servidor local no sabe la respuesta",
-                  "explanation": "Exactamente eso hacen. Recordamos qué son los reenviadores (forwarders): Cuando tu servidor DNS recibe una consulta sobre un dominio que no gestiona localmente, tiene dos opciones: 1️⃣ Preguntar directamente a los root servers2️⃣ O enviar la consulta a un servidor externo configurado como reenviador Los reenviadores sirven para: 👉 Delegar consultas externas👉 Mejorar rendimiento👉 Aprovechar caché de servidores más grandes (ISP, Google, etc.) Analizamos las opciones:"
+                  "explanation": "Los reenviadores (forwarders) son servidores DNS a los que se delegan las consultas externas que el servidor local no puede resolver, mejorando el rendimiento al aprovechar cachés más grandes."
                 },
                 {
                   "id": "b",
                   "text": "Reemplazar la caché local",
-                  "explanation": "No reemplazan la caché."
+                  "explanation": "Los reenviadores no reemplazan la caché; la complementan al resolver consultas externas."
                 },
                 {
                   "id": "c",
                   "text": "Crear zonas automáticamente",
-                  "explanation": "No tienen nada que ver con creación de zonas."
+                  "explanation": "Los reenviadores no tienen relación con la creación de zonas DNS."
                 },
                 {
                   "id": "d",
                   "text": "Resolver consultas internas",
-                  "explanation": "Las consultas internas las resuelve el propio servidor si es autoritativo."
+                  "explanation": "Las consultas internas las resuelve el propio servidor si es autoritativo para esa zona."
                 }
               ],
               "correctOptionId": "a",
@@ -13824,22 +13824,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "ping",
-                  "explanation": "Puede comprobar si un nombre resuelve, pero no es herramienta específica DNS."
+                  "explanation": "ping puede comprobar si un nombre resuelve, pero no es una herramienta específica de diagnóstico DNS."
                 },
                 {
                   "id": "b",
                   "text": "dig",
-                  "explanation": "Es típica de Linux (dnsutils), no viene por defecto en Windows."
+                  "explanation": "dig es la herramienta estándar en Linux para consultas DNS; no viene por defecto en Windows."
                 },
                 {
                   "id": "c",
                   "text": "nslookup",
-                  "explanation": "Correcta. En Windows, la herramienta clásica para hacer consultas DNS es: 👉 nslookup Permite: Consultar registros A, MX, PTR Ver qué servidor responde Diagnosticar problemas Analizamos las opciones:"
+                  "explanation": "nslookup es la herramienta clásica de Windows para consultar registros DNS (A, MX, PTR) y diagnosticar problemas de resolución."
                 },
                 {
                   "id": "d",
                   "text": "traceroute",
-                  "explanation": "Sirve para ver la ruta hasta un destino, no para consultar DNS directamente."
+                  "explanation": "traceroute muestra la ruta de red hasta un destino; no es específica para consultas DNS."
                 }
               ],
               "correctOptionId": "c",
@@ -13852,22 +13852,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "MX",
-                  "explanation": "nombre → IP MX → servidor de correo CNAME → alias SOA (Start of Authority) → define el servidor principal de la zona y parámetros de control El registro SOA es el que: Indica cuál es el servidor maestro (principal) Contiene datos como: servidor primario correo del administrador número de serie tiempos de actualización Es el primer registro que aparece en una zona. Analizamos las opciones: Correo."
+                  "explanation": "MX indica el servidor de correo del dominio, no el servidor principal de la zona."
                 },
                 {
                   "id": "b",
                   "text": "SOA",
-                  "explanation": "Correcta. Recordamos los registros importantes:"
+                  "explanation": "El registro SOA (Start of Authority) identifica el servidor maestro de una zona y contiene parámetros de control como número de serie y tiempos de actualización."
                 },
                 {
                   "id": "c",
                   "text": "CNAME",
-                  "explanation": "Alias."
+                  "explanation": "CNAME es un alias que apunta a otro nombre, no define el servidor principal de la zona."
                 },
                 {
                   "id": "d",
                   "text": "A",
-                  "explanation": "IP."
+                  "explanation": "El registro A asocia un nombre a una IPv4; no indica quién gestiona la zona."
                 }
               ],
               "correctOptionId": "b",
@@ -13880,22 +13880,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "SOA",
-                  "explanation": "Define el servidor principal de la zona."
+                  "explanation": "SOA define el servidor principal de la zona, no realiza resolución inversa."
                 },
                 {
                   "id": "b",
                   "text": "PTR",
-                  "explanation": "Permite asociar una dirección IP con un nombre. Primero recordamos: 🔵 Resolución directa → nombre → IP → registro A 🔁 Resolución inversa → IP → nombre → registro PTR Analizamos las opciones:"
+                  "explanation": "El registro PTR asocia una dirección IP con un nombre de host, permitiendo la resolución inversa (IP→nombre)."
                 },
                 {
                   "id": "c",
                   "text": "CNAME",
-                  "explanation": "Es un alias."
+                  "explanation": "CNAME crea un alias entre dos nombres, no resuelve IPs."
                 },
                 {
                   "id": "d",
                   "text": "MX",
-                  "explanation": "Servidor de correo."
+                  "explanation": "MX define el servidor de correo de un dominio."
                 }
               ],
               "correctOptionId": "b",
@@ -13908,22 +13908,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "dnszone.conf",
-                  "explanation": "No existía como archivo histórico oficial."
+                  "explanation": "dnszone.conf no existía como archivo histórico oficial."
                 },
                 {
                   "id": "b",
                   "text": "netconfig.txt",
-                  "explanation": "No es correcto."
+                  "explanation": "netconfig.txt no es el archivo histórico correcto."
                 },
                 {
                   "id": "c",
                   "text": "hosts.txt",
-                  "explanation": "Correcto. Antes de 1983, cuando Internet era pequeña, existía un único archivo centralizado que contenía todas las relaciones: nombre → IP Ese archivo se llamaba: 👉 hosts.txt Cada administrador tenía que descargarlo y actualizarlo manualmente. Cuando Internet creció, este sistema se volvió insostenible y nació DNS. Analizamos las opciones:"
+                  "explanation": "Antes de 1983, un único archivo llamado hosts.txt contenía todas las relaciones nombre-IP; cuando Internet creció, su mantenimiento manual se volvió insostenible y nació DNS."
                 },
                 {
                   "id": "d",
                   "text": "resolve.cfg",
-                  "explanation": "No es el archivo histórico."
+                  "explanation": "resolve.cfg no es el archivo histórico oficial."
                 }
               ],
               "correctOptionId": "c",
@@ -13936,22 +13936,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "MX",
-                  "explanation": "nombre → IPv4 PTR → IP → nombre (inversa) CNAME → alias MX → Mail eXchanger → servidor de correo El registro que indica qué servidor gestiona el correo de un dominio es: 👉 MX Ejemplo: empresa.com → MX → mail.empresa.com Y ese mail.empresa.com luego tendrá un registro A con su IP. Analizamos: Correcto. Recordamos los registros principales:"
+                  "explanation": "El registro MX (Mail eXchanger) indica qué servidor gestiona el correo de un dominio; puede haber varios con diferentes prioridades."
                 },
                 {
                   "id": "b",
                   "text": "PTR",
-                  "explanation": "Es para resolución inversa."
+                  "explanation": "PTR es para resolución inversa (IP→nombre)."
                 },
                 {
                   "id": "c",
                   "text": "A",
-                  "explanation": "Asocia nombre a IP."
+                  "explanation": "El registro A asocia un nombre a una dirección IPv4."
                 },
                 {
                   "id": "d",
                   "text": "CNAME",
-                  "explanation": "Es un alias."
+                  "explanation": "CNAME es un alias que apunta a otro nombre de host."
                 }
               ],
               "correctOptionId": "a",
@@ -13964,22 +13964,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Root servers",
-                  "explanation": "Solo se consultan si el servidor DNS necesita escalar la consulta."
+                  "explanation": "Los root servers solo se consultan si el servidor DNS local necesita escalar la consulta hacia arriba en la jerarquía."
                 },
                 {
                   "id": "b",
                   "text": "Archivo hosts",
-                  "explanation": "Correcto. Recordemos el orden correcto de resolución en un equipo: Cuando escribes un dominio, el sistema no va directamente al servidor DNS. Sigue este orden: 1️⃣ Archivo hosts2️⃣ Caché DNS local3️⃣ Servidor DNS configurado Por tanto, lo primero que se consulta es: 👉 El archivo hosts Analizamos las opciones:"
+                  "explanation": "El orden de resolución es: primero el archivo hosts local, luego la caché DNS y después el servidor DNS configurado."
                 },
                 {
                   "id": "c",
                   "text": "Servidores secundarios",
-                  "explanation": "Solo si el primario falla."
+                  "explanation": "Los servidores secundarios solo se consultan si el primario no está disponible."
                 },
                 {
                   "id": "d",
                   "text": "Reenviadores",
-                  "explanation": "Se usan cuando el servidor no sabe la respuesta."
+                  "explanation": "Los reenviadores se usan cuando el servidor local no puede resolver la consulta por sí mismo."
                 }
               ],
               "correctOptionId": "b",
@@ -13992,22 +13992,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "dnscheck",
-                  "explanation": "No es el comando estándar de BIND."
+                  "explanation": "dnscheck no es el comando estándar de BIND para validar zonas."
                 },
                 {
                   "id": "b",
                   "text": "validate-zone",
-                  "explanation": "No existe como comando típico."
+                  "explanation": "validate-zone no existe como comando en herramientas DNS típicas."
                 },
                 {
                   "id": "c",
                   "text": "named-checkzone",
-                  "explanation": "Correcto. Cuando trabajas con BIND en Linux, puedes comprobar si un archivo de zona tiene errores de sintaxis con el comando: named-checkzone Sirve para: Verificar errores en la zona Validar estructura Detectar fallos antes de reiniciar el servicio Analizamos las opciones:"
+                  "explanation": "named-checkzone es la herramienta de BIND en Linux para verificar la sintaxis y estructura de un archivo de zona antes de reiniciar el servicio."
                 },
                 {
                   "id": "d",
                   "text": "dig-check",
-                  "explanation": "dig sirve para consultas, no para validar zonas."
+                  "explanation": "dig sirve para consultas DNS, no para validar archivos de zona."
                 }
               ],
               "correctOptionId": "c",
@@ -14020,22 +14020,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Un dominio interno",
-                  "explanation": "No tiene que ver con ser interno o externo."
+                  "explanation": "Las zonas pueden ser internas o externas; eso no define si son secundarias."
                 },
                 {
                   "id": "b",
                   "text": "Una copia de la zona primaria usada para redundancia",
-                  "explanation": "Correcto. En DNS existen: 🔹 Zona primaria (master) Es editable Es la fuente oficial Donde se crean y modifican registros 🔹 Zona secundaria (slave) Es una copia de la zona primaria No se edita directamente Sirve para alta disponibilidad y redundancia Se actualiza mediante transferencias de zona Analizamos las opciones:"
+                  "explanation": "La zona secundaria es una copia de solo lectura de la zona primaria, que se sincroniza mediante transferencias de zona y proporciona redundancia y alta disponibilidad."
                 },
                 {
                   "id": "c",
                   "text": "Un servidor de nombres público",
-                  "explanation": "No define si es público o privado."
+                  "explanation": "La visibilidad pública o privada no define si una zona es secundaria."
                 },
                 {
                   "id": "d",
                   "text": "La zona donde se crean registros automáticamente",
-                  "explanation": "Eso sería la primaria."
+                  "explanation": "Los registros se crean en la zona primaria, no en la secundaria."
                 }
               ],
               "correctOptionId": "b",
@@ -14048,22 +14048,22 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "TTL reducido",
-                  "explanation": "No tiene relación directa con permitir copia."
+                  "explanation": "Reducir el TTL afecta al tiempo de caché de las respuestas, no a la transferencia de zona."
                 },
                 {
                   "id": "b",
                   "text": "Puerto alternativo",
-                  "explanation": "DNS usa puerto 53 normalmente."
+                  "explanation": "DNS usa el puerto 53; cambiar de puerto no es necesario para las transferencias."
                 },
                 {
                   "id": "c",
                   "text": "SOA extendido",
-                  "explanation": "El SOA contiene datos de control, pero no habilita la transferencia."
+                  "explanation": "El SOA contiene datos de control de la zona, pero no habilita por sí solo la transferencia."
                 },
                 {
                   "id": "d",
                   "text": "Transferencia de zona",
-                  "explanation": "Correcto. Cuando tienes: 🔹 Servidor primario (master) 🔹 Servidor secundario (slave) El secundario necesita copiar la zona desde el primario. Para que eso sea posible, en el servidor primario debes: 👉 Permitir la transferencia de zona Sin habilitar la transferencia: El secundario no puede sincronizar. No recibe los registros. La zona no se replica."
+                  "explanation": "En el servidor primario hay que autorizar las transferencias de zona para que el servidor secundario pueda copiar y sincronizar los registros DNS."
                 }
               ],
               "correctOptionId": "d",
@@ -14138,7 +14138,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "169.254.0.0 – 169.254.255.255",
-                  "explanation": "Las direcciones APIPA (Automatic Private IP Addressing) se asignan automáticamente cuando no hay servidor DHCP disponible. Utilizan el rango 169.254.0.0 – 169.254.255.255."
+                  "explanation": "Las direcciones APIPA (Automatic Private IP Addressing) se asignan automáticamente cuando no hay servidor DHCP disponible. Utilizan el rango 69.5.0.0 – 69.5.55.55."
                 },
                 {
                   "id": "b",
@@ -14316,12 +14316,12 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "RFC 2616",
-                  "explanation": "Define el protocolo HTTP/1.1."
+                  "explanation": "Define el protocolo HTTP/.."
                 },
                 {
                   "id": "d",
                   "text": "RFC 2131",
-                  "explanation": "El protocolo DHCP (Dynamic Host Configuration Protocol) está definido en la RFC 2131, donde se describe su funcionamiento y los mensajes utilizados."
+                  "explanation": "El protocolo DHCP (Dynamic Host Configuration Protocol) está definido en la RFC , donde se describe su funcionamiento y los mensajes utilizados."
                 }
               ],
               "correctOptionId": "d",
@@ -14339,7 +14339,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "Se asigna una dirección APIPA",
-                  "explanation": "Cuando un equipo no encuentra un servidor DHCP, el sistema operativo asigna automáticamente una dirección APIPA del rango 169.254.0.0 – 169.254.255.255 para permitir comunicación local."
+                  "explanation": "Cuando un equipo no encuentra un servidor DHCP, el sistema operativo asigna automáticamente una dirección APIPA del rango 69.5.0.0 – 69.5.55.55 para permitir comunicación local."
                 },
                 {
                   "id": "c",
@@ -14400,7 +14400,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "systemctl restart servicio",
-                  "explanation": "El comando systemctl restart servicio se utiliza en sistemas Linux con systemd para reiniciar un servicio, por ejemplo: systemctl restart apache2."
+                  "explanation": "El comando systemctl restart servicio se utiliza en sistemas Linux con systemd para reiniciar un servicio, por ejemplo: systemctl restart apache."
                 },
                 {
                   "id": "d",
@@ -14708,7 +14708,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "255.255.255.255",
-                  "explanation": "El mensaje DHCPDISCOVER se envía a la dirección 255.255.255.255, que es una dirección de broadcast, para que todos los servidores DHCP de la red puedan recibir la solicitud."
+                  "explanation": "El mensaje DHCPDISCOVER se envía a la dirección 55.55.55.55, que es una dirección de broadcast, para que todos los servidores DHCP de la red puedan recibir la solicitud."
                 },
                 {
                   "id": "d",
@@ -14999,7 +14999,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "404",
-                  "explanation": "El código 404 (Not Found) indica que el recurso solicitado no existe en el servidor o no se ha encontrado."
+                  "explanation": "El código 0 (Not Found) indica que el recurso solicitado no existe en el servidor o no se ha encontrado."
                 }
               ],
               "correctOptionId": "d",
@@ -15073,7 +15073,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "200",
-                  "explanation": "El código 200 (OK) indica que la petición se ha realizado correctamente y el servidor ha entregado el recurso sin problemas."
+                  "explanation": "El código 00 (OK) indica que la petición se ha realizado correctamente y el servidor ha entregado el recurso sin problemas."
                 },
                 {
                   "id": "c",
@@ -15376,7 +15376,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "443",
-                  "explanation": "El protocolo HTTPS utiliza por defecto el puerto 443, ya que es la versión segura de HTTP."
+                  "explanation": "El protocolo HTTPS utiliza por defecto el puerto , ya que es la versión segura de HTTP."
                 },
                 {
                   "id": "b",
@@ -15419,7 +15419,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "No utiliza puertos",
-                  "explanation": "Sí usa puertos (80 para HTTP, 443 para HTTPS). 🧠 CHULETA UT3 – SERVICIOS DE RED E INTERNET 🌐 PROTOCOLOS CLAVE HTTP → Web (puerto 80) HTTPS → Web segura (puerto 443, usa TLS) FTP → Transferencia archivos (puerto 21) SMTP → Envío correo (puerto 25) DNS → Traduce dominio → IP 👉 HTTP = sin estado (cada petición independiente) 🖥️ SERVIDOR WEB Programa que sirve páginas web Ejemplo: Apache Funciona con HTTP/HTTPS sobre TCP 📁 APACHE – CLAVES Carpeta web por defecto (Ubuntu): 👉 /var/www/html 🔧 Directivas importantes: DocumentRoot → Carpeta de la web DirectoryIndex → Archivo por defecto (index.html) ServerName → Dominio principal ServerAlias → Dominios alternativos Listen → Puerto/IP donde escucha 🌍 VIRTUAL HOST Permite varias webs en un mismo servidor 📊 LOGS DE APACHE access.log → Todas las peticiones error.log → Errores del servidor 🔐 HTTPS Y SEGURIDAD HTTPS = HTTP + TLS (cifrado) Certificados gratuitos: 👉 Let’s Encrypt Módulo Apache: 👉 mod_ssl 📡 CÓDIGOS HTTP IMPORTANTES 200 → OK 301 → Redirección permanente 404 → No encontrado 500 → Error servidor 503 → Servicio no disponible ⚡ IDEAS CLAVE PARA EXAMEN HTTP → puerto 80 / HTTPS → 443 HTTP funciona sobre TCP Apache → servidor web VirtualHost → varias webs access.log → tráfico error.log → fallos HTTPS usa TLS"
+                  "explanation": "Sí usa puertos (80 para HTTP, para HTTPS). CHULETA UT – SERVICIOS DE RED E INTERNET PROTOCOLOS CLAVE HTTP → Web (puerto 80) HTTPS → Web segura (puerto , usa TLS) FTP → Transferencia archivos (puerto ) SMTP → Envío correo (puerto 5) DNS → Traduce dominio → IP HTTP = sin estado (cada petición independiente) SERVIDOR WEB Programa que sirve páginas web Ejemplo: Apache Funciona con HTTP/HTTPS sobre TCP APACHE – CLAVES Carpeta web por defecto (Ubuntu): /var/www/html Directivas importantes: DocumentRoot → Carpeta de la web DirectoryIndex → Archivo por defecto (index.html) ServerName → Dominio principal ServerAlias → Dominios alternativos Listen → Puerto/IP donde escucha VIRTUAL HOST Permite varias webs en un mismo servidor LOGS DE APACHE access.log → Todas las peticiones error.log → Errores del servidor HTTPS Y SEGURIDAD HTTPS = HTTP + TLS (cifrado) Certificados gratuitos: Let’s Encrypt Módulo Apache: mod_ssl CÓDIGOS HTTP IMPORTANTES 00 → OK 0 → Redirección permanente 0 → No encontrado 500 → Error servidor 50 → Servicio no disponible IDEAS CLAVE PARA EXAMEN HTTP → puerto 80 / HTTPS → HTTP funciona sobre TCP Apache → servidor web VirtualHost → varias webs access.log → tráfico error.log → fallos HTTPS usa TLS"
                 }
               ],
               "correctOptionId": "b",
@@ -15494,7 +15494,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Solo IPv6",
-                  "explanation": "Funciona tanto en IPv4 como IPv6."
+                  "explanation": "Funciona tanto en IPv como IPv6."
                 },
                 {
                   "id": "b",
@@ -15606,7 +15606,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Filtrado de paquetes estático",
-                  "explanation": "El filtrado de paquetes estático solo analiza la cabecera de red (IP) y transporte (puertos), es decir, capas 3 y 4."
+                  "explanation": "El filtrado de paquetes estático solo analiza la cabecera de red (IP) y transporte (puertos), es decir, capas y ."
                 },
                 {
                   "id": "b",
@@ -15672,7 +15672,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "Firewall básico",
-                  "explanation": "Solo hace filtrado simple (capas 3-4)."
+                  "explanation": "Solo hace filtrado simple (capas -)."
                 },
                 {
                   "id": "d",
@@ -15705,7 +15705,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "NAT estático",
-                  "explanation": "Asigna una IP pública fija a una privada (1:1)."
+                  "explanation": "Asigna una IP pública fija a una privada (:)."
                 }
               ],
               "correctOptionId": "c",
@@ -15985,7 +15985,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "SSH",
-                  "explanation": "Protocolo de acceso remoto seguro. 🧠 CHULETA UT4 – SEGURIDAD, FIREWALLS Y REDES 🔥 FIREWALL Controla tráfico entrada/salida Función: permitir o bloquear según reglas 👉 Tipos: Básico → Filtra por IP/puerto (capas 3-4) Stateful (SPI) → Analiza estado de conexiones NGFW / UTM → Stateful + DPI + análisis avanzado 📜 ACL (REGLAS) Definen qué tráfico: 👉 Se permite / se bloquea 🌐 NAT Permite salir a Internet con IP pública 👉 Tipos: NAT → Traducción básica PAT (NAT Overload) → Muchas IP → 1 IP pública (por puertos) DNAT → Redirige tráfico a servidor interno (port forwarding) 🧱 SEGMENTACIÓN DE RED VLAN + firewall interno 👉 Evita: Movimiento lateral de ataques 🏰 ZONAS DE RED LAN segura → Red interna protegida DMZ → Servidores públicos (web, correo) ❗ Nunca poner: BD, AD, datos críticos en DMZ 🌍 PROXIES Proxy normal → Intermediario cliente → Internet Proxy transparente → Sin configurar en cliente Proxy caché → Guarda contenido → más rápido Proxy filtrante → Bloquea webs Proxy inverso → Protege servidores internos 🔐 ACCESO SEGURO VPN → Acceso remoto cifrado ❌ Evitar: Telnet / FTP sin cifrar 🧪 FIREWALL EN LINUX Ver reglas: 👉 iptables -L Logs: 👉 Registran actividad del firewall ⚡ IDEAS CLAVE EXAMEN Firewall → controla tráfico ACL → reglas NAT → comparte IP PAT → muchos → 1 IP DNAT → redirección (port forwarding) SPI → estado conexiones VLAN → segmentación DMZ → servidores públicos Proxy filtrante → bloquea webs VPN → acceso seguro"
+                  "explanation": "Protocolo de acceso remoto seguro. CHULETA UT – SEGURIDAD, FIREWALLS Y REDES FIREWALL Controla tráfico entrada/salida Función: permitir o bloquear según reglas Tipos: Básico → Filtra por IP/puerto (capas -) Stateful (SPI) → Analiza estado de conexiones NGFW / UTM → Stateful + DPI + análisis avanzado ACL (REGLAS) Definen qué tráfico: Se permite / se bloquea NAT Permite salir a Internet con IP pública Tipos: NAT → Traducción básica PAT (NAT Overload) → Muchas IP → IP pública (por puertos) DNAT → Redirige tráfico a servidor interno (port forwarding) SEGMENTACIÓN DE RED VLAN + firewall interno Evita: Movimiento lateral de ataques ZONAS DE RED LAN segura → Red interna protegida DMZ → Servidores públicos (web, correo) Nunca poner: BD, AD, datos críticos en DMZ PROXIES Proxy normal → Intermediario cliente → Internet Proxy transparente → Sin configurar en cliente Proxy caché → Guarda contenido → más rápido Proxy filtrante → Bloquea webs Proxy inverso → Protege servidores internos ACCESO SEGURO VPN → Acceso remoto cifrado Evitar: Telnet / FTP sin cifrar FIREWALL EN LINUX Ver reglas: iptables -L Logs: Registran actividad del firewall IDEAS CLAVE EXAMEN Firewall → controla tráfico ACL → reglas NAT → comparte IP PAT → muchos → IP DNAT → redirección (port forwarding) SPI → estado conexiones VLAN → segmentación DMZ → servidores públicos Proxy filtrante → bloquea webs VPN → acceso seguro"
                 }
               ],
               "correctOptionId": "a",
@@ -16037,7 +16037,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "SSL/TLS",
-                  "explanation": "POP3 puede cifrarse usando SSL/TLS (por ejemplo, POP3S en el puerto 995), protegiendo la comunicación."
+                  "explanation": "POP puede cifrarse usando SSL/TLS (por ejemplo, POPS en el puerto 995), protegiendo la comunicación."
                 },
                 {
                   "id": "c",
@@ -16205,12 +16205,12 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "110",
-                  "explanation": "POP3 sin cifrar."
+                  "explanation": "POP sin cifrar."
                 },
                 {
                   "id": "c",
                   "text": "995",
-                  "explanation": "POP3 con SSL."
+                  "explanation": "POP con SSL."
                 },
                 {
                   "id": "d",
@@ -16345,7 +16345,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "995",
-                  "explanation": "POP3S (POP3 seguro)."
+                  "explanation": "POPS (POP seguro)."
                 },
                 {
                   "id": "c",
@@ -16355,7 +16355,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "993",
-                  "explanation": "IMAPS (IMAP seguro con SSL/TLS) utiliza el puerto 993."
+                  "explanation": "IMAPS (IMAP seguro con SSL/TLS) utiliza el puerto 99."
                 }
               ],
               "correctOptionId": "d",
@@ -16368,7 +16368,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "S/MIME",
-                  "explanation": "Descarga datos web, no correo específicamente. Fetchmail se utiliza para recoger correos de servidores remotos (POP3/IMAP) y traerlos al servidor local. S/MIME permite firmar digitalmente y cifrar correos electrónicos, garantizando autenticidad e integridad."
+                  "explanation": "Descarga datos web, no correo específicamente. Fetchmail se utiliza para recoger correos de servidores remotos (POP/IMAP) y traerlos al servidor local. S/MIME permite firmar digitalmente y cifrar correos electrónicos, garantizando autenticidad e integridad."
                 },
                 {
                   "id": "b",
@@ -16383,7 +16383,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "HTTP",
-                  "explanation": "Muestra conexiones de red. ❓ 15. ¿Qué estándar permite firmar digitalmente un mensaje? Protocolo web."
+                  "explanation": "Muestra conexiones de red. 5. ¿Qué estándar permite firmar digitalmente un mensaje? Protocolo web."
                 }
               ],
               "correctOptionId": "a",
@@ -16429,7 +16429,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "Telnet",
-                  "explanation": "Con telnet puedes probar si un puerto está abierto (ej: telnet servidor 25 para SMTP)."
+                  "explanation": "Con telnet puedes probar si un puerto está abierto (ej: telnet servidor 5 para SMTP)."
                 },
                 {
                   "id": "c",
@@ -16523,7 +16523,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "POP3",
-                  "explanation": "Descarga correos al dispositivo y no sincroniza bien entre varios. 🧠 CHULETA UT5 – SERVICIOS DE CORREO 📧 PROTOCOLOS DE CORREO SMTP → Enviar correo 👉 Puerto 25 (sin cifrar) 👉 Puerto 587 (con autenticación segura) POP3 → Descargar correo 👉 Puerto 110 (sin cifrar) 👉 Puerto 995 (POP3S con SSL) IMAP → Gestionar correo en servidor 👉 Puerto 143 (sin cifrar) 👉 Puerto 993 (IMAPS con SSL) 🔐 SEGURIDAD EN CORREO TLS / SSL → Cifran la comunicación SMTP AUTH → Obliga autenticación (evita uso indebido) SPF → Indica qué servidores pueden enviar correo DKIM → Firma digital del mensaje S/MIME → Firma y cifrado de correos 🖥️ COMPONENTES DEL CORREO MUA → Cliente (Outlook, Thunderbird) MTA → Envía correos entre servidores (Postfix) MDA → Entrega el correo al buzón ⚙️ HERRAMIENTAS Y CONFIG Postfix → Servidor de correo (MTA) 👉 Config: /etc/postfix/main.cf Fetchmail → Recoge correo de otros servidores Mailgraph → Monitoriza actividad del correo SpamAssassin → Detecta spam 🌐 DNS EN CORREO MX → Indica el servidor de correo del dominio TXT → SPF, DKIM, etc. 🧪 COMANDOS ÚTILES Probar puerto SMTP: 👉 telnet servidor 25 ⚡ IDEAS CLAVE EXAMEN SMTP → enviar POP3 → descargar IMAP → sincronizar 587 → SMTP seguro 993 → IMAPS 995 → POP3S TLS → cifrado SPF → servidores autorizados DKIM → firma digital MTA → envía MDA → entrega MUA → cliente MX → servidor correo"
+                  "explanation": "Descarga correos al dispositivo y no sincroniza bien entre varios. CHULETA UT5 – SERVICIOS DE CORREO PROTOCOLOS DE CORREO SMTP → Enviar correo Puerto 5 (sin cifrar) Puerto 587 (con autenticación segura) POP → Descargar correo Puerto 0 (sin cifrar) Puerto 995 (POPS con SSL) IMAP → Gestionar correo en servidor Puerto (sin cifrar) Puerto 99 (IMAPS con SSL) SEGURIDAD EN CORREO TLS / SSL → Cifran la comunicación SMTP AUTH → Obliga autenticación (evita uso indebido) SPF → Indica qué servidores pueden enviar correo DKIM → Firma digital del mensaje S/MIME → Firma y cifrado de correos COMPONENTES DEL CORREO MUA → Cliente (Outlook, Thunderbird) MTA → Envía correos entre servidores (Postfix) MDA → Entrega el correo al buzón HERRAMIENTAS Y CONFIG Postfix → Servidor de correo (MTA) Config: /etc/postfix/main.cf Fetchmail → Recoge correo de otros servidores Mailgraph → Monitoriza actividad del correo SpamAssassin → Detecta spam DNS EN CORREO MX → Indica el servidor de correo del dominio TXT → SPF, DKIM, etc. COMANDOS ÚTILES Probar puerto SMTP: telnet servidor 5 IDEAS CLAVE EXAMEN SMTP → enviar POP → descargar IMAP → sincronizar 587 → SMTP seguro 99 → IMAPS 995 → POPS TLS → cifrado SPF → servidores autorizados DKIM → firma digital MTA → envía MDA → entrega MUA → cliente MX → servidor correo"
                 }
               ],
               "correctOptionId": "a",
@@ -17089,7 +17089,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "OpenFire",
-                  "explanation": "Servidor XMPP. 🧠 CHULETA UT6 – MENSAJERÍA INSTANTÁNEA Y CHAT 💬 PROTOCOLOS DE MENSAJERÍA IRC (Internet Relay Chat) → Chat clásico por salas 👉 Basado en nick (sin identidad real) XMPP (Jabber) → Mensajería moderna 👉 Estándar abierto 👉 Interoperable y extensible 🖥️ CLIENTES Y SERVIDORES Spark → Cliente XMPP (Windows) Pidgin → Cliente multiprotocolo OpenFire → Servidor XMPP (Windows) 👉 Panel: http://localhost:9090 ejabberd → Servidor XMPP (Linux, robusto) 🔑 CONCEPTOS CLAVE XMPP JID (Jabber ID) → Usuario@dominio Necesario para iniciar sesión Presencia → Estado del usuario 👉 conectado / ausente / ocupado 🔐 SEGURIDAD Uso de SSL/TLS → Cifra la comunicación Si el cliente (ej: Pidgin) no acepta certificado: 👉 ❌ No conecta / no inicia sesión 🧩 FUNCIONALIDADES Salas de chat → públicas o privadas 👉 Privadas requieren permisos (OpenFire) Listas de distribución 👉 Envío a múltiples usuarios Listas moderadas 👉 Mensajes requieren aprobación ⚙️ CONFIGURACIÓN ejabberd → archivo: 👉 ejabberd.yml Para conectar cliente: 👉 Servidor (IP o dominio) + usuario ⚡ COMPARACIÓN CLAVE IRC → simple, sin identidad real XMPP → usuarios identificados (JID), más seguro y moderno 🧪 VERIFICACIÓN SERVICIO Probar: 👉 conexión 👉 envío 👉 recepción ⚡ IDEAS CLAVE EXAMEN IRC → chat clásico XMPP → moderno, abierto JID → usuario OpenFire → servidor Spark → cliente 9090 → panel OpenFire TLS → cifrado Presencia → estado usuario ejabberd.yml → config Listas → envío masivo"
+                  "explanation": "Servidor XMPP. CHULETA UT6 – MENSAJERÍA INSTANTÁNEA Y CHAT PROTOCOLOS DE MENSAJERÍA IRC (Internet Relay Chat) → Chat clásico por salas Basado en nick (sin identidad real) XMPP (Jabber) → Mensajería moderna Estándar abierto Interoperable y extensible CLIENTES Y SERVIDORES Spark → Cliente XMPP (Windows) Pidgin → Cliente multiprotocolo OpenFire → Servidor XMPP (Windows) Panel: http://localhost:9090 ejabberd → Servidor XMPP (Linux, robusto) CONCEPTOS CLAVE XMPP JID (Jabber ID) → Usuario@dominio Necesario para iniciar sesión Presencia → Estado del usuario conectado / ausente / ocupado SEGURIDAD Uso de SSL/TLS → Cifra la comunicación Si el cliente (ej: Pidgin) no acepta certificado: No conecta / no inicia sesión FUNCIONALIDADES Salas de chat → públicas o privadas Privadas requieren permisos (OpenFire) Listas de distribución Envío a múltiples usuarios Listas moderadas Mensajes requieren aprobación CONFIGURACIÓN ejabberd → archivo: ejabberd.yml Para conectar cliente: Servidor (IP o dominio) + usuario COMPARACIÓN CLAVE IRC → simple, sin identidad real XMPP → usuarios identificados (JID), más seguro y moderno VERIFICACIÓN SERVICIO Probar: conexión envío recepción IDEAS CLAVE EXAMEN IRC → chat clásico XMPP → moderno, abierto JID → usuario OpenFire → servidor Spark → cliente 9090 → panel OpenFire TLS → cifrado Presencia → estado usuario ejabberd.yml → config Listas → envío masivo"
                 }
               ],
               "correctOptionId": "b",
@@ -17248,7 +17248,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "WebRTC",
-                  "explanation": "WebRTC permite comunicación en tiempo real con latencias muy bajas (<1s), ideal para videollamadas."
+                  "explanation": "WebRTC permite comunicación en tiempo real con latencias muy bajas (<s), ideal para videollamadas."
                 },
                 {
                   "id": "b",
@@ -17332,7 +17332,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": ".mp4",
-                  "explanation": "El formato .mp4 es uno de los contenedores más usados para vídeo moderno, compatible con la mayoría de dispositivos."
+                  "explanation": "El formato .mp es uno de los contenedores más usados para vídeo moderno, compatible con la mayoría de dispositivos."
                 },
                 {
                   "id": "b",
@@ -17421,7 +17421,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "8 Mbps",
-                  "explanation": "Para vídeo 1080p (Full HD) se recomienda un bitrate alrededor de 8 Mbps para mantener buena calidad."
+                  "explanation": "Para vídeo 080p (Full HD) se recomienda un bitrate alrededor de 8 Mbps para mantener buena calidad."
                 },
                 {
                   "id": "c",
@@ -17431,7 +17431,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "2 Mbps",
-                  "explanation": "Insuficiente para 1080p."
+                  "explanation": "Insuficiente para 080p."
                 }
               ],
               "correctOptionId": "b",
@@ -17627,7 +17627,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "H.264",
-                  "explanation": "H.264 es un códec de vídeo muy utilizado en streaming y reproducción multimedia."
+                  "explanation": "H.6 es un códec de vídeo muy utilizado en streaming y reproducción multimedia."
                 }
               ],
               "correctOptionId": "d",
@@ -17655,7 +17655,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "443",
-                  "explanation": "HTTPS. 🧠 CHULETA UT7 – STREAMING Y VoIP 🎥 STREAMING Reproducción en tiempo real sin descargar completo Descarga progresiva → se reproduce mientras descarga 🧩 ELEMENTOS DEL STREAMING Origen → genera contenido (cámara, audio) Codificador → convierte formato (ej: FFmpeg) Servidor → almacena y distribuye Cliente → reproduce ⚙️ PROTOCOLOS STREAMING HLS → vídeo bajo demanda (VOD) DASH → similar a HLS RTMP → antiguo (en desuso progresivo) SRT → alternativa moderna (baja latencia) WebRTC → ultra baja latencia (<1s) 🔊 CÓDECS Audio sin pérdida → FLAC Audio con pérdida → MP3, AAC, Opus Vídeo → H.264 📊 PARÁMETROS CLAVE Bitrate → bits por segundo (calidad) 👉 1080p ≈ 8 Mbps mínimo Sample rate → frecuencia de muestreo Canales → mono / estéreo 📡 VoIP (Voz sobre IP) Usa UDP → menor latencia 👉 No retransmite paquetes Jitter → variación del retardo 👉 Afecta calidad de audio ☎️ PROTOCOLOS VoIP SIP → señalización 👉 Mensajes: INVITE, ACK, BYE RTP → transporte de audio/vídeo 📁 FORMATOS Y ARCHIVOS Vídeo común → .mp4 Config Icecast → icecast.xml Puerto Icecast → 8000 ⚡ IDEAS CLAVE EXAMEN Streaming = tiempo real UDP = baja latencia HLS = VOD WebRTC = tiempo real SRT = sustituto RTMP Bitrate = calidad Jitter = variación retardo SIP = control llamadas RTP = datos audio FFmpeg = codificador Cliente = reproduce"
+                  "explanation": "HTTPS. CHULETA UT7 – STREAMING Y VoIP STREAMING Reproducción en tiempo real sin descargar completo Descarga progresiva → se reproduce mientras descarga ELEMENTOS DEL STREAMING Origen → genera contenido (cámara, audio) Codificador → convierte formato (ej: FFmpeg) Servidor → almacena y distribuye Cliente → reproduce PROTOCOLOS STREAMING HLS → vídeo bajo demanda (VOD) DASH → similar a HLS RTMP → antiguo (en desuso progresivo) SRT → alternativa moderna (baja latencia) WebRTC → ultra baja latencia (<s) CÓDECS Audio sin pérdida → FLAC Audio con pérdida → MP, AAC, Opus Vídeo → H.6 PARÁMETROS CLAVE Bitrate → bits por segundo (calidad) 080p ≈ 8 Mbps mínimo Sample rate → frecuencia de muestreo Canales → mono / estéreo VoIP (Voz sobre IP) Usa UDP → menor latencia No retransmite paquetes Jitter → variación del retardo Afecta calidad de audio PROTOCOLOS VoIP SIP → señalización Mensajes: INVITE, ACK, BYE RTP → transporte de audio/vídeo FORMATOS Y ARCHIVOS Vídeo común → .mp Config Icecast → icecast.xml Puerto Icecast → 8000 IDEAS CLAVE EXAMEN Streaming = tiempo real UDP = baja latencia HLS = VOD WebRTC = tiempo real SRT = sustituto RTMP Bitrate = calidad Jitter = variación retardo SIP = control llamadas RTP = datos audio FFmpeg = codificador Cliente = reproduce"
                 }
               ],
               "correctOptionId": "b",
@@ -17773,7 +17773,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "Asterisk/3CX",
-                  "explanation": "Tras Elastix 5.0, se suelen usar soluciones como Asterisk o 3CX como servidores PBX modernos en VoIP."
+                  "explanation": "Tras Elastix 5.0, se suelen usar soluciones como Asterisk o CX como servidores PBX modernos en VoIP."
                 }
               ],
               "correctOptionId": "d",
@@ -17842,7 +17842,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Entre 150 y 400 ms",
-                  "explanation": "En VoIP, una latencia de hasta unos 150–400 ms puede considerarse aceptable (aunque lo ideal es <150 ms)."
+                  "explanation": "En VoIP, una latencia de hasta unos 50–00 ms puede considerarse aceptable (aunque lo ideal es <50 ms)."
                 },
                 {
                   "id": "b",
@@ -17954,7 +17954,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "ACK",
-                  "explanation": "El mensaje ACK en SIP se utiliza para confirmar la recepción del “200 OK”, completando así el establecimiento de la llamada."
+                  "explanation": "El mensaje ACK en SIP se utiliza para confirmar la recepción del “00 OK”, completando así el establecimiento de la llamada."
                 },
                 {
                   "id": "b",
@@ -17982,7 +17982,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Número de extensión",
-                  "explanation": "En 3CX, cada usuario/terminal se identifica mediante un número de extensión único para gestionar llamadas internas."
+                  "explanation": "En CX, cada usuario/terminal se identifica mediante un número de extensión único para gestionar llamadas internas."
                 },
                 {
                   "id": "b",
@@ -18010,7 +18010,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Panel administrativo web",
-                  "explanation": "En 3CX, las extensiones se crean y gestionan desde el panel de administración web del sistema."
+                  "explanation": "En CX, las extensiones se crean y gestionan desde el panel de administración web del sistema."
                 },
                 {
                   "id": "b",
@@ -18048,12 +18048,12 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "Usuario no registrado",
-                  "explanation": "Código de error 404 o 480."
+                  "explanation": "Código de error 0 o 80."
                 },
                 {
                   "id": "d",
                   "text": "El teléfono destino está sonando",
-                  "explanation": "El mensaje SIP 180 Ringing indica que la llamada ha llegado al destino y el teléfono está sonando."
+                  "explanation": "El mensaje SIP 80 Ringing indica que la llamada ha llegado al destino y el teléfono está sonando."
                 }
               ],
               "correctOptionId": "d",
@@ -18071,7 +18071,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "b",
                   "text": "G.711",
-                  "explanation": "G.711 utiliza PCM (Pulse Code Modulation) y genera un flujo de 64 kbps sin compresión perceptual, muy usado en telefonía tradicional VoIP."
+                  "explanation": "G.7 utiliza PCM (Pulse Code Modulation) y genera un flujo de 6 kbps sin compresión perceptual, muy usado en telefonía tradicional VoIP."
                 },
                 {
                   "id": "c",
@@ -18132,7 +18132,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "c",
                   "text": "Contraseñas de acceso",
-                  "explanation": "En Icecast, SIP y 3CX, lo más crítico a proteger son las credenciales (usuarios y contraseñas), ya que permiten acceso a servicios de streaming, llamadas o administración."
+                  "explanation": "En Icecast, SIP y CX, lo más crítico a proteger son las credenciales (usuarios y contraseñas), ya que permiten acceso a servicios de streaming, llamadas o administración."
                 },
                 {
                   "id": "d",
@@ -18150,7 +18150,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "a",
                   "text": "Solaris, BSD",
-                  "explanation": "No son plataformas soportadas por 3CX"
+                  "explanation": "No son plataformas soportadas por CX"
                 },
                 {
                   "id": "b",
@@ -18165,7 +18165,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "iOS solamente",
-                  "explanation": "Muy limitado, no representa 3CX"
+                  "explanation": "Muy limitado, no representa CX"
                 }
               ],
               "correctOptionId": "b",
@@ -18221,7 +18221,7 @@ window.LINKIA_QUIZ_DATA = {
                 {
                   "id": "d",
                   "text": "TCP",
-                  "explanation": "transporte general fiable, pero no optimizado para tiempo real 🧠 CHULETA UT8 – VoIP, SIP Y TELEFONÍA IP 📞 VOIP (Voz sobre IP) Transmite voz en redes IP Usa conmutación de paquetes Necesita baja latencia y estabilidad 🌐 TIPOS DE RED VoIP → Red IP ❌ RTC → red de circuitos (telefonía tradicional) 📡 PROTOCOLOS VOIP 🔹 Señalización SIP 👉 Inicia, gestiona y finaliza llamadas 👉 Mensajes: INVITE, ACK, CANCEL, REGISTER 🔹 Transporte de voz RTP → transporta audio/vídeo 🔹 Control calidad RTCP → estadísticas (jitter, pérdida, latencia) 📊 CALIDAD VOIP QoS → prioriza tráfico de voz Jitter → variación del retardo Latencia aceptable → ~150–400 ms 🔐 SEGURIDAD Y RED UDP → usado en VoIP por baja latencia No retransmite paquetes Menos fiable pero más rápido 🏢 PBX Y CENTRALITAS 3CX / Asterisk → PBX modernas Sustituyen a Elastix 👉 3CX: Gestión de extensiones Softphones Llamadas internas/externas Panel web 📞 ELEMENTOS VOIP MTA / SIP Server Registrar Server → guarda ubicación usuarios Media Gateway → conecta VoIP ↔ RTC 📱 CLIENTES / EXTENSIONES Softphones 3CX: 👉 Windows, Mac, iOS, Android Cada usuario tiene: 👉 Número de extensión 📊 CÓDECS G.711 → PCM 64 kbps (sin compresión) Audio: Opus, AAC, MP3 (con compresión) Video: H.264 📡 PROTOCOLOS STREAMING (RELACIÓN) SIP → llamadas RTP → audio/vídeo RTCP → calidad ⚡ IDEAS CLAVE EXAMEN SIP = señalización RTP = voz RTCP = calidad UDP = VoIP QoS = mejora calidad Jitter = variación retardo Media Gateway = conecta redes 3CX = centralita IP Extensión = número usuario G.711 = 64 kbps PCM"
+                  "explanation": "transporte general fiable, pero no optimizado para tiempo real CHULETA UT8 – VoIP, SIP Y TELEFONÍA IP VOIP (Voz sobre IP) Transmite voz en redes IP Usa conmutación de paquetes Necesita baja latencia y estabilidad TIPOS DE RED VoIP → Red IP RTC → red de circuitos (telefonía tradicional) PROTOCOLOS VOIP Señalización SIP Inicia, gestiona y finaliza llamadas Mensajes: INVITE, ACK, CANCEL, REGISTER Transporte de voz RTP → transporta audio/vídeo Control calidad RTCP → estadísticas (jitter, pérdida, latencia) CALIDAD VOIP QoS → prioriza tráfico de voz Jitter → variación del retardo Latencia aceptable → ~50–00 ms SEGURIDAD Y RED UDP → usado en VoIP por baja latencia No retransmite paquetes Menos fiable pero más rápido PBX Y CENTRALITAS CX / Asterisk → PBX modernas Sustituyen a Elastix CX: Gestión de extensiones Softphones Llamadas internas/externas Panel web ELEMENTOS VOIP MTA / SIP Server Registrar Server → guarda ubicación usuarios Media Gateway → conecta VoIP ↔ RTC CLIENTES / EXTENSIONES Softphones CX: Windows, Mac, iOS, Android Cada usuario tiene: Número de extensión CÓDECS G.7 → PCM 6 kbps (sin compresión) Audio: Opus, AAC, MP (con compresión) Video: H.6 PROTOCOLOS STREAMING (RELACIÓN) SIP → llamadas RTP → audio/vídeo RTCP → calidad IDEAS CLAVE EXAMEN SIP = señalización RTP = voz RTCP = calidad UDP = VoIP QoS = mejora calidad Jitter = variación retardo Media Gateway = conecta redes CX = centralita IP Extensión = número usuario G.7 = 6 kbps PCM"
                 }
               ],
               "correctOptionId": "a",
