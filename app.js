@@ -1,5 +1,6 @@
 const data = window.LINKIA_QUIZ_DATA;
 const extraQuestions = window.LINKIA_EXTRA_QUESTIONS || {};
+const flashcardsData = window.LINKIA_FLASHCARDS || {};
 const historyKey = "linkiaQuizAttempts";
 
 function escapeHtml(str) {
@@ -36,6 +37,9 @@ const state = {
   answered: false,
   selectedOptionId: null,
   resultSaved: false,
+  flashcardUnit: null,
+  flashcardIndex: 0,
+  flashcardRevealed: false,
 };
 
 function makeExtraQuestion(subjectId, item, index) {
@@ -317,6 +321,21 @@ function renderSubject(subject) {
           <button class="primary" type="button" data-final-exam>Empezar examen</button>
         </div>
       </article>
+      ${flashcardsData[subject.id] ? `
+        <article class="card card-qa">
+          <div>
+            <h2>Preguntas y Respuestas</h2>
+            <p>Lee la pregunta, piensa la respuesta y compruébala. Ideal para repasar conceptos clave.</p>
+            <div class="meta-row">
+              <span class="tag">${flashcardsData[subject.id].reduce((sum, u) => sum + u.cards.length, 0)} tarjetas</span>
+              <span class="tag">${flashcardsData[subject.id].length} unidades</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="secondary" type="button" data-qa>Repasar</button>
+          </div>
+        </article>
+      ` : ""}
       ${subject.units
         .map(
           (unit) => `
@@ -367,6 +386,11 @@ function renderSubject(subject) {
       failedReview: true,
     });
   });
+
+  const qaButton = app.querySelector("[data-qa]");
+  if (qaButton) {
+    qaButton.addEventListener("click", () => renderFlashcardList(subject));
+  }
 
   app.querySelectorAll("[data-unit]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -738,16 +762,105 @@ function resultMessage(percent) {
   return "Conviene repasar la unidad y repetir el test con calma.";
 }
 
+function renderFlashcardList(subject) {
+  state.route = "flashcard-list";
+  state.subject = subject;
+  state.quiz = null;
+  const units = flashcardsData[subject.id];
+  setHeader(subject.name, "Preguntas y Respuestas", true);
+  setScore();
+
+  app.innerHTML = `
+    <section class="grid">
+      ${units.map((unit) => `
+        <article class="card">
+          <div>
+            <h3>${unit.title}</h3>
+            <p>Repasa las preguntas clave de esta unidad.</p>
+            <div class="meta-row">
+              <span class="tag">${unit.cards.length} tarjetas</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="secondary" type="button" data-qa-unit="${unit.id}">Repasar</button>
+          </div>
+        </article>
+      `).join("")}
+    </section>
+  `;
+
+  app.querySelectorAll("[data-qa-unit]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const unit = units.find((u) => u.id === button.dataset.qaUnit);
+      state.flashcardUnit = unit;
+      state.flashcardIndex = 0;
+      state.flashcardRevealed = false;
+      renderFlashcard(subject, unit);
+    });
+  });
+}
+
+function renderFlashcard(subject, unit) {
+  state.route = "flashcard";
+  const index = state.flashcardIndex;
+  const total = unit.cards.length;
+  const card = unit.cards[index];
+  const percent = (index / total) * 100;
+
+  setHeader(`${subject.name} · ${unit.title}`, "Preguntas y Respuestas", true);
+  setScore(`${index + 1}/${total}`);
+
+  app.innerHTML = `
+    <section class="quiz-panel">
+      <div class="progress"><span style="width: ${percent}%"></span></div>
+      <p class="muted">Tarjeta ${index + 1} de ${total}</p>
+      <div class="flashcard-card">
+        <h2 class="question-title">${escapeHtml(card.q)}</h2>
+        ${state.flashcardRevealed
+          ? `<div class="flashcard-answer"><p>${escapeHtml(card.a)}</p></div>`
+          : `<div class="actions"><button class="secondary" type="button" data-reveal>Mostrar respuesta</button></div>`
+        }
+      </div>
+      ${state.flashcardRevealed ? `
+        <div class="flashcard-nav">
+          <button class="secondary" type="button" data-prev ${index === 0 ? "disabled" : ""}>← Anterior</button>
+          <button class="primary" type="button" data-next>${index + 1 === total ? "Finalizar" : "Siguiente →"}</button>
+        </div>
+      ` : ""}
+    </section>
+  `;
+
+  if (!state.flashcardRevealed) {
+    app.querySelector("[data-reveal]").addEventListener("click", () => {
+      state.flashcardRevealed = true;
+      renderFlashcard(subject, unit);
+    });
+  } else {
+    app.querySelector("[data-prev]").addEventListener("click", () => {
+      if (state.flashcardIndex > 0) {
+        state.flashcardIndex -= 1;
+        state.flashcardRevealed = false;
+        renderFlashcard(subject, unit);
+      }
+    });
+    app.querySelector("[data-next]").addEventListener("click", () => {
+      if (state.flashcardIndex + 1 >= total) {
+        renderFlashcardList(subject);
+      } else {
+        state.flashcardIndex += 1;
+        state.flashcardRevealed = false;
+        renderFlashcard(subject, unit);
+      }
+    });
+  }
+}
+
 backButton.addEventListener("click", () => {
   if (state.route === "home") return;
-  if (state.route === "subject") {
-    renderHome();
-    return;
-  }
-  if (state.route === "tracking") {
-    renderSubject(state.subject);
-    return;
-  }
+  if (state.route === "subject") { renderHome(); return; }
+  if (state.route === "tracking") { renderSubject(state.subject); return; }
+  if (state.route === "flashcard-list") { renderSubject(state.subject); return; }
+  if (state.route === "flashcard") { renderFlashcardList(state.subject); return; }
   renderSubject(state.subject);
 });
 
