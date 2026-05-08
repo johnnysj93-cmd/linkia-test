@@ -1,6 +1,7 @@
 const data = window.LINKIA_QUIZ_DATA;
 const extraQuestions = window.LINKIA_EXTRA_QUESTIONS || {};
 const flashcardsData = window.LINKIA_FLASHCARDS || {};
+const pdfQuestionsData = window.LINKIA_PDF_QUESTIONS || {};
 const historyKey = "linkiaQuizAttempts";
 
 function escapeHtml(str) {
@@ -336,6 +337,21 @@ function renderSubject(subject) {
           </div>
         </article>
       ` : ""}
+      ${pdfQuestionsData[subject.id] ? `
+        <article class="card card-pdf">
+          <div>
+            <h2>Preguntas PDF</h2>
+            <p>Tests de 30 preguntas por unidad basados en los apuntes de clase.</p>
+            <div class="meta-row">
+              <span class="tag">${pdfQuestionsData[subject.id].reduce((sum, u) => sum + u.questions.length, 0)} preguntas</span>
+              <span class="tag">${pdfQuestionsData[subject.id].length} unidades</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="secondary" type="button" data-pdf>Ver unidades</button>
+          </div>
+        </article>
+      ` : ""}
       ${subject.units
         .map(
           (unit) => `
@@ -390,6 +406,11 @@ function renderSubject(subject) {
   const qaButton = app.querySelector("[data-qa]");
   if (qaButton) {
     qaButton.addEventListener("click", () => renderFlashcardList(subject));
+  }
+
+  const pdfButton = app.querySelector("[data-pdf]");
+  if (pdfButton) {
+    pdfButton.addEventListener("click", () => renderPdfUnitList(subject));
   }
 
   app.querySelectorAll("[data-unit]").forEach((button) => {
@@ -855,12 +876,53 @@ function renderFlashcard(subject, unit) {
   }
 }
 
+function renderPdfUnitList(subject) {
+  state.route = "pdf-list";
+  state.subject = subject;
+  state.quiz = null;
+  const units = pdfQuestionsData[subject.id];
+  setHeader(subject.name, "Preguntas PDF", true);
+  setScore();
+
+  app.innerHTML = `
+    <section class="grid">
+      ${units.map((unit) => `
+        <article class="card">
+          <div>
+            <h3>${unit.title}</h3>
+            <p>Test de preguntas basado en los apuntes de la unidad.</p>
+            <div class="meta-row">
+              <span class="tag">${unit.questions.length} preguntas</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="secondary" type="button" data-pdf-unit="${unit.id}">Practicar</button>
+          </div>
+        </article>
+      `).join("")}
+    </section>
+  `;
+
+  app.querySelectorAll("[data-pdf-unit]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const unit = units.find((u) => u.id === button.dataset.pdfUnit);
+      startQuiz(subject, {
+        title: `${subject.name} · ${unit.title}`,
+        label: "Preguntas PDF",
+        questions: prepareQuestionsForPlay(unit.questions.map((q) => ({ ...q, unitId: unit.id, unitTitle: unit.title }))),
+        final: false,
+      });
+    });
+  });
+}
+
 backButton.addEventListener("click", () => {
   if (state.route === "home") return;
   if (state.route === "subject") { renderHome(); return; }
   if (state.route === "tracking") { renderSubject(state.subject); return; }
   if (state.route === "flashcard-list") { renderSubject(state.subject); return; }
   if (state.route === "flashcard") { renderFlashcardList(state.subject); return; }
+  if (state.route === "pdf-list") { renderSubject(state.subject); return; }
   renderSubject(state.subject);
 });
 

@@ -461,6 +461,16 @@ summary {
   }
 }
 
+/* ── PDF Questions ──────────────────────────────────────────────── */
+.card-pdf {
+  border-left: 4px solid #0891b2;
+}
+
+.card-pdf h2,
+.card-pdf p {
+  color: #0e5f77;
+}
+
 /* ── Flashcards ─────────────────────────────────────────────────── */
 .card-qa {
   border-left: 4px solid #7c3aed;
