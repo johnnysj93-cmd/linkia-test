@@ -461,6 +461,16 @@ summary {
   }
 }
 
+/* ── Autoevaluaciones ───────────────────────────────────────────── */
+.card-units {
+  border-left: 4px solid #16a34a;
+}
+
+.card-units h2,
+.card-units p {
+  color: #166534;
+}
+
 /* ── PDF Questions ──────────────────────────────────────────────── */
 .card-pdf {
   border-left: 4px solid #0891b2;

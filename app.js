@@ -352,29 +352,19 @@ function renderSubject(subject) {
           </div>
         </article>
       ` : ""}
-      ${subject.units
-        .map(
-          (unit) => `
-            <article class="card ${unit.extra ? "card-extra" : ""}">
-              <div>
-                <h3>${unit.title}</h3>
-                <p>${
-                  unit.extra
-                    ? "Preguntas fuera de temario para reforzar base técnica de 1º ASIR."
-                    : "Test de la unidad con corrección y explicación inmediata."
-                }</p>
-                <div class="meta-row">
-                  <span class="tag">${unit.questions.length} preguntas</span>
-                  ${unit.extra ? "<span class=\"tag tag-extra\">Extra</span>" : ""}
-                </div>
-              </div>
-              <div class="actions">
-                <button class="secondary" type="button" data-unit="${unit.id}">Practicar</button>
-              </div>
-            </article>
-          `,
-        )
-        .join("")}
+      <article class="card card-units">
+        <div>
+          <h2>Autoevaluaciones</h2>
+          <p>Tests por unidad con corrección y explicación inmediata.</p>
+          <div class="meta-row">
+            <span class="tag">${subject.units.reduce((sum, u) => sum + u.questions.length, 0)} preguntas</span>
+            <span class="tag">${subject.units.length} unidades</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="secondary" type="button" data-units>Ver unidades</button>
+        </div>
+      </article>
     </section>
   `;
 
@@ -413,21 +403,7 @@ function renderSubject(subject) {
     pdfButton.addEventListener("click", () => renderPdfUnitList(subject));
   }
 
-  app.querySelectorAll("[data-unit]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const unit = subject.units.find((item) => item.id === button.dataset.unit);
-      startQuiz(subject, {
-        title: `${subject.name} · ${unit.title}`,
-        label: "Test de unidad",
-        questions: prepareQuestionsForPlay(unit.questions).map((question) => ({
-          ...question,
-          unitId: unit.id,
-          unitTitle: unit.title,
-        })),
-        final: false,
-      });
-    });
-  });
+  app.querySelector("[data-units]").addEventListener("click", () => renderUnitList(subject));
 }
 
 function bestAttemptText(attempts) {
@@ -876,6 +852,53 @@ function renderFlashcard(subject, unit) {
   }
 }
 
+function renderUnitList(subject) {
+  state.route = "unit-list";
+  state.subject = subject;
+  state.quiz = null;
+  setHeader(subject.name, "Autoevaluaciones", true);
+  setScore();
+
+  app.innerHTML = `
+    <section class="grid">
+      ${subject.units.map((unit) => `
+        <article class="card ${unit.extra ? "card-extra" : ""}">
+          <div>
+            <h3>${unit.title}</h3>
+            <p>${unit.extra
+              ? "Preguntas fuera de temario para reforzar base técnica de 1º ASIR."
+              : "Test de la unidad con corrección y explicación inmediata."
+            }</p>
+            <div class="meta-row">
+              <span class="tag">${unit.questions.length} preguntas</span>
+              ${unit.extra ? "<span class=\"tag tag-extra\">Extra</span>" : ""}
+            </div>
+          </div>
+          <div class="actions">
+            <button class="secondary" type="button" data-unit="${unit.id}">Practicar</button>
+          </div>
+        </article>
+      `).join("")}
+    </section>
+  `;
+
+  app.querySelectorAll("[data-unit]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const unit = subject.units.find((u) => u.id === button.dataset.unit);
+      startQuiz(subject, {
+        title: `${subject.name} · ${unit.title}`,
+        label: "Test de unidad",
+        questions: prepareQuestionsForPlay(unit.questions).map((question) => ({
+          ...question,
+          unitId: unit.id,
+          unitTitle: unit.title,
+        })),
+        final: false,
+      });
+    });
+  });
+}
+
 function renderPdfUnitList(subject) {
   state.route = "pdf-list";
   state.subject = subject;
@@ -922,6 +945,7 @@ backButton.addEventListener("click", () => {
   if (state.route === "tracking") { renderSubject(state.subject); return; }
   if (state.route === "flashcard-list") { renderSubject(state.subject); return; }
   if (state.route === "flashcard") { renderFlashcardList(state.subject); return; }
+  if (state.route === "unit-list") { renderSubject(state.subject); return; }
   if (state.route === "pdf-list") { renderSubject(state.subject); return; }
   renderSubject(state.subject);
 });
