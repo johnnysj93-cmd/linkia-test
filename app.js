@@ -357,14 +357,28 @@ function renderSubject(subject) {
           <h2>Autoevaluaciones</h2>
           <p>Tests por unidad con corrección y explicación inmediata.</p>
           <div class="meta-row">
-            <span class="tag">${subject.units.reduce((sum, u) => sum + u.questions.length, 0)} preguntas</span>
-            <span class="tag">${subject.units.length} unidades</span>
+            <span class="tag">${subject.units.filter((u) => !u.extra).reduce((sum, u) => sum + u.questions.length, 0)} preguntas</span>
+            <span class="tag">${subject.units.filter((u) => !u.extra).length} unidades</span>
           </div>
         </div>
         <div class="actions">
           <button class="secondary" type="button" data-units>Ver unidades</button>
         </div>
       </article>
+      ${subject.units.some((u) => u.extra) ? `
+        <article class="card card-extra-nav">
+          <div>
+            <h2>Preguntas extra</h2>
+            <p>Preguntas fuera de temario para reforzar base técnica de 1º ASIR.</p>
+            <div class="meta-row">
+              <span class="tag">${subject.units.filter((u) => u.extra).reduce((sum, u) => sum + u.questions.length, 0)} preguntas</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="secondary" type="button" data-extras>Practicar</button>
+          </div>
+        </article>
+      ` : ""}
     </section>
   `;
 
@@ -404,6 +418,24 @@ function renderSubject(subject) {
   }
 
   app.querySelector("[data-units]").addEventListener("click", () => renderUnitList(subject));
+
+  const extrasButton = app.querySelector("[data-extras]");
+  if (extrasButton) {
+    extrasButton.addEventListener("click", () => {
+      const extraUnits = subject.units.filter((u) => u.extra);
+      if (extraUnits.length === 1) {
+        const unit = extraUnits[0];
+        startQuiz(subject, {
+          title: `${subject.name} · ${unit.title}`,
+          label: "Preguntas extra",
+          questions: prepareQuestionsForPlay(unit.questions).map((q) => ({ ...q, unitId: unit.id, unitTitle: unit.title })),
+          final: false,
+        });
+      } else {
+        renderExtraList(subject);
+      }
+    });
+  }
 }
 
 function bestAttemptText(attempts) {
@@ -859,19 +891,16 @@ function renderUnitList(subject) {
   setHeader(subject.name, "Autoevaluaciones", true);
   setScore();
 
+  const regularUnits = subject.units.filter((u) => !u.extra);
   app.innerHTML = `
     <section class="grid">
-      ${subject.units.map((unit) => `
-        <article class="card ${unit.extra ? "card-extra" : ""}">
+      ${regularUnits.map((unit) => `
+        <article class="card">
           <div>
             <h3>${unit.title}</h3>
-            <p>${unit.extra
-              ? "Preguntas fuera de temario para reforzar base técnica de 1º ASIR."
-              : "Test de la unidad con corrección y explicación inmediata."
-            }</p>
+            <p>Test de la unidad con corrección y explicación inmediata.</p>
             <div class="meta-row">
               <span class="tag">${unit.questions.length} preguntas</span>
-              ${unit.extra ? "<span class=\"tag tag-extra\">Extra</span>" : ""}
             </div>
           </div>
           <div class="actions">
@@ -884,7 +913,7 @@ function renderUnitList(subject) {
 
   app.querySelectorAll("[data-unit]").forEach((button) => {
     button.addEventListener("click", () => {
-      const unit = subject.units.find((u) => u.id === button.dataset.unit);
+      const unit = regularUnits.find((u) => u.id === button.dataset.unit);
       startQuiz(subject, {
         title: `${subject.name} · ${unit.title}`,
         label: "Test de unidad",
@@ -893,6 +922,47 @@ function renderUnitList(subject) {
           unitId: unit.id,
           unitTitle: unit.title,
         })),
+        final: false,
+      });
+    });
+  });
+}
+
+function renderExtraList(subject) {
+  state.route = "extra-list";
+  state.subject = subject;
+  state.quiz = null;
+  const extraUnits = subject.units.filter((u) => u.extra);
+  setHeader(subject.name, "Preguntas extra", true);
+  setScore();
+
+  app.innerHTML = `
+    <section class="grid">
+      ${extraUnits.map((unit) => `
+        <article class="card card-extra">
+          <div>
+            <h3>${unit.title}</h3>
+            <p>Preguntas fuera de temario para reforzar base técnica de 1º ASIR.</p>
+            <div class="meta-row">
+              <span class="tag">${unit.questions.length} preguntas</span>
+              <span class="tag tag-extra">Extra</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="secondary" type="button" data-unit="${unit.id}">Practicar</button>
+          </div>
+        </article>
+      `).join("")}
+    </section>
+  `;
+
+  app.querySelectorAll("[data-unit]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const unit = extraUnits.find((u) => u.id === button.dataset.unit);
+      startQuiz(subject, {
+        title: `${subject.name} · ${unit.title}`,
+        label: "Preguntas extra",
+        questions: prepareQuestionsForPlay(unit.questions).map((q) => ({ ...q, unitId: unit.id, unitTitle: unit.title })),
         final: false,
       });
     });
@@ -946,6 +1016,7 @@ backButton.addEventListener("click", () => {
   if (state.route === "flashcard-list") { renderSubject(state.subject); return; }
   if (state.route === "flashcard") { renderFlashcardList(state.subject); return; }
   if (state.route === "unit-list") { renderSubject(state.subject); return; }
+  if (state.route === "extra-list") { renderSubject(state.subject); return; }
   if (state.route === "pdf-list") { renderSubject(state.subject); return; }
   renderSubject(state.subject);
 });

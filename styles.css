@@ -461,6 +461,16 @@ summary {
   }
 }
 
+/* ── Extras nav card ────────────────────────────────────────────── */
+.card-extra-nav {
+  border-left: 4px solid #d97706;
+}
+
+.card-extra-nav h2,
+.card-extra-nav p {
+  color: #92400e;
+}
+
 /* ── Autoevaluaciones ───────────────────────────────────────────── */
 .card-units {
   border-left: 4px solid #16a34a;
